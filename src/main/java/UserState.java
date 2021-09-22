@@ -8,6 +8,12 @@ public class UserState {
         this.isPlaying = isPlaying;
     }
 
+    public String startPlaying(){
+        isPlaying = true;
+        gameState = new HangmanGame("hello");
+        return gameState.getHiddenWord();
+    }
+
     public Long getChatId(){
         return chatId;
     }

@@ -9,16 +9,17 @@ public class HangmanGame implements IGame {
     private String WIN_TEXT = "Ты выиграл!";
     private String LOSE_TEXT = "Ты проиграл((";
     private String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
+    private String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
     private int unsuccessfulAttemptsCount = 0;
 
     public HangmanGame(String word) {
         this.word = word;
-        wordHashSet = createHashSetByWordChars(word);
+        wordHashSet = getHashSetByWordChars(word);
     }
 
     @Override
     public String checkAnswer(String answer) {
-        if (answer.length() != 1) return "Ты должен написать только одну букву!";
+        if (answer.length() != 1) return ONLY_ONE_LETTER;
         var userChar = answer.toLowerCase().charAt(0);
         if (usedLetters.contains(userChar)) {
             return ALREADY_USED_LETTER;
@@ -33,7 +34,7 @@ public class HangmanGame implements IGame {
         if (unsuccessfulAttemptsCount > 5) {
             return LOSE_TEXT;
         }
-        return getWordWithGuessedLetters() + "\n" + "Отсалось жизней: " + (6 - unsuccessfulAttemptsCount);
+        return getWordWithGuessedLetters() + "\n" + "Осталось жизней: " + (6 - unsuccessfulAttemptsCount);
     }
 
     public Boolean isWin() {
@@ -56,7 +57,7 @@ public class HangmanGame implements IGame {
         return resultStr.toString();
     }
 
-    private HashSet<Character> createHashSetByWordChars(String word) {
+    private HashSet<Character> getHashSetByWordChars(String word) {
         var characters = new HashSet<Character>();
         for (Character ch : word.toLowerCase().toCharArray()) {
             characters.add(ch);
