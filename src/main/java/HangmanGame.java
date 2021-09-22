@@ -7,6 +7,7 @@ public class HangmanGame implements IGame {
     private HashSet<Character> guessedLetters = new HashSet<>();
     private HashSet<Character> usedLetters = new HashSet<>();
     private String WIN_TEXT = "Ты выиграл!";
+    private String LOSE_TEXT = "Ты проиграл((";
     private String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
     private int unsuccessfulAttemptsCount = 0;
 
@@ -18,7 +19,7 @@ public class HangmanGame implements IGame {
     @Override
     public String checkAnswer(String answer) {
         if (answer.length() != 1) return "Ты должен написать только одну букву!";
-        var userChar = answer.toLowerCase(Locale.ROOT).charAt(0);
+        var userChar = answer.toLowerCase().charAt(0);
         if (usedLetters.contains(userChar)) {
             return ALREADY_USED_LETTER;
         }
@@ -30,7 +31,7 @@ public class HangmanGame implements IGame {
             return getWordWithGuessedLetters() + "\n" + WIN_TEXT;
         }
         if (unsuccessfulAttemptsCount > 5) {
-            return "Ты проиграл!";
+            return LOSE_TEXT;
         }
         return getWordWithGuessedLetters() + "\n" + "Отсалось жизней: " + (6 - unsuccessfulAttemptsCount);
     }
@@ -46,7 +47,7 @@ public class HangmanGame implements IGame {
     private String getWordWithGuessedLetters() {
         var resultStr = new StringBuilder();
         for (Character ch : word.toCharArray()) {
-            if (guessedLetters.contains(ch)) {
+            if (guessedLetters.contains(ch.toString().toLowerCase(Locale.ROOT).charAt(0))) {
                 resultStr.append(ch).append(" ");
             } else {
                 resultStr.append("* ");
@@ -57,7 +58,7 @@ public class HangmanGame implements IGame {
 
     private HashSet<Character> createHashSetByWordChars(String word) {
         var characters = new HashSet<Character>();
-        for (Character ch : word.toCharArray()) {
+        for (Character ch : word.toLowerCase().toCharArray()) {
             characters.add(ch);
         }
         return characters;
