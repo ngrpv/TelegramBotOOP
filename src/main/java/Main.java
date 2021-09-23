@@ -5,24 +5,12 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import java.util.Scanner;
 
 public class Main {
+    public static BotHandler start  = new BotHandler();
     public static void main(String[] args) {
-        launchBot();
+        start.launchInConsole();
     }
 
-    private static void launchInConsole() {
-        var game = new HangmanGame("Hello world");
-        var scanner = new Scanner(System.in);
-        System.out.println(game.getHiddenWord());
-        while (scanner.hasNext()) {
-            var userMessage = scanner.nextLine();
-            if (userMessage.length() == 0) continue;
-            if (userMessage.equals("exit")) break;
-            System.out.println(game.checkAnswer(userMessage));
-            if (game.isWin()) {
-                game = new HangmanGame("sadsadas");
-            }
-        }
-    }
+
 
     private static void launchBot() {
         try {
