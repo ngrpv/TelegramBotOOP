@@ -18,7 +18,7 @@ public class HangmanGame implements IGame {
     }
 
     @Override
-    public String checkAnswer(String answer) {
+    public String checkAndGetResult(String answer) {
         if (answer.length() != 1) return ONLY_ONE_LETTER;
         var userChar = answer.toLowerCase().charAt(0);
         if (usedLetters.contains(userChar)) {

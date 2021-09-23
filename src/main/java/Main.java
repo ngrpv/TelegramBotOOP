@@ -1,5 +1,6 @@
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class Main {
             var userMessage = scanner.nextLine();
             if (userMessage.length() == 0) continue;
             if (userMessage.equals("exit")) break;
-            System.out.println(game.checkAnswer(userMessage));
+            System.out.println(game.checkAndGetResult(userMessage));
             if (game.isWin()) {
                 game = new HangmanGame("sadsadas");
             }
