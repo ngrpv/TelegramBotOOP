@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class BotHandler {
     public static BotLogic bot = new BotLogic();
     public static void launchInConsole() {
-        System.out.println("Привет, друг!");
         var scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             var userMessage = scanner.nextLine();
