@@ -1,10 +1,8 @@
+package first;
+
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,9 +10,9 @@ public class Main {
     }
 
     /*private static void launchInConsole() {
-        HangmanGame game = null;
+        first.HangmanGame game = null;
         try {
-            game = new HangmanGame();
+            game = new first.HangmanGame();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

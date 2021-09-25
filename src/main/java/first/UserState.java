@@ -1,3 +1,5 @@
+package first;
+
 import java.io.FileNotFoundException;
 
 public class UserState {
