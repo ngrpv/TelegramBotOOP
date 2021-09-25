@@ -1,0 +1,8 @@
+HangmanGame.class
+Main.class
+IBotApi.class
+UserState.class
+IGame.class
+TGBot.class
+WordsParser.class
+FileHandler.class
