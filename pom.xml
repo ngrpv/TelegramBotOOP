@@ -20,7 +20,7 @@
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <configuration>
-                    <appName>telegram-bot-oop-course</appName>
+                    <appName>tg-bot-oop</appName>
                 </configuration>
                 <version>3.0.3</version>
             </plugin>
@@ -47,7 +47,7 @@
                     <programs>
                         <program>
                             <mainClass>first.Main</mainClass>
-                            <name>tgBot</name>
+                            <name>bot</name>
                         </program>
                     </programs>
                 </configuration>

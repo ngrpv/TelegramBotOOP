@@ -1,1 +1,1 @@
-worker: sh target/bin/tgBot
+worker: sh target/bin/bot

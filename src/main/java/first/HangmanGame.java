@@ -1,7 +1,9 @@
 package first;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -18,6 +20,7 @@ public class HangmanGame implements IGame {
     private int unsuccessfulAttemptsCount = 0;
 
     public HangmanGame() throws FileNotFoundException {
+        setFile("hangmanWords.txt");
         setWord();
     }
 
@@ -29,7 +32,7 @@ public class HangmanGame implements IGame {
         unsuccessfulAttemptsCount = 0;
     }
     public void setFile(String fileName) throws FileNotFoundException {
-        fileHandler = new FileHandler(new File("hangmanWords.txt"));
+        fileHandler = new FileHandler(new BufferedReader(new FileReader(fileName)));
     }
 
     @Override

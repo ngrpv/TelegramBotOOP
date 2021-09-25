@@ -1,15 +1,13 @@
 package first;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileHandler {
-    File file;
     Scanner fileScanner;
 
-    public FileHandler(File file) throws FileNotFoundException {
-        this.file = file;
+    public FileHandler(BufferedReader file) {
         fileScanner = new Scanner(file);
     }
     
