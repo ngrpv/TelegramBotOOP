@@ -39,7 +39,7 @@ public class TGBot extends TelegramLongPollingBot {
 
         if (userState.isPlaying && userState.gameState != null) {
             if (userState.gameState.isWin()) userState.gameState.setWord();
-            sendMessage.setText(userState.gameState.checkAndGetResult(messageText));
+            sendMessage.setText(userState.gameState.checkAnswer(messageText));
         }
         if (messageText.equals("/hangman")) {
             sendMessage.setText(userState.startPlaying());
