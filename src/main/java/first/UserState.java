@@ -1,3 +1,7 @@
+package first;
+
+import java.io.FileNotFoundException;
+
 public class UserState {
     private Long chatId;
     public Boolean isPlaying;
@@ -10,7 +14,13 @@ public class UserState {
 
     public String startPlaying(){
         isPlaying = true;
-        gameState = new HangmanGame("hello");
+        try {
+            gameState = new HangmanGame();
+            gameState.setFile("hangmanWords.txt");
+            return gameState.getHiddenWord();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return gameState.getHiddenWord();
     }
 

@@ -1,3 +1,9 @@
+package first;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -6,15 +12,27 @@ public class HangmanGame {
     private HashSet<Character> wordHashSet;
     private HashSet<Character> guessedLetters = new HashSet<>();
     private HashSet<Character> usedLetters = new HashSet<>();
+    private FileHandler fileHandler;
     private String WIN_TEXT = "Ты выиграл!";
     private String LOSE_TEXT = "Ты проиграл((";
     private String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
     private String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
     private int unsuccessfulAttemptsCount = 0;
 
-    public HangmanGame(String word) {
-        this.word = word;
+    public HangmanGame() throws FileNotFoundException {
+        setFile("hangmanWords.txt");
+        setWord();
+    }
+
+    public void setWord(){
+        this.word = fileHandler.getNextWord();
         wordHashSet = getHashSetByWordChars(word);
+        guessedLetters = new HashSet<>();
+        usedLetters = new HashSet<>();
+        unsuccessfulAttemptsCount = 0;
+    }
+    public void setFile(String fileName) throws FileNotFoundException {
+        fileHandler = new FileHandler(new BufferedReader(new FileReader(fileName)));
     }
 
 
@@ -28,7 +46,7 @@ public class HangmanGame {
         if (wordHashSet.contains(userChar))
             guessedLetters.add(userChar);
         else unsuccessfulAttemptsCount++;
-        if (wordHashSet.size() == guessedLetters.size()) {
+        if (isWin()) {
             return getWordWithGuessedLetters() + "\n" + WIN_TEXT;
         }
         if (unsuccessfulAttemptsCount > 5) {

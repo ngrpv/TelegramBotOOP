@@ -1,3 +1,5 @@
+package first;
+
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -35,8 +37,9 @@ public class TGBot extends TelegramLongPollingBot {
         sendMessage.setText("Напишите: /hangman");
         sendMessage.setChatId(update.getMessage().getChatId().toString());
 
-        if (userState.isPlaying) {
-            sendMessage.setText(userState.gameState.checkAnswer(messageText));
+        if (userState.isPlaying && userState.gameState != null) {
+            if (userState.gameState.isWin()) userState.gameState.setWord();
+            sendMessage.setText(userState.gameState.checkAndGetResult(messageText));
         }
         if (messageText.equals("/hangman")) {
             sendMessage.setText(userState.startPlaying());
