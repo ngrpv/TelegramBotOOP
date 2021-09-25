@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Locale;
 
-public class HangmanGame implements IGame {
+public class HangmanGame {
     private String word;
     private HashSet<Character> wordHashSet;
     private HashSet<Character> guessedLetters = new HashSet<>();
@@ -35,8 +35,8 @@ public class HangmanGame implements IGame {
         fileHandler = new FileHandler(new BufferedReader(new FileReader(fileName)));
     }
 
-    @Override
-    public String checkAndGetResult(String answer) {
+
+    public String checkAnswer(String answer) {
         if (answer.length() != 1) return ONLY_ONE_LETTER;
         var userChar = answer.toLowerCase().charAt(0);
         if (usedLetters.contains(userChar)) {
