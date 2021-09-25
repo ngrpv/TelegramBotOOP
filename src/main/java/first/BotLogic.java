@@ -1,3 +1,5 @@
+package first;
+
 public class BotLogic {
     private static String help = "Привет, друг! Висеца - игра в угадывания слов. Тебе загадывается слово, а ты должен его \n" +
             "угадать, используя буквы алфавита и возможность совершить ограниченное количество ошибок";
@@ -18,7 +20,9 @@ public class BotLogic {
                 userState = new UserState(null, true);
                 return getStartGame(userState,game);
             case "restart":
-                userState.isPlaying = false;
+                if (userState != null) {
+                    userState.isPlaying = false;
+                }
                 return restartGame + "\n" + getStartGame(userState, "HangmanGame");
             case "exit":
                 return "exit";
