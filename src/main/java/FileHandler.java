@@ -15,6 +15,7 @@ public class FileHandler {
         if(fileScanner.hasNext()){
             return fileScanner.nextLine();
         }
-        return "";
+
+        return "worker";
     }
 }

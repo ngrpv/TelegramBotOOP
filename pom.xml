@@ -21,9 +21,6 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <configuration>
                     <appName>telegram-bot-oop-course</appName>
-                    <processTypes>
-                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
-                    </processTypes>
                 </configuration>
                 <version>3.0.3</version>
             </plugin>
@@ -50,7 +47,7 @@
                     <programs>
                         <program>
                             <mainClass>Main</mainClass>
-                            <name>main</name>
+                            <name>tgBot</name>
                         </program>
                     </programs>
                 </configuration>
@@ -90,6 +87,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.32</version>
+        </dependency>
+        <dependency>
+            <!-- jsoup HTML parser library @ https://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.2</version>
         </dependency>
     </dependencies>
 

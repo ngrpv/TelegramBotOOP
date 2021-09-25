@@ -14,10 +14,11 @@ public class UserState {
         isPlaying = true;
         try {
             gameState = new HangmanGame();
+            return gameState.getHiddenWord();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return gameState.getHiddenWord();
+        return "works";
     }
 
     public Long getChatId(){
