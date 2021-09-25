@@ -14,13 +14,17 @@ public class UserState {
 
     public String startPlaying(){
         isPlaying = true;
+        var message = "w";
         try {
             gameState = new HangmanGame();
+            message = "gameIsCreated";
+            gameState.setFile("hangmanWords.txt");
+            message = "fileSetted";
             return gameState.getHiddenWord();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return "works";
+        return message;
     }
 
     public Long getChatId(){
