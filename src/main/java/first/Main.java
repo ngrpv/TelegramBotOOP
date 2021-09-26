@@ -9,7 +9,8 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class Main {
     public static void main(String[] args) {
-        ConsoleBot.launch();
+        //ConsoleBot.launch();
+        launchBot();
     }
 
 
