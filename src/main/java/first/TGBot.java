@@ -13,7 +13,7 @@ public class TGBot extends TelegramLongPollingBot {
     private HangmanGame game;
     SendMessage sendMessage = new SendMessage();
     private HashMap<Long, UserState> userStates = new HashMap<>();
-    private ConsoleBot logic = new ConsoleBot();
+    private BotLogic logic = new BotLogic();
 
     public TGBot(String userName, String token) {
         this.userName = userName;
@@ -33,11 +33,11 @@ public class TGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var chatId = update.getMessage().getChatId();
-        var userState = logic.getUserState(chatId, ConsoleBot.hundlerType.Telegram,userStates);
+        var userState = logic.getUserState(chatId, BotLogic.hundlerType.Telegram,userStates);
         var messageText = update.getMessage().getText();
         sendMessage.setText("Напишите: /hangman");
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText(logic.getMessageForUser(messageText, ConsoleBot.hundlerType.Telegram,userState));
+        sendMessage.setText(logic.getMessageForUser(messageText, BotLogic.hundlerType.Telegram,userState));
 
         try {
             execute(sendMessage);

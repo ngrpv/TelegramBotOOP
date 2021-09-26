@@ -1,70 +1,20 @@
 package first;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class ConsoleBot {
-    private static String description = "Привет, друг! Висеца - игра в угадывания слов. Тебе загадывается слово, а ты должен его \n" +
-            "угадать, используя буквы алфавита и возможность совершить ограниченное количество ошибок";
-    private static String unknowCommand = "Извини, такой команды не существует!";
-    private static String restartGame = "Игра перезапущена.";
-    private static String help = "*  /start + название игры - запускает игру \n*  /restart - перезапускает игру \n*  /exit - выход";
-    enum hundlerType
-    {
-        Telegram,
-        Handler
-    }
-
-    public String getMessageForUser(String userMessage,hundlerType type,UserState userState) {
-        if(userState !=null && userState.isPlaying && userMessage.length()==1)
-        {
-            if (userState.gameState.isWin()) {
-                userState.gameState.setWord();
+    public static BotLogic bot = new BotLogic();
+    public static HashMap<Long, UserState> userStates;
+    private static Long chatId;
+    public static void launchInConsole() {
+        var scanner = new Scanner(System.in);
+        var userState = bot.getUserState(chatId, BotLogic.hundlerType.Handler,userStates);
+        while (scanner.hasNext()) {
+            var userMessage = scanner.nextLine();
+            if (userMessage.length() == 0) continue;
+            if (userMessage.equals("/exit")) break;
+            System.out.println(bot.getMessageForUser(userMessage, BotLogic.hundlerType.Handler,userState));
             }
-            return userState.gameState.checkAnswer(userMessage);
-        }
-        switch (userMessage) {
-            case "/help":
-                return description + "\n" + help;
-            case "/start Hangman":
-                var game = userMessage.split(" ")[1];
-                return getStartGame(userState,game);
-            case "/restart":
-                if (userState != null) {
-                    userState.isPlaying = false;
-                }
-                return restartGame + "\n" + getStartGame(userState, "Hangman");
-            case "/exit":
-                return "exit";
-            default:
-                return unknowCommand;
         }
     }
-
-
-    public String getStartGame(UserState states, String nameGame) {
-        if (nameGame.equals("Hangman")) {
-            return states.startPlaying();
-        }
-        else {
-            return "Неизвестная игра";
-        }
-    }
-    public UserState getUserState(Long chatId, hundlerType type, HashMap<Long, UserState> userStates) {
-        UserState userState;
-        if (type == hundlerType.Telegram) {
-            if (userStates.containsKey(chatId))
-                userState = userStates.get(chatId);
-            else {
-                userState = new UserState(chatId, false);
-                userStates.put(chatId, userState);
-            }
-            return userState;
-        }
-        else
-        {
-            userState = new UserState(null,false);
-            return userState;
-        }
-    }
-
-}

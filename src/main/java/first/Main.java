@@ -5,7 +5,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class Main {
-    public static BotHandler start  = new BotHandler();
+    public static ConsoleBot start  = new ConsoleBot();
     public static void main(String[] args) {
         launchBot();
     }
