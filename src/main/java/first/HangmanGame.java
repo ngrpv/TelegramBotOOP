@@ -1,9 +1,6 @@
 package first;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -17,7 +14,8 @@ public class HangmanGame {
     private String LOSE_TEXT = "Ты проиграл((";
     private String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
     private String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
-    private int unsuccessfulAttemptsCount = 0;
+
+    private int healthPoints = 6;
 
     public HangmanGame() throws FileNotFoundException {
         setWord();
@@ -28,9 +26,24 @@ public class HangmanGame {
         wordHashSet = getHashSetByWordChars(word);
         guessedLetters = new HashSet<>();
         usedLetters = new HashSet<>();
-        unsuccessfulAttemptsCount = 0;
+        healthPoints = 6;
     }
 
+    public void setWord(String word){
+        this.word = word;
+        wordHashSet = getHashSetByWordChars(word);
+        guessedLetters = new HashSet<>();
+        usedLetters = new HashSet<>();
+        healthPoints = 6;
+    }
+
+    public String getWord(){
+        return word;
+    }
+
+    public int getHealthPoints() {
+        return healthPoints;
+    }
 
     public String checkAnswer(String answer) {
         if (answer.length() != 1) return ONLY_ONE_LETTER;
@@ -41,14 +54,14 @@ public class HangmanGame {
         usedLetters.add(userChar);
         if (wordHashSet.contains(userChar))
             guessedLetters.add(userChar);
-        else unsuccessfulAttemptsCount++;
+        else healthPoints--;
         if (isWin()) {
             return getWordWithGuessedLetters() + "\n" + WIN_TEXT;
         }
-        if (unsuccessfulAttemptsCount > 5) {
+        if (healthPoints == 0) {
             return LOSE_TEXT;
         }
-        return getWordWithGuessedLetters() + "\n" + "Осталось жизней: " + (6 - unsuccessfulAttemptsCount);
+        return getWordWithGuessedLetters() + "\n" + "Осталось жизней: " + healthPoints;
     }
 
     public Boolean isWin() {
