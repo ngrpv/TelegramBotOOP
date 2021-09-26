@@ -16,7 +16,6 @@ public class UserState {
         isPlaying = true;
         try {
             gameState = new HangmanGame();
-            gameState.setFile("hangmanWords.txt");
             return gameState.getHiddenWord();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

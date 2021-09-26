@@ -12,7 +12,7 @@ public class HangmanGame {
     private HashSet<Character> wordHashSet;
     private HashSet<Character> guessedLetters = new HashSet<>();
     private HashSet<Character> usedLetters = new HashSet<>();
-    private FileHandler fileHandler;
+    private FileHandler fileHandler = new FileHandler("hangmanWords.txt");
     private String WIN_TEXT = "Ты выиграл!";
     private String LOSE_TEXT = "Ты проиграл((";
     private String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
@@ -20,7 +20,6 @@ public class HangmanGame {
     private int unsuccessfulAttemptsCount = 0;
 
     public HangmanGame() throws FileNotFoundException {
-        setFile("hangmanWords.txt");
         setWord();
     }
 
@@ -30,9 +29,6 @@ public class HangmanGame {
         guessedLetters = new HashSet<>();
         usedLetters = new HashSet<>();
         unsuccessfulAttemptsCount = 0;
-    }
-    public void setFile(String fileName) throws FileNotFoundException {
-        fileHandler = new FileHandler(new BufferedReader(new FileReader(fileName)));
     }
 
 

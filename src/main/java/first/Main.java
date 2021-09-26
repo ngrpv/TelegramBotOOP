@@ -2,12 +2,14 @@ package first;
 
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.BotOptions;
+import org.telegram.telegrambots.meta.generics.LongPollingBot;
+import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class Main {
-    public static ConsoleBot start  = new ConsoleBot();
     public static void main(String[] args) {
-        launchBot();
+        ConsoleBot.launch();
     }
 
 

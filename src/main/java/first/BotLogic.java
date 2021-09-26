@@ -7,7 +7,7 @@ public class BotLogic {
             "угадать, используя буквы алфавита и возможность совершить ограниченное количество ошибок";
     private static String unknowCommand = "Извини, такой команды не существует!";
     private static String restartGame = "Игра перезапущена.";
-    private static String help = "*  /start + название игры - запускает игру \n*  /restart - перезапускает игру \n*  /exit - выход";
+    private static String help = "*  /hangman - запускает игру \n*  /restart - перезапускает игру \n*  /exit - выход";
     enum hundlerType
     {
         Telegram,
@@ -15,7 +15,7 @@ public class BotLogic {
     }
 
     public String getMessageForUser(String userMessage,hundlerType type,UserState userState) {
-        if(userState !=null && userState.isPlaying && userMessage.length()==1)
+        if(userState !=null && userState.isPlaying && userMessage.length() == 1)
         {
             if (userState.gameState.isWin()) {
                 userState.gameState.setWord();
@@ -25,9 +25,9 @@ public class BotLogic {
         switch (userMessage) {
             case "/help":
                 return description + "\n" + help;
-            case "/start Hangman":
-                var game = userMessage.split(" ")[1];
-                return getStartGame(userState,game);
+            case "/hangman":
+                //var game = userMessage.split(" ")[1];
+                return getStartGame(userState,"Hangman");
             case "/restart":
                 if (userState != null) {
                     userState.isPlaying = false;

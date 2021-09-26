@@ -2,13 +2,14 @@ package first;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 public class FileHandler {
     Scanner fileScanner;
 
-    public FileHandler(BufferedReader file) {
-        fileScanner = new Scanner(file);
+    public FileHandler(String fileName) throws FileNotFoundException {
+        fileScanner = new Scanner(new BufferedReader(new FileReader("hangmanWords.txt")));
     }
     
     public String getNextWord(){
@@ -16,6 +17,6 @@ public class FileHandler {
             return fileScanner.nextLine();
         }
 
-        return "worker";
+        return null;
     }
 }
