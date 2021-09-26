@@ -13,6 +13,7 @@ public class TGBot extends TelegramLongPollingBot {
     private HangmanGame game;
     SendMessage sendMessage = new SendMessage();
     private HashMap<Long, UserState> userStates = new HashMap<>();
+    private ConsoleBot logic = new ConsoleBot();
 
     public TGBot(String userName, String token) {
         this.userName = userName;
@@ -32,18 +33,11 @@ public class TGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var chatId = update.getMessage().getChatId();
-        var userState = getUserState(chatId);
+        var userState = logic.getUserState(chatId, ConsoleBot.hundlerType.Telegram,userStates);
         var messageText = update.getMessage().getText();
         sendMessage.setText("Напишите: /hangman");
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-
-        if (userState.isPlaying && userState.gameState != null) {
-            if (userState.gameState.isWin()) userState.gameState.setWord();
-            sendMessage.setText(userState.gameState.checkAnswer(messageText));
-        }
-        if (messageText.equals("/hangman")) {
-            sendMessage.setText(userState.startPlaying());
-        }
+        sendMessage.setText(logic.getMessageForUser(messageText, ConsoleBot.hundlerType.Telegram,userState));
 
         try {
             execute(sendMessage);
@@ -52,14 +46,5 @@ public class TGBot extends TelegramLongPollingBot {
         }
     }
 
-    private UserState getUserState(Long chatId) {
-        UserState userState;
-        if (userStates.containsKey(chatId))
-            userState = userStates.get(chatId);
-        else {
-            userState = new UserState(chatId, false);
-            userStates.put(chatId, userState);
-        }
-        return userState;
-    }
+
 }

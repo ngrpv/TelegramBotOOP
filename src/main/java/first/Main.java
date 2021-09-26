@@ -7,7 +7,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class Main {
     public static BotHandler start  = new BotHandler();
     public static void main(String[] args) {
-        start.launchInConsole();
+        launchBot();
     }
 
 
