@@ -26,7 +26,7 @@ public class BotLogic {
                 if (userState != null) {
                     userState.isPlaying = false;
                 }
-                return RESTART_GAME + "\n" + getStartGame(userState, "Hangman");
+                return RESTART_GAME + "\n" + "\n" + getStartGame(userState, "Hangman");
             case "/exit":
                 return "exit";
             default:
