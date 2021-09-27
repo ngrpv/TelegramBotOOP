@@ -49,7 +49,7 @@ public class TGBot extends TelegramLongPollingBot {
         if (userStates.containsKey(chatId))
             userState = userStates.get(chatId);
         else {
-            userState = new UserState(chatId, false);
+            userState = new UserState();
             userStates.put(chatId, userState);
         }
         return userState;

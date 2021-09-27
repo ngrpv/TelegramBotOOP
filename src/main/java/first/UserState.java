@@ -3,12 +3,21 @@ package first;
 import java.io.FileNotFoundException;
 
 public class UserState {
-    private Long chatId;
+    private UserStateEnum state;
     public Boolean isPlaying;
     public HangmanGame gameState;
 
-    public UserState(Long chatId, Boolean isPlaying) {
-        this.chatId = chatId;
+    public UserState() {
+        isPlaying = false;
+        state = UserStateEnum.onMenu;
+        try {
+            gameState = new HangmanGame();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public UserState(Boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
 
@@ -21,9 +30,5 @@ public class UserState {
             e.printStackTrace();
         }
         return gameState.getHiddenWord();
-    }
-
-    public Long getChatId(){
-        return chatId;
     }
 }

@@ -35,9 +35,9 @@ public class BotLogic {
     }
 
 
-    public static String getStartGame(UserState states, String nameGame) {
+    public static String getStartGame(UserState state, String nameGame) {
         if (nameGame.equals("Hangman")) {
-            return states.startPlaying();
+            return state.startPlaying();
         } else {
             return "Неизвестная игра";
         }
