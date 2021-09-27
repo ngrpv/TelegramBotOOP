@@ -10,11 +10,11 @@ public class HangmanGame {
     private HashSet<Character> guessedLetters = new HashSet<>();
     private HashSet<Character> usedLetters = new HashSet<>();
     private FileHandler fileHandler = new FileHandler("hangmanWords.txt");
-    private String WIN_TEXT = "Ты выиграл!";
-    private String LOSE_TEXT = "Ты проиграл((";
-    private String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
-    private String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
-
+    private static final String WIN_TEXT = "Ты выиграл!";
+    private static final String LOSE_TEXT = "Ты проиграл((";
+    private static final String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
+    private static final String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
+    private Boolean gameIsOver = false;
     private int healthPoints = 6;
 
     public HangmanGame() throws FileNotFoundException {
@@ -35,6 +35,7 @@ public class HangmanGame {
         guessedLetters = new HashSet<>();
         usedLetters = new HashSet<>();
         healthPoints = 6;
+        gameIsOver = false;
     }
 
     public String getWord(){
@@ -58,7 +59,8 @@ public class HangmanGame {
         if (isWin()) {
             return getWordWithGuessedLetters() + "\n" + WIN_TEXT;
         }
-        if (healthPoints == 0) {
+        if (healthPoints == 0 || gameIsOver) {
+            gameIsOver = true;
             return LOSE_TEXT;
         }
         return getWordWithGuessedLetters() + "\n" + "Осталось жизней: " + healthPoints;
