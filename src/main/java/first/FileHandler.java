@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class FileHandler {
     Scanner fileScanner;
 
-    public FileHandler(String fileName) throws FileNotFoundException {
+    public  FileHandler(String fileName) throws FileNotFoundException {
         fileScanner = new Scanner(new BufferedReader(new FileReader("hangmanWords.txt")));
     }
     

@@ -22,11 +22,7 @@ public class HangmanGame {
     }
 
     public void setWord(){
-        this.word = fileHandler.getNextWord();
-        wordHashSet = getHashSetByWordChars(word);
-        guessedLetters = new HashSet<>();
-        usedLetters = new HashSet<>();
-        healthPoints = 6;
+        setWord(fileHandler.getNextWord());
     }
 
     public void setWord(String word){
@@ -69,6 +65,7 @@ public class HangmanGame {
     public Boolean isWin() {
         return wordHashSet.size() == guessedLetters.size();
     }
+    public Boolean isOver(){return gameIsOver;}
 
     public String getHiddenWord() {
         return getWordWithGuessedLetters();
