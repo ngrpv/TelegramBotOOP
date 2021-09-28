@@ -9,6 +9,8 @@ public class HangmanGame {
     private HashSet<Character> wordHashSet;
     private HashSet<Character> guessedLetters = new HashSet<>();
     private HashSet<Character> usedLetters = new HashSet<>();
+
+    //todo: вынесем логику получения слов в интерфейс, а получения из файла -- конкретная реализация
     private FileHandler fileHandler = new FileHandler("hangmanWords.txt");
     private static final String WIN_TEXT = "Ты выиграл!";
     private static final String LOSE_TEXT = "Ты проиграл((";
@@ -22,16 +24,14 @@ public class HangmanGame {
     }
 
     public void setWord(){
-        this.word = fileHandler.getNextWord();
-        wordHashSet = getHashSetByWordChars(word);
-        guessedLetters = new HashSet<>();
-        usedLetters = new HashSet<>();
-        healthPoints = 6;
+        setWord(fileHandler.getNextWord());
     }
 
     public void setWord(String word){
         this.word = word;
         wordHashSet = getHashSetByWordChars(word);
+
+        // todo: вынести в метод
         guessedLetters = new HashSet<>();
         usedLetters = new HashSet<>();
         healthPoints = 6;
@@ -69,6 +69,7 @@ public class HangmanGame {
     public Boolean isWin() {
         return wordHashSet.size() == guessedLetters.size();
     }
+    public Boolean isOver(){return gameIsOver;}
 
     public String getHiddenWord() {
         return getWordWithGuessedLetters();
