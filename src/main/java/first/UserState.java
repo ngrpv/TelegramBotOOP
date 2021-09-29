@@ -1,17 +1,19 @@
 package first;
 
+import first.hangman.HangmanGameState;
+
 import java.io.FileNotFoundException;
 
 public class UserState {
     private UserStateEnum state;
     public Boolean isPlaying;
-    public HangmanGame gameState;
+    public HangmanGameState gameState;
 
     public UserState() {
         isPlaying = false;
         state = UserStateEnum.onMenu;
         try {
-            gameState = new HangmanGame();
+            gameState = new HangmanGameState(new FileHandler());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -24,7 +26,7 @@ public class UserState {
     public String startPlaying(){
         isPlaying = true;
         try {
-            gameState = new HangmanGame();
+            gameState = new HangmanGameState(new FileHandler());
             return gameState.getHiddenWord();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

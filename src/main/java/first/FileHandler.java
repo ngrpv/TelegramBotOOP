@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class FileHandler {
+public class FileHandler implements IWordParser{
     Scanner fileScanner;
 
-    public  FileHandler(String fileName) throws FileNotFoundException {
+    public  FileHandler() throws FileNotFoundException {
         fileScanner = new Scanner(new BufferedReader(new FileReader("hangmanWords.txt")));
     }
     

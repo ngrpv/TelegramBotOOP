@@ -1,5 +1,5 @@
 import first.FileHandler;
-import first.HangmanGame;
+import first.hangman.HangmanGameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 public class HangmanGameTests {
     @Test
     public void compare_gameWords_with_rode_from_file() {
-        HangmanGame game = getHangmanGame();
+        HangmanGameState game = getHangmanGame();
         Assertions.assertEquals(getWordFromFile(), game.getWord());
         game.setWord();
         Assertions.assertNotEquals(getWordFromFile(), game.getWord());
@@ -40,10 +40,10 @@ public class HangmanGameTests {
         Assertions.assertEquals(true, game.isOver());
     }
 
-    private HangmanGame getHangmanGame() {
-        HangmanGame game = null;
+    private HangmanGameState getHangmanGame() {
+        HangmanGameState game = null;
         try {
-            game = new HangmanGame();
+            game = new HangmanGameState(new FileHandler());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class HangmanGameTests {
     private String getWordFromFile() {
         FileHandler fileHandler = null;
         try {
-            fileHandler = new FileHandler("hangmanWords.txt");
+            fileHandler = new FileHandler();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

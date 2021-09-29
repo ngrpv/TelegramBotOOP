@@ -1,44 +1,48 @@
-package first;
+package first.hangman;
+
+import first.IWordParser;
 
 import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Locale;
 
-public class HangmanGame {
+public class HangmanGameState {
     private String word;
     private HashSet<Character> wordHashSet;
-    private HashSet<Character> guessedLetters = new HashSet<>();
-    private HashSet<Character> usedLetters = new HashSet<>();
+    private HashSet<Character> guessedLetters;
+    private HashSet<Character> usedLetters;
 
-    //todo: вынесем логику получения слов в интерфейс, а получения из файла -- конкретная реализация
-    private FileHandler fileHandler = new FileHandler("hangmanWords.txt");
+    private IWordParser wordParser;
     private static final String WIN_TEXT = "Ты выиграл!";
     private static final String LOSE_TEXT = "Ты проиграл((";
     private static final String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
     private static final String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
-    private Boolean gameIsOver = false;
-    private int healthPoints = 6;
+    private Boolean gameIsOver;
+    private int healthPoints;
 
-    public HangmanGame() throws FileNotFoundException {
+    public HangmanGameState(IWordParser wordParser) throws FileNotFoundException {
+        this.wordParser = wordParser;
         setWord();
     }
 
-    public void setWord(){
-        setWord(fileHandler.getNextWord());
+    public void setWord() {
+        setWord(wordParser.getNextWord());
     }
 
-    public void setWord(String word){
+    public void setWord(String word) {
         this.word = word;
-        wordHashSet = getHashSetByWordChars(word);
+        updateState();
+    }
 
-        // todo: вынести в метод
+    private void updateState() {
+        wordHashSet = getHashSetByWordChars(word);
         guessedLetters = new HashSet<>();
         usedLetters = new HashSet<>();
         healthPoints = 6;
         gameIsOver = false;
     }
 
-    public String getWord(){
+    public String getWord() {
         return word;
     }
 
@@ -69,7 +73,10 @@ public class HangmanGame {
     public Boolean isWin() {
         return wordHashSet.size() == guessedLetters.size();
     }
-    public Boolean isOver(){return gameIsOver;}
+
+    public Boolean isOver() {
+        return gameIsOver;
+    }
 
     public String getHiddenWord() {
         return getWordWithGuessedLetters();

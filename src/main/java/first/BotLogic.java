@@ -1,8 +1,7 @@
 package first;
-
 import java.util.HashMap;
 
-public class BotLogic {
+public class BotLogic  {
     private static final String DESCRIPTION = "Привет, друг! Виселица - игра в угадывания слов. Тебе загадывается слово, а ты должен его \n" +
             "угадать, используя буквы алфавита и возможность совершить ограниченное количество ошибок";
     private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
