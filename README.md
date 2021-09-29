@@ -12,6 +12,5 @@ Contributors: Garipov Nazar(https://github.com/ngrpv), Nechaev Roman(https://git
 Вариант 2: (через консоль)
 1. Сделать клон репозитория на пк
 2. Запаковать проект (mvn package)
-3. Убедиться что в Procfile написан worker: sh target/bin/*название Приложения(можно посмотреть в pom.xml)*
-4. Задеплоить(команда mvn heroku:deploy)
-3. Запустить worker (можно по команде heroku ps:scale worker=1)
+3. Задеплоить(команда mvn heroku:deploy)
+4. Запустить worker (можно по команде heroku ps:scale worker=1)
