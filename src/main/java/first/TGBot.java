@@ -9,13 +9,11 @@ import java.util.HashMap;
 
 public class TGBot extends TelegramLongPollingBot {
     private String userName;
-    private String token;
     SendMessage sendMessage = new SendMessage();
     private HashMap<Long, UserState> userStates = new HashMap<>();
 
-    public TGBot(String userName, String token) {
+    public TGBot(String userName) {
         this.userName = userName;
-        this.token = token;
     }
 
     @Override
@@ -25,7 +23,7 @@ public class TGBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return token;
+        return System.getenv("tgBotToken");
     }
 
     @Override
