@@ -13,9 +13,9 @@ public class BotLogic  {
 
     public static String getMessageForUser(String userMessage, UserState userState) {
         if (userState != null && userState.isPlaying && userMessage.length() == 1) {
-            if (userState.gameState.isWin()) {
+           /* if (userState.gameState.isWin()) {
                 userState.gameState.setWord();
-            }
+            }*/
             return HangmanGameLogic.checkAnswer(userMessage, userState.gameState);
         }
         switch (userMessage) {

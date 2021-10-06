@@ -16,14 +16,16 @@ public class HangmanGameLogic {
             case NOT_LETTER:
                 return ONLY_ONE_LETTER;
             case WIN:
-                return gameState.getWordWithGuessedLetters() + "\n" + WIN_TEXT;
+                var guessedWord = gameState.getWordWithGuessedLetters();
+                gameState.setWord();
+                 return String.format("%s\n%s\n\nНовое слово:\n%s", guessedWord, WIN_TEXT, gameState.getHiddenWord());
             case LOSE:
                 return LOSE_TEXT;
             case ALREADY_USED_LETTER: {
                 return ALREADY_USED_LETTER;
             }
         }
-        return gameState.getWordWithGuessedLetters() + "\n" + "Осталось жизней: " + gameState.getHealthPoints();
+        return String.format("%s\nОсталось жизней: %d", gameState.getWordWithGuessedLetters(), gameState.getHealthPoints());
     }
 
 
