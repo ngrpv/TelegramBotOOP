@@ -1,4 +1,5 @@
 import first.FileHandler;
+import first.hangman.HangmanGameLogic;
 import first.hangman.HangmanGameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class HangmanGameTests {
         var game = getHangmanGame();
         var initialHp = game.getHealthPoints();
         game.setWord("aaaaa");
-        game.checkAnswer("c");
+        HangmanGameLogic.checkAnswer("c", game);
         Assertions.assertEquals(initialHp - 1, game.getHealthPoints());
     }
 
@@ -34,7 +35,7 @@ public class HangmanGameTests {
         game.setWord("aaaa");
         var initialHp = game.getHealthPoints();
         for (var i = 0; i < initialHp; i++) {
-            game.checkAnswer(String.valueOf(i));
+            HangmanGameLogic.checkAnswer(String.valueOf(i), game);
         }
         Assertions.assertEquals(0, game.getHealthPoints());
         Assertions.assertEquals(true, game.isOver());

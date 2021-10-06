@@ -1,6 +1,8 @@
 package first;
 
+import first.hangman.HangmanGameLogic;
 import first.hangman.HangmanGameState;
+import first.hangman.HangmanGameStateEnum;
 
 import java.io.FileNotFoundException;
 

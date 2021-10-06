@@ -2,25 +2,24 @@ package first.hangman;
 
 import first.IWordParser;
 
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Locale;
 
 public class HangmanGameState {
     private String word;
+
     private HashSet<Character> wordHashSet;
+
     private HashSet<Character> guessedLetters;
     private HashSet<Character> usedLetters;
-
-    private IWordParser wordParser;
-    private static final String WIN_TEXT = "Ты выиграл!";
-    private static final String LOSE_TEXT = "Ты проиграл((";
-    private static final String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
-    private static final String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
     private Boolean gameIsOver;
+
     private int healthPoints;
 
-    public HangmanGameState(IWordParser wordParser) throws FileNotFoundException {
+    private HangmanGameStateEnum gameStateEnum;
+    private IWordParser wordParser;
+
+    public HangmanGameState(IWordParser wordParser) {
         this.wordParser = wordParser;
         setWord();
     }
@@ -29,9 +28,58 @@ public class HangmanGameState {
         setWord(wordParser.getNextWord());
     }
 
+    public String getWord() {
+        return word;
+    }
+
     public void setWord(String word) {
         this.word = word;
         updateState();
+    }
+
+    public Boolean isWin() {
+        return wordHashSet.size() == guessedLetters.size();
+    }
+
+    public Boolean isOver() {
+        return healthPoints <= 0;
+    }
+
+    public int getHealthPoints() {
+        return healthPoints;
+    }
+
+    public HashSet<Character> getUsedLetters() {
+        return usedLetters;
+    }
+
+    public void addUsedLetter(Character letter) {
+        usedLetters.add(letter);
+    }
+
+    public HashSet<Character> getWordHashSet() {
+        return wordHashSet;
+    }
+
+    public HangmanGameStateEnum checkAnswer(Character userLetter) {
+        if (usedLetters.contains(userLetter)) {
+            return HangmanGameStateEnum.ALREADY_USED_LETTER;
+        }
+        usedLetters.add(userLetter);
+        if (wordHashSet.contains(userLetter)) {
+            guessedLetters.add(userLetter);
+            if (isWin()) {
+                return HangmanGameStateEnum.WIN;
+            }
+            return HangmanGameStateEnum.CORRECT_LETTER;
+        } else {
+            healthPoints--;
+            if (healthPoints <= 0) {
+                gameIsOver = true;
+                return HangmanGameStateEnum.LOSE;
+            }
+            return HangmanGameStateEnum.WRONG_LETTER;
+        }
     }
 
     private void updateState() {
@@ -42,47 +90,15 @@ public class HangmanGameState {
         gameIsOver = false;
     }
 
-    public String getWord() {
-        return word;
-    }
-
-    public int getHealthPoints() {
-        return healthPoints;
-    }
-
-    public String checkAnswer(String answer) {
-        if (answer.length() != 1) return ONLY_ONE_LETTER;
-        var userChar = answer.toLowerCase().charAt(0);
-        if (usedLetters.contains(userChar)) {
-            return ALREADY_USED_LETTER;
+    private HashSet<Character> getHashSetByWordChars(String word) {
+        var characters = new HashSet<Character>();
+        for (Character ch : word.toLowerCase().toCharArray()) {
+            characters.add(ch);
         }
-        usedLetters.add(userChar);
-        if (wordHashSet.contains(userChar))
-            guessedLetters.add(userChar);
-        else healthPoints--;
-        if (isWin()) {
-            return getWordWithGuessedLetters() + "\n" + WIN_TEXT;
-        }
-        if (healthPoints == 0 || gameIsOver) {
-            gameIsOver = true;
-            return LOSE_TEXT;
-        }
-        return getWordWithGuessedLetters() + "\n" + "Осталось жизней: " + healthPoints;
+        return characters;
     }
 
-    public Boolean isWin() {
-        return wordHashSet.size() == guessedLetters.size();
-    }
-
-    public Boolean isOver() {
-        return gameIsOver;
-    }
-
-    public String getHiddenWord() {
-        return getWordWithGuessedLetters();
-    }
-
-    private String getWordWithGuessedLetters() {
+    public String getWordWithGuessedLetters() {
         var resultStr = new StringBuilder();
         for (Character ch : word.toCharArray()) {
             if (guessedLetters.contains(ch.toString().toLowerCase(Locale.ROOT).charAt(0))) {
@@ -94,14 +110,7 @@ public class HangmanGameState {
         return resultStr.toString();
     }
 
-    private HashSet<Character> getHashSetByWordChars(String word) {
-        var characters = new HashSet<Character>();
-        for (Character ch : word.toLowerCase().toCharArray()) {
-            characters.add(ch);
-        }
-        return characters;
+    public String getHiddenWord() {
+        return getWordWithGuessedLetters();
     }
-
-
 }
-

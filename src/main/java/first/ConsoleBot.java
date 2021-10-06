@@ -14,5 +14,9 @@ public class ConsoleBot {
             if (userMessage.equals("/exit")) break;
             System.out.println(BotLogic.getMessageForUser(userMessage, userState));
             }
-        }
+        //Сохранение состояний юзеров
+        //Кнопочки тг
+        //Отделить состояние игры от логики
+
+    }
     }

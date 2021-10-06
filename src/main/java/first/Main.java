@@ -7,14 +7,16 @@ import org.telegram.telegrambots.meta.generics.LongPollingBot;
 import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
 public class Main {
-    public static void main(String[] args) {
-        ConsoleBot.launch();
-        //launchBot();
-
+    public static void main(String[] args){
+        //ConsoleBot.launch();
+        launchBot();
     }
-
-
 
     private static void launchBot() {
         try {
