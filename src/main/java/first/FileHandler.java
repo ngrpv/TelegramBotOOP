@@ -9,7 +9,7 @@ public class FileHandler implements IWordParser{
     Scanner fileScanner;
 
     public  FileHandler() throws FileNotFoundException {
-        fileScanner = new Scanner(new BufferedReader(new FileReader("newWords.txt")));
+        fileScanner = new Scanner(new BufferedReader(new FileReader("hangmanWords.txt")));
     }
     
     public String getNextWord(){
