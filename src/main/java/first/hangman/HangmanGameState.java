@@ -25,6 +25,10 @@ public class HangmanGameState implements IGame {
 
     public HangmanGameState(IWordParser wordParser) {
         HangmanGameState.wordParser = wordParser;
+        start();
+    }
+
+    public void start(){
         setWord(wordParser);
     }
 

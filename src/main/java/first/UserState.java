@@ -13,14 +13,17 @@ public class UserState {
         gameState = new HangmanGameState();
     }
 
-
     public UserState(Boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
 
-    public String startAndGetAnswer() {
+    public void changeGame(IGame game){
+        gameState = game;
+    }
+
+    public String startGame() {
         isPlaying = true;
-        gameState = new HangmanGameState();
+        gameState.start();
         return gameState.getStartMessage();
     }
 }

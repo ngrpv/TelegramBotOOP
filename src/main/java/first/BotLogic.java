@@ -1,6 +1,9 @@
 package first;
+import first.cowsAndBulls.CowsAndBullsState;
 import first.hangman.HangmanGameMessages;
+import first.hangman.HangmanGameState;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 public class BotLogic  {
@@ -13,21 +16,19 @@ public class BotLogic  {
 
     public static String getMessageForUser(String userMessage, UserState userState) {
         if (userState != null && userState.isPlaying && userMessage.length() == 1) {
-           /* if (userState.gameState.isWin()) {
-                userState.gameState.setWord();
-            }*/
             return userState.gameState.checkAnswer(userMessage);
         }
+        if(userState == null) return "userState is null";
         switch (userMessage) {
             case "/help":
                 return DESCRIPTION + "\n" + HELP;
             case "/hangman":
-                return getStartGame(userState, "Hangman");
+                return getStartGame(userState, new HangmanGameState());
+            case "/cowsAndBulls":
+                return getStartGame(userState, new CowsAndBullsState());
             case "/restart":
-                if (userState != null) {
-                    userState.isPlaying = false;
-                }
-                return RESTART_GAME + "\n" + "\n" + getStartGame(userState, "Hangman");
+                userState.isPlaying = false;
+                return RESTART_GAME + "\n" + "\n" + getStartGame(userState, new HangmanGameState());
             case "/exit":
                 return "exit";
             default:
@@ -36,11 +37,8 @@ public class BotLogic  {
     }
 
 
-    public static String getStartGame(UserState state, String nameGame) {
-        if (nameGame.equals("Hangman")) {
-            return state.startAndGetAnswer();
-        } else {
-            return "Неизвестная игра";
-        }
+    public static String getStartGame(UserState state, IGame game) {
+            state.changeGame(game);
+            return state.startGame();
     }
 }
