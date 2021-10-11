@@ -1,5 +1,6 @@
 package first;
 
 public interface IGame {
- String checkAndGetResult(String answer);
+ String checkAnswer(String answer);
+ String getStartMessage();
 }

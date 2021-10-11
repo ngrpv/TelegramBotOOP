@@ -1,29 +1,26 @@
 package first;
 
-import java.io.FileNotFoundException;
+import first.hangman.HangmanGameState;
 
 public class UserState {
-    private Long chatId;
+    public UserStateEnum state;
     public Boolean isPlaying;
-    public HangmanGame gameState;
+    public IGame gameState;
 
-    public UserState(Long chatId, Boolean isPlaying) {
-        this.chatId = chatId;
+    public UserState() {
+        isPlaying = false;
+        state = UserStateEnum.onMenu;
+        gameState = new HangmanGameState();
+    }
+
+
+    public UserState(Boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
 
-    public String startPlaying(){
+    public String startAndGetAnswer() {
         isPlaying = true;
-        try {
-            gameState = new HangmanGame();
-            return gameState.getHiddenWord();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return gameState.getHiddenWord();
-    }
-
-    public Long getChatId(){
-        return chatId;
+        gameState = new HangmanGameState();
+        return gameState.getStartMessage();
     }
 }

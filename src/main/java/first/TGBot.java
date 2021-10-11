@@ -4,21 +4,16 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.BotOptions;
 
 import java.util.HashMap;
 
 public class TGBot extends TelegramLongPollingBot {
     private String userName;
-    private String token;
-    private HangmanGame game;
     SendMessage sendMessage = new SendMessage();
     private HashMap<Long, UserState> userStates = new HashMap<>();
-    private BotLogic logic = new BotLogic();
 
-    public TGBot(String userName, String token) {
+    public TGBot(String userName) {
         this.userName = userName;
-        this.token = token;
     }
 
     @Override
@@ -28,23 +23,33 @@ public class TGBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return token;
+        return System.getenv("tgBotToken");
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         var chatId = update.getMessage().getChatId();
-        var userState = logic.getUserState(chatId, BotLogic.hundlerType.Telegram,userStates);
+        var userState = getUserState(chatId);
         var messageText = update.getMessage().getText();
-        sendMessage.setText("Напишите: /hangman");
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText(logic.getMessageForUser(messageText, BotLogic.hundlerType.Telegram,userState));
+        sendMessage.setText(BotLogic.getMessageForUser(messageText, userState));
 
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public UserState getUserState(Long chatId) {
+        UserState userState;
+        if (userStates.containsKey(chatId))
+            userState = userStates.get(chatId);
+        else {
+            userState = new UserState();
+            userStates.put(chatId, userState);
+        }
+        return userState;
     }
 
 
