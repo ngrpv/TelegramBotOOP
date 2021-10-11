@@ -1,28 +1,17 @@
 import first.FileHandler;
-import first.hangman.HangmanGameMessages;
 import first.hangman.HangmanGameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-
 public class HangmanGameTests {
     @Test
-    public void compare_gameWords_with_rode_from_file() {
-        HangmanGameState game = getHangmanGame();
-        Assertions.assertEquals(getWordFromFile(), game.getWord());
-        game.setWord();
-        Assertions.assertNotEquals(getWordFromFile(), game.getWord());
-    }
-
-    @Test
     public void game_shouldnt_beWon_when_no_letter_entered() {
-        Assertions.assertEquals(false, getHangmanGame().isWin());
+        Assertions.assertEquals(false, new HangmanGameState().isWin());
     }
 
     @Test
     public void should_reduce_hp_when_incorrect_letter() {
-        var game = getHangmanGame();
+        var game = new HangmanGameState();
         var initialHp = game.getHealthPoints();
         game.setWord("aaaaa");
         game.checkAnswer("c");
@@ -31,7 +20,7 @@ public class HangmanGameTests {
 
     @Test
     public void game_should_be_over_when_hp_run_out() {
-        var game = getHangmanGame();
+        var game = new HangmanGameState();
         game.setWord("aaaa");
         var initialHp = game.getHealthPoints();
         for (var i = 0; i < initialHp; i++) {
@@ -41,23 +30,9 @@ public class HangmanGameTests {
         Assertions.assertEquals(true, game.isOver());
     }
 
-    private HangmanGameState getHangmanGame() {
-        HangmanGameState game = null;
-        try {
-            game = new HangmanGameState(new FileHandler());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return game;
-    }
 
     private String getWordFromFile() {
-        FileHandler fileHandler = null;
-        try {
-            fileHandler = new FileHandler();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        var fileHandler = FileHandler.getParser("hangmanWords.txt");
         return fileHandler != null ? fileHandler.getNextWord() : null;
     }
 }

@@ -1,12 +1,13 @@
 package first.hangman;
 
 import first.FileHandler;
+import first.IGame;
 import first.IWordParser;
 
 import java.util.HashSet;
 import java.util.Locale;
 
-public class HangmanGameState {
+public class HangmanGameState implements IGame {
     private String word;
 
     private HashSet<Character> wordHashSet;
@@ -14,10 +15,13 @@ public class HangmanGameState {
     private HashSet<Character> guessedLetters;
     private HashSet<Character> usedLetters;
     private Boolean gameIsOver;
+    private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;
     private int healthPoints;
 
-    private HangmanGameAnswerEnum gameStateEnum;
+    public HangmanGameState(){
+        this(FileHandler.getParser(fileName));
+    }
 
     public HangmanGameState(IWordParser wordParser) {
         HangmanGameState.wordParser = wordParser;
@@ -77,6 +81,11 @@ public class HangmanGameState {
         }
     }
 
+    @Override
+    public String getStartMessage() {
+        return getHiddenWord();
+    }
+
     private void updateState() {
         wordHashSet = getHashSetByWordChars(word);
         guessedLetters = new HashSet<>();
@@ -105,7 +114,7 @@ public class HangmanGameState {
         return resultStr.toString();
     }
 
-    public String getHiddenWord() {
+    protected String getHiddenWord() {
         return getWordWithGuessedLetters();
     }
 }

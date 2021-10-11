@@ -9,8 +9,17 @@ import java.util.Scanner;
 public class FileHandler implements IWordParser {
     private String fileName;
 
-    public FileHandler() throws FileNotFoundException {
-        fileName = "hangmanWords.txt";
+    public static FileHandler getParser(String fileName){
+        try {
+            return new FileHandler(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public FileHandler(String fileName) throws FileNotFoundException {
+        this.fileName = fileName;
     }
 
     public String getNextWord() {
