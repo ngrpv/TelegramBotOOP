@@ -1,13 +1,11 @@
 package first;
 
-import first.hangman.HangmanGameLogic;
 import first.hangman.HangmanGameState;
-import first.hangman.HangmanGameStateEnum;
 
 import java.io.FileNotFoundException;
 
 public class UserState {
-    private UserStateEnum state;
+    public UserStateEnum state;
     public Boolean isPlaying;
     public HangmanGameState gameState;
 
@@ -20,12 +18,13 @@ public class UserState {
             e.printStackTrace();
         }
     }
+    
 
     public UserState(Boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
 
-    public String startPlaying(){
+    public String startAndGetAnswer(){
         isPlaying = true;
         try {
             gameState = new HangmanGameState(new FileHandler());

@@ -1,5 +1,5 @@
 package first;
-import first.hangman.HangmanGameLogic;
+import first.hangman.HangmanGameMessages;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ public class BotLogic  {
            /* if (userState.gameState.isWin()) {
                 userState.gameState.setWord();
             }*/
-            return HangmanGameLogic.checkAnswer(userMessage, userState.gameState);
+            return userState.gameState.checkAnswer(userMessage);
         }
         switch (userMessage) {
             case "/help":
@@ -38,7 +38,7 @@ public class BotLogic  {
 
     public static String getStartGame(UserState state, String nameGame) {
         if (nameGame.equals("Hangman")) {
-            return state.startPlaying();
+            return state.startAndGetAnswer();
         } else {
             return "Неизвестная игра";
         }

@@ -1,6 +1,6 @@
 package first.hangman;
 
-public class HangmanGameLogic {
+public class HangmanGameMessages {
 
     private static final String WIN_TEXT = "Ты выиграл!";
     private static final String LOSE_TEXT = "Ты проиграл((";
@@ -8,10 +8,8 @@ public class HangmanGameLogic {
     private static final String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
 
 
-    public static String checkAnswer(String answer, HangmanGameState gameState) {
-        if (answer.length() != 1) return ONLY_ONE_LETTER;
-        var userChar = answer.toLowerCase().charAt(0);
-        var checkResult = gameState.checkAnswer(userChar);
+    protected static String getMessageForUser(HangmanGameAnswerEnum checkResult, HangmanGameState gameState) {
+
         switch (checkResult) {
             case NOT_LETTER:
                 return ONLY_ONE_LETTER;
@@ -28,6 +26,7 @@ public class HangmanGameLogic {
         return String.format("%s\nОсталось жизней: %d", gameState.getWordWithGuessedLetters(), gameState.getHealthPoints());
     }
 
+    //todo: добавить тик игры, выделить все общие методы в интерфейс, реализовать новую игру, паттер стратегия
 
 }
 

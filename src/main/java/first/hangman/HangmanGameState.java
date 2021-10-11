@@ -1,5 +1,6 @@
 package first.hangman;
 
+import first.FileHandler;
 import first.IWordParser;
 
 import java.util.HashSet;
@@ -13,19 +14,22 @@ public class HangmanGameState {
     private HashSet<Character> guessedLetters;
     private HashSet<Character> usedLetters;
     private Boolean gameIsOver;
-
+    private static IWordParser wordParser;
     private int healthPoints;
 
-    private HangmanGameStateEnum gameStateEnum;
-    private IWordParser wordParser;
+    private HangmanGameAnswerEnum gameStateEnum;
 
     public HangmanGameState(IWordParser wordParser) {
-        this.wordParser = wordParser;
-        setWord();
+        HangmanGameState.wordParser = wordParser;
+        setWord(wordParser);
     }
 
     public void setWord() {
-        setWord(wordParser.getNextWord());
+        setWord(wordParser);
+    }
+
+    public void setWord(IWordParser parser) {
+        setWord(parser.getNextWord());
     }
 
     public String getWord() {
@@ -49,36 +53,27 @@ public class HangmanGameState {
         return healthPoints;
     }
 
-    public HashSet<Character> getUsedLetters() {
-        return usedLetters;
-    }
-
-    public void addUsedLetter(Character letter) {
-        usedLetters.add(letter);
-    }
-
-    public HashSet<Character> getWordHashSet() {
-        return wordHashSet;
-    }
-
-    public HangmanGameStateEnum checkAnswer(Character userLetter) {
+    public String checkAnswer(String answer) {
+        if (answer.length() != 1)
+            return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.NOT_ONE_LETTER, this);
+        var userLetter = answer.toLowerCase(Locale.ROOT).charAt(0);
         if (usedLetters.contains(userLetter)) {
-            return HangmanGameStateEnum.ALREADY_USED_LETTER;
+            return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.ALREADY_USED_LETTER, this);
         }
         usedLetters.add(userLetter);
         if (wordHashSet.contains(userLetter)) {
             guessedLetters.add(userLetter);
             if (isWin()) {
-                return HangmanGameStateEnum.WIN;
+                return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WIN, this);
             }
-            return HangmanGameStateEnum.CORRECT_LETTER;
+            return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.CORRECT_LETTER, this);
         } else {
             healthPoints--;
             if (healthPoints <= 0) {
                 gameIsOver = true;
-                return HangmanGameStateEnum.LOSE;
+                return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this);
             }
-            return HangmanGameStateEnum.WRONG_LETTER;
+            return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WRONG_LETTER, this);
         }
     }
 
