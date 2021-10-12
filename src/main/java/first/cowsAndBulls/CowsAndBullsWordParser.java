@@ -4,7 +4,7 @@ import first.IWordParser;
 
 import java.util.Random;
 
-public class CowsAndBullsWordGenerator implements IWordParser {
+public class CowsAndBullsWordParser implements IWordParser {
     private static final Random random = new Random();
     @Override
     public String getWord() {
