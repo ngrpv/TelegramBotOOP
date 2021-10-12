@@ -33,6 +33,6 @@ public class HangmanGameTests {
 
     private String getWordFromFile() {
         var fileHandler = FileHandler.getParser("hangmanWords.txt");
-        return fileHandler != null ? fileHandler.getNextWord() : null;
+        return fileHandler != null ? fileHandler.getWord() : null;
     }
 }

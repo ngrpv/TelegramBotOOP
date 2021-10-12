@@ -1,5 +1,5 @@
 package first;
 
 public interface IWordParser {
-    String getNextWord();
+    String getWord();
 }
