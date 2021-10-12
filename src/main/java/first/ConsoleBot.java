@@ -1,5 +1,7 @@
 package first;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ public class ConsoleBot {
             var userMessage = scanner.nextLine();
             if (userMessage.length() == 0) continue;
             if (userMessage.equals("/exit")) break;
-            System.out.println(BotLogic.getMessageForUser(userMessage, userState));
+            System.out.println(BotLogic.getMessageForUser(userMessage, userState, new SendMessage()));
             }
         //Сохранение состояний юзеров
         //Кнопочки тг

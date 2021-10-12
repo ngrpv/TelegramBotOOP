@@ -2,6 +2,7 @@ import first.UserState;
 import first.BotLogic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +14,7 @@ public class BotLogicTests {
     {
         String START_GAME = "/hangman";
         UserState userState = new UserState(false);
-        var str = BotLogic.getMessageForUser(START_GAME,userState);
+        var str = BotLogic.getMessageForUser(START_GAME,userState, new SendMessage());
         Assertions.assertTrue(userState.isPlaying);
     }
 
@@ -22,7 +23,7 @@ public class BotLogicTests {
     {
         String RESTART_GAME = "/restart";
         UserState userState = new UserState(false);
-        var str = BotLogic.getMessageForUser(RESTART_GAME,userState);
+        var str = BotLogic.getMessageForUser(RESTART_GAME,userState, new SendMessage());
         Assertions.assertFalse(checkUniqueChars(str));
         Assertions.assertTrue(userState.isPlaying);
     }
