@@ -1,5 +1,6 @@
 package first;
 
+import first.cowsAndBulls.CowsAndBullsState;
 import first.hangman.HangmanGameState;
 
 public class UserState {
@@ -10,14 +11,13 @@ public class UserState {
     public UserState() {
         isPlaying = false;
         state = UserStateEnum.onMenu;
-        gameState = new HangmanGameState();
+        gameState = new CowsAndBullsState();
     }
 
     public UserState(Boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
-
-    public void changeGame(IGame game){
+    public void setGame(IGame game){
         gameState = game;
     }
 
@@ -27,3 +27,4 @@ public class UserState {
         return gameState.getStartMessage();
     }
 }
+//todo: gameState для разных игр

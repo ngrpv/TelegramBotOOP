@@ -1,9 +1,7 @@
 package first;
 import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameMessages;
 import first.hangman.HangmanGameState;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 public class BotLogic  {
@@ -13,9 +11,9 @@ public class BotLogic  {
     private static final String RESTART_GAME = "Игра перезапущена.";
     private static final String HELP = "*  /hangman - запускает игру \n*  /restart - перезапускает игру \n*  /exit - выход";
     private static final HashMap<String, IGame> gameByName = new HashMap<>();
-
+    //todo getMessageForUser в зависимости от игры,т.е первый иф -  костыль, нужно исправить
     public static String getMessageForUser(String userMessage, UserState userState) {
-        if (userState != null && userState.isPlaying && userMessage.length() == 1) {
+        if (userState != null && userState.isPlaying) {
             return userState.gameState.checkAnswer(userMessage);
         }
         if(userState == null) return "userState is null";
@@ -39,7 +37,7 @@ public class BotLogic  {
 
 
     public static String getStartGame(UserState state, IGame game) {
-            state.changeGame(game);
+            state.setGame(game);
             return state.startGame();
     }
 }
