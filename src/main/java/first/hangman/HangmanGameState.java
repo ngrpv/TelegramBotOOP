@@ -37,7 +37,7 @@ public class HangmanGameState implements IGame {
     }
 
     public void setWord(IWordParser parser) {
-        setWord(parser.getNextWord());
+        setWord(parser.getWord());
     }
 
     public String getWord() {

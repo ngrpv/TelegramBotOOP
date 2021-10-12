@@ -22,7 +22,7 @@ public class FileHandler implements IWordParser {
         this.fileName = fileName;
     }
 
-    public String getNextWord() {
+    public String getWord() {
         Random rand = new Random();
         String result = "О";
         int n = 0;

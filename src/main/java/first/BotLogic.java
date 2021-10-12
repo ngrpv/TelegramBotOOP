@@ -22,7 +22,8 @@ public class BotLogic  {
         switch (userMessage) {
             case "/help":
                 return DESCRIPTION + "\n" + HELP;
-            case "/hangman":
+            case "/hangman" :
+            case "виселица":
                 return getStartGame(userState, new HangmanGameState());
             case "/cowsAndBulls":
                 return getStartGame(userState, new CowsAndBullsState());
