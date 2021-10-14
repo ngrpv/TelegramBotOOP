@@ -10,7 +10,7 @@ class CowsAndBullsMessages {
     private static final String ALREADY_USED_WORD = "Слово было введено ранее, введите другое!";
     private static final String WIN_TEXT = "Ты выиграл!";
     private static final String NEW_WORD_TEXT = "Новое слово загадано!";
-
+    private static final String UNKNOWN_COMMAND = "Неизвестная комманда";
 
     public static String getHELP() {
         return HELP;
@@ -27,6 +27,11 @@ class CowsAndBullsMessages {
                 gameState.setWord();
                 return WIN_TEXT + "\n" + NEW_WORD_TEXT;
         }
-        return gameState.getWord()+"\n"+String.format("БЫКИ:\n%s\nКоровы:\n%s", gameState.getBulls(),gameState.getCows());
+        return UNKNOWN_COMMAND;
+    }
+
+    protected static String getMessageForUser(int cows, int bulls,CowsAndBullsState gameState)
+    {
+        return gameState.getWord()+"\n"+String.format("Быки:%s\nКоровы:%s",bulls,cows);
     }
 }
