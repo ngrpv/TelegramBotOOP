@@ -11,7 +11,7 @@ public class UserState {
     public UserState() {
         isPlaying = false;
         state = UserStateEnum.onMenu;
-        gameState = new CowsAndBullsState();
+        gameState = new HangmanGameState();
     }
 
     public UserState(Boolean isPlaying) {
@@ -27,4 +27,3 @@ public class UserState {
         return gameState.getStartMessage();
     }
 }
-//todo: gameState для разных игр

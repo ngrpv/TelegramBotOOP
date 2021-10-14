@@ -3,22 +3,19 @@ package first.cowsAndBulls;
 import first.FileHandler;
 import first.IGame;
 import first.IWordParser;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class CowsAndBullsState implements IGame {
     private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;
     private String word;
-    private String secretWord;
-    private Integer cows;
-    private Integer bulls;
-    private Boolean gameIsOver;
-    private HashSet<String> usedWords;
-    private List<Character> wordCharacterList;
+    private Character[] wordCharacterList;
+    private HashSet<Character> wordHashSet;
 
 
     public CowsAndBullsState() {
@@ -51,73 +48,68 @@ public class CowsAndBullsState implements IGame {
         return word;
     }
 
-    public int getCows() {
-        return cows;
-    }
-
-    public int getBulls() {
-        return bulls;
-    }
-
     @Override
     public Boolean isWin() {
-        return secretWord.length() == bulls;
+        return word.length() ==2;
     }
 
     @Override
     public String checkAnswer(String answer) {
-        if (answer.length() != word.length())
+        if (answer.length() < word.length() || answer.length()>word.length()+1 || !checkUniqueChars(answer))
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
         var usedWord = answer.toLowerCase(Locale.ROOT);
-        if (usedWords.contains(usedWord)) {
-            return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.ALREADY_USED_WORD, this);
-        }
-        usedWords.add(usedWord);
         var userWordList = getListByWordChars(usedWord);
-        updateCowsAndBulls();
-        getCowsAndBulls(userWordList);
-        if (isWin()) {
+        var cowsAndBullsValue = getCowsAndBulls(userWordList);
+        if (word.length()==cowsAndBullsValue[1] && answer.length() == word.length()) {
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this);
         }
-        return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.CORRECT_WORD, this);
+        return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0],cowsAndBullsValue[1], this);
     }
 
-    private void getCowsAndBulls(List<Character> userWordList) {
-        for (int i = 0; i < userWordList.size(); i++) {
-            if (wordCharacterList.contains(userWordList.get(i))) {
-                if (userWordList.get(i).equals(wordCharacterList.get(i))) {
+    private int[] getCowsAndBulls(Character[] userWordList) {
+        var bulls = 0;
+        var cows = 0;
+        for (int i = 0; i < wordCharacterList.length; i++) {
+            if (ArrayUtils.contains(userWordList,wordCharacterList[i])) {
+                if (userWordList[i].equals(wordCharacterList[i])){
                     bulls += 1;
                 } else {
                     cows += 1;
                 }
             }
         }
+        return new int[] {cows,bulls};
     }
 
     @Override
     public String getStartMessage() {
-        return "not implemented";
+        return String.format("В этом слове %s букв",word.length());
     }
 
     private void updateState() {
         wordCharacterList = getListByWordChars(word);
-        secretWord = word;
-        cows = 0;
-        bulls = 0;
-        gameIsOver = false;
-        usedWords = new HashSet<>();
-    }
-    private void updateCowsAndBulls()
-    {
-        cows = 0;
-        bulls = 0;
     }
 
-    private List<Character> getListByWordChars(String word) {
+
+    private Character[] getListByWordChars(String word) {
         var characters = new ArrayList<Character>();
         for (Character ch : word.toLowerCase().toCharArray()) {
             characters.add(ch);
         }
-        return characters;
+        return characters.toArray(new Character[0]);
+    }
+
+
+    private static boolean checkUniqueChars(String s) {
+        final Set<Character> chars = new HashSet<>();
+        for (final char c : s.toCharArray()) {
+            if (chars.contains(c)) {
+                return false;
+            }
+            chars.add(c);
+        }
+        return true;
     }
 }
+// TODO: 13.10.2021 заменить лист на массив, добавить возможность вводить слова с +1 буквой 
+// TODO: 13.10.2021 добавить перегрузку метода getusermessage(c скоровами и без), прописать хелпы, ссылка на расширенные правила
