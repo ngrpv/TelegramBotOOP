@@ -5,4 +5,5 @@ public interface IGame {
  String getStartMessage();
  Boolean isWin();
  void start();
+ String getRules();
 }

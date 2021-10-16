@@ -3,15 +3,15 @@ package first.cowsAndBulls;
 import first.FileHandler;
 import first.IGame;
 import first.IWordParser;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class CowsAndBullsState implements IGame {
-    private static final String fileName = "hangmanWords.txt";
+    private static final String fileName = "test.txt";
     private static IWordParser wordParser;
     private String word;
     private Character[] wordCharacterList;
@@ -30,6 +30,11 @@ public class CowsAndBullsState implements IGame {
     @Override
     public void start() {
         setWord(wordParser);
+    }
+
+    @Override
+    public String getRules() {
+        return CowsAndBullsMessages.getRules();
     }
 
     public void setWord() {
@@ -55,7 +60,7 @@ public class CowsAndBullsState implements IGame {
 
     @Override
     public String checkAnswer(String answer) {
-        if (answer.length() < word.length() || answer.length()>word.length()+1 || !checkUniqueChars(answer))
+        if (answer.length() < word.length() || answer.length()>word.length()+1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
         var usedWord = answer.toLowerCase(Locale.ROOT);
         var userWordList = getListByWordChars(usedWord);
@@ -69,15 +74,16 @@ public class CowsAndBullsState implements IGame {
     private int[] getCowsAndBulls(Character[] userWordList) {
         var bulls = 0;
         var cows = 0;
+        var used = new ArrayList<Integer>();
         for (int i = 0; i < wordCharacterList.length; i++) {
-            if (ArrayUtils.contains(userWordList,wordCharacterList[i])) {
-                if (userWordList[i].equals(wordCharacterList[i])){
+            if (wordHashSet.contains(userWordList[i])) {
+                if (wordCharacterList[i].equals(userWordList[i])){
                     bulls += 1;
-                } else {
-                    cows += 1;
+                    used.add(i);
                 }
             }
         }
+        used.add(bulls);
         return new int[] {cows,bulls};
     }
 
@@ -87,7 +93,10 @@ public class CowsAndBullsState implements IGame {
     }
 
     private void updateState() {
+
         wordCharacterList = getListByWordChars(word);
+        wordHashSet = getHashSetByWordChars(word);
+
     }
 
 
@@ -98,18 +107,14 @@ public class CowsAndBullsState implements IGame {
         }
         return characters.toArray(new Character[0]);
     }
-
-
-    private static boolean checkUniqueChars(String s) {
-        final Set<Character> chars = new HashSet<>();
-        for (final char c : s.toCharArray()) {
-            if (chars.contains(c)) {
-                return false;
-            }
-            chars.add(c);
+    private HashSet<Character> getHashSetByWordChars(String word) {
+        var characters = new HashSet<Character>();
+        for (Character ch : word.toLowerCase().toCharArray()) {
+            characters.add(ch);
         }
-        return true;
+        return characters;
     }
 }
 // TODO: 13.10.2021 заменить лист на массив, добавить возможность вводить слова с +1 буквой 
 // TODO: 13.10.2021 добавить перегрузку метода getusermessage(c скоровами и без), прописать хелпы, ссылка на расширенные правила
+// TODO: Тестики, баги , добавить правила, вынести коров и быков отдельно

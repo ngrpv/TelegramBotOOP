@@ -11,9 +11,11 @@ class CowsAndBullsMessages {
     private static final String WIN_TEXT = "Ты выиграл!";
     private static final String NEW_WORD_TEXT = "Новое слово загадано!";
     private static final String UNKNOWN_COMMAND = "Неизвестная комманда";
+    private static final String RULES = "Неизвестная комманда";
 
-    public static String getHELP() {
-        return HELP;
+
+    public static String getRules() {
+        return getRules();
     }
     protected static String getMessageForUser(CowsAndBullsEnum checkResult, CowsAndBullsState gameState)
     {

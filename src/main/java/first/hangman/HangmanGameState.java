@@ -32,6 +32,11 @@ public class HangmanGameState implements IGame {
         setWord(wordParser);
     }
 
+    @Override
+    public String getRules() {
+        return HangmanGameMessages.getRules();
+    }
+
     public void setWord() {
         setWord(wordParser);
     }
@@ -84,6 +89,7 @@ public class HangmanGameState implements IGame {
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WRONG_LETTER, this);
         }
     }
+
 
     @Override
     public String getStartMessage() {
