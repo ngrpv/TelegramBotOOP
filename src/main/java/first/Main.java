@@ -16,9 +16,9 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args)
     {
-        ConsoleBot.launch();
+        //ConsoleBot.launch();
 
-        //launchBot();
+        launchBot();
         /*HashMap<Long, UserState> userStates = new HashMap<>();
         var user = new UserState();
         user.startAndGetAnswer();

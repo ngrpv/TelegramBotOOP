@@ -19,7 +19,7 @@ public class User {
         gameState = game;
     }
 
-    public String startGame() {
+    private String startGame() {
         gameState.start();
         return gameState.getStartMessage();
     }

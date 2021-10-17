@@ -34,8 +34,9 @@ public class BotLogic {
                 return startGame(user, new CowsAndBullsState());
             case "Перезапустить":
             case "/restart":
-                return GAME_RESTARTED + "\n" + "\n" + user.startGame();
+                return GAME_RESTARTED + "\n" + "\n" + restartGame(user);
             case "/exit":
+            case "Выход":
                 user.changeState(UserState.onMenu);
                 return "Меню";
             default:
@@ -45,7 +46,10 @@ public class BotLogic {
                 return UNKNOWN_COMMAND;
         }
     }
-
+    public static String restartGame(User user){
+        user.changeState(UserState.Playing);
+        return user.gameState.getStartMessage();
+    }
 
     public static String startGame(User state, IGame game) {
         state.changeGame(game);
