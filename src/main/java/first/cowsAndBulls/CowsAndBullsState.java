@@ -13,7 +13,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.checkerframework.checker.units.qual.C;
 
 public class CowsAndBullsState implements IGame {
-    private static final String fileName = "test.txt";
+    private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;
     private String word;
     private Character[] wordCharacterList;
@@ -21,7 +21,7 @@ public class CowsAndBullsState implements IGame {
 
 
     public CowsAndBullsState() {
-        this(FileHandler.getParser(fileName));
+        this(new CowsAndBullsWordParser());
     }
 
     public CowsAndBullsState(IWordParser wordParser) {
@@ -86,10 +86,11 @@ public class CowsAndBullsState implements IGame {
                 }
                 if (wordCharacterList[i].equals(userWordList[i])) {
                     bulls += 1;
+                    //used.remove(wordCharacterList[i]);
                 }
             }
         }
-        return new int[]{cows - bulls, bulls};
+        return new int[]{Math.max(cows-bulls, 0), bulls};
     }
 
     @Override

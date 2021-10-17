@@ -33,7 +33,7 @@ public class TGBot extends TelegramLongPollingBot {
         var userState = getUserState(chatId);
         var messageText = update.getMessage().getText();
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText(BotLogic.getMessageForUser(messageText, userState, sendMessage));
+        sendMessage.setText(BotLogic.getMessageForUser(messageText, userState));
 
         var replyMarkup = new ReplyKeyboardMarkup();
         new TGBotButtons();

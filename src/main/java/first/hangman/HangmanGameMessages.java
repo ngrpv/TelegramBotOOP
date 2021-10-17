@@ -6,7 +6,7 @@ public class HangmanGameMessages {
     private static final String LOSE_TEXT = "Ты проиграл((";
     private static final String ALREADY_USED_LETTER = "Буква была введена ранее, введите другую!";
     private static final String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
-    private static final String RULES = "asdsd";
+    private static final String RULES = "Тебе дается 6 попыток чтобы угадать слово по буквам";
 
     public static String getRules() {return RULES;}
 

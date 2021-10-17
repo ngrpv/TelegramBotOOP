@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TGBotButtons {
     public static final HashMap<UserState, ArrayList<KeyboardRow>> keyboardByState = new HashMap<>();
-    public static final String[][] menuButtonsNames = new String[][]{new String[]{"Виселица", "Помощь"}};
+    public static final String[][] menuButtonsNames = new String[][]{new String[]{"Виселица", "Быки и коровы"}, new String[]{"Помощь"}};
     public static final String[][] gameButtonsNames = new String[][]{new String[]{"Правила", "Перезапустить"}};
 
     public TGBotButtons() {
