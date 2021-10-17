@@ -1,50 +1,60 @@
 package first;
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
 
+import first.cowsAndBulls.CowsAndBullsState;
+import first.hangman.HangmanGameMessages;
+import first.hangman.HangmanGameState;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
-public class BotLogic  {
-    private static final String DESCRIPTION = "Привет, друг! Виселица - игра в угадывания слов. Тебе загадывается слово, а ты должен его \n" +
-            "угадать, используя буквы русского алфавита и возможность совершить ограниченное количество ошибок";
+public class BotLogic {
+    private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры: Виселица, Быки и коровы. В будущем появятся новые игры";
     private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
-    private static final String RESTART_GAME = "Игра перезапущена.";
-    private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /cowsAndBulls - запускает игру \"Быки и коровы\" \n*  /restart - перезапускает игру \n*  /exit - выход";
+    private static final String GAME_RESTARTED = "Игра перезапущена.";
+    private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
     private static final HashMap<String, IGame> gameByName = new HashMap<>();
+
+
+    //todo getMessageForUser в зависимости от игры,т.е первый иф -  костыль, нужно исправить
     public static String getMessageForUser(String userMessage, User user) {
-        if (user != null && user.isPlaying)
-        {
-            if (user.state == UserState.Hangman && userMessage.length()==1)
-                return user.gameState.checkAnswer(userMessage);
-            if(user.state == UserState.CowsAndBulls)
-                return user.gameState.checkAnswer(userMessage);
-        }
-        if(user == null) return "userState is null";
+
+
+        if (user == null) return "userState is null";
         switch (userMessage) {
             case "/help":
+            case "Помощь":
                 return DESCRIPTION + "\n" + HELP;
-            case "/hangman" :
-            case "виселица":
-                user.setGameName(UserState.Hangman);
-                return getStartGame(user, new HangmanGameState());
-            case "/cowsAndBulls":
-                user.setGameName(UserState.CowsAndBulls);
-                return getStartGame(user, new CowsAndBullsState());
-            case "/restart":
-                user.isPlaying = false;
-                return RESTART_GAME + "\n" + "\n" + getStartGame(user, new HangmanGameState());
             case "Правила":
                 return user.gameState.getRules();
+            case "/hangman":
+            case "Виселица":
+                return startGame(user, new HangmanGameState());
+            case "/cowsAndBulls":
+            case "Быки и коровы":
+                return startGame(user, new CowsAndBullsState());
+            case "Перезапустить":
+            case "/restart":
+                return GAME_RESTARTED + "\n" + "\n" + restartGame(user);
             case "/exit":
-                return "exit";
+            case "Выход":
+                user.changeState(UserState.onMenu);
+                return "Меню";
             default:
+                if (user.isPlaying()) {
+                    return user.gameState.checkAnswer(userMessage);
+                }
                 return UNKNOWN_COMMAND;
         }
     }
+    public static String restartGame(User user){
+        user.changeState(UserState.Playing);
+        return user.gameState.getStartMessage();
+    }
 
-
-    public static String getStartGame(User state, IGame game) {
-            state.setGame(game);
-            return state.startGame();
+    public static String startGame(User state, IGame game) {
+        state.changeGame(game);
+        state.changeState(UserState.Playing);
+        return state.gameState.getStartMessage();
     }
 }

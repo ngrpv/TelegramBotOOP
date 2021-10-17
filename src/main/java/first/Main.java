@@ -14,9 +14,11 @@ import java.util.HashMap;
 
 
 public class Main {
-    public static void main(String[] args){
-        ConsoleBot.launch();
-        //launchBot();
+    public static void main(String[] args)
+    {
+        //ConsoleBot.launch();
+
+        launchBot();
         /*HashMap<Long, UserState> userStates = new HashMap<>();
         var user = new UserState();
         user.startAndGetAnswer();
@@ -30,8 +32,8 @@ public class Main {
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        /*var gson = new Gson();
+        }
+        var gson = new Gson();
         HashMap<Long, UserState> userStates = new HashMap<>();
 
         try {
@@ -47,12 +49,12 @@ public class Main {
         }
         for (var key :
                 userStates.values()) {
-            System.out.println(key.gameState);*/
+            System.out.println(key.gameState);
 
 
 
 
-        /*try {
+        try {
             gson.toJson(userStates,  new FileWriter("usersStates"));
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,9 +1,11 @@
 package first;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
 import java.util.Scanner;
 
 public class ConsoleBot {
-    public static User user = new User(false);
+    public static User user = new User();
 
     public static void launch() {
         var scanner = new Scanner(System.in);

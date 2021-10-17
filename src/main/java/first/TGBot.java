@@ -3,6 +3,7 @@ package first;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashMap;
@@ -33,6 +34,14 @@ public class TGBot extends TelegramLongPollingBot {
         var messageText = update.getMessage().getText();
         sendMessage.setChatId(update.getMessage().getChatId().toString());
         sendMessage.setText(BotLogic.getMessageForUser(messageText, userState));
+
+        var replyMarkup = new ReplyKeyboardMarkup();
+        new TGBotButtons();
+        replyMarkup.setKeyboard(TGBotButtons.getButtons(userState.state));
+        replyMarkup.setResizeKeyboard(true);
+        replyMarkup.setOneTimeKeyboard(false);
+        sendMessage.setReplyMarkup(replyMarkup);
+
 
         try {
             execute(sendMessage);

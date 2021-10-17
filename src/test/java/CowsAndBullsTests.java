@@ -20,7 +20,7 @@ public class CowsAndBullsTests {
         game.setWord("жигало");
         var bulls = game.checkAnswer("гигант").toCharArray();
         var cows = game.checkAnswer("гигант").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',3);
+        Assertions.assertEquals(bulls[5],3);
         Assertions.assertEquals(cows[14]-'0',0);
     }
     @Test
