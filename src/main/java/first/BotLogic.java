@@ -1,45 +1,49 @@
 package first;
 import first.cowsAndBulls.CowsAndBullsState;
+import first.hangman.HangmanGameMessages;
 import first.hangman.HangmanGameState;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 public class BotLogic  {
-    private static final String DESCRIPTION = "Привет, друг! Виселица - игра в угадывания слов. Тебе загадывается слово, а ты должен его \n" +
-            "угадать, используя буквы русского алфавита и возможность совершить ограниченное количество ошибок";
+    private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры: Виселица, Быки и коровы. В будущем появятся новые игры";
     private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
-    private static final String RESTART_GAME = "Игра перезапущена.";
-    private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /cowsAndBulls - запускает игру \"Быки и коровы\" \n*  /restart - перезапускает игру \n*  /exit - выход";
+    private static final String GAME_RESTARTED = "Игра перезапущена.";
+    private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
     private static final HashMap<String, IGame> gameByName = new HashMap<>();
     //todo getMessageForUser в зависимости от игры,т.е первый иф -  костыль, нужно исправить
-    public static String getMessageForUser(String userMessage, User user) {
-        if (user != null && user.isPlaying) {
+    public static String getMessageForUser(String userMessage, User user, SendMessage sendMessage) {
+        if (user != null && user.isPlaying() && userMessage.length() == 1) {
             return user.gameState.checkAnswer(userMessage);
         }
+
         if(user == null) return "userState is null";
         switch (userMessage) {
             case "/help":
+            case "Помощь":
                 return DESCRIPTION + "\n" + HELP;
-            case "/hangman" :
-            case "виселица":
-                return getStartGame(user, new HangmanGameState());
+            case "/hangman":
+            case "Виселица":
+                return startGame(user, new HangmanGameState());
             case "/cowsAndBulls":
-                return getStartGame(user, new CowsAndBullsState());
+                return startGame(user, new CowsAndBullsState());
+            case "Перезапустить":
             case "/restart":
-                user.isPlaying = false;
-                return RESTART_GAME + "\n" + "\n" + getStartGame(user, new HangmanGameState());
-            case "Правила":
-                return user.gameState.getRules();
+                return GAME_RESTARTED + "\n" + "\n" + user.startGame();
             case "/exit":
-                return "exit";
+                user.changeState(UserState.onMenu);
+                return "Меню";
             default:
                 return UNKNOWN_COMMAND;
         }
     }
 
 
-    public static String getStartGame(User state, IGame game) {
-            state.setGame(game);
-            return state.startGame();
+    public static String startGame(User state, IGame game) {
+            state.changeGame(game);
+            state.changeState(UserState.Playing);
+            return state.gameState.getStartMessage();
     }
 }

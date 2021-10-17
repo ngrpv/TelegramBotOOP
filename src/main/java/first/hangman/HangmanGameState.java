@@ -19,7 +19,7 @@ public class HangmanGameState implements IGame {
     private static IWordParser wordParser;
     private int healthPoints;
 
-    public HangmanGameState(){
+    public HangmanGameState() {
         this(FileHandler.getParser(fileName));
     }
 
@@ -28,7 +28,7 @@ public class HangmanGameState implements IGame {
         start();
     }
 
-    public void start(){
+    public void start() {
         setWord(wordParser);
     }
 
