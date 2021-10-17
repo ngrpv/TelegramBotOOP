@@ -34,6 +34,6 @@ class CowsAndBullsMessages {
 
     protected static String getMessageForUser(int cows, int bulls,CowsAndBullsState gameState)
     {
-        return gameState.getWord()+"\n"+String.format("Быки:%s\nКоровы:%s",bulls,cows);
+        return String.format("Быки:%s\nКоровы:%s",bulls,cows);
     }
 }
