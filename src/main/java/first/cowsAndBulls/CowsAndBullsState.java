@@ -95,7 +95,7 @@ public class CowsAndBullsState implements IGame {
 
     @Override
     public String getStartMessage() {
-        return String.format("В этом слове %s букв", word.length());
+        return String.format("В этом числе %s цифр", word.length());
     }
 
     private void updateState() {
