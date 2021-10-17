@@ -19,6 +19,7 @@ public class User {
     public void setGame(IGame game){
         gameState = game;
     }
+    public void setGameName(UserState gameName) {state = gameName;}
 
     public String startGame() {
         isPlaying = true;

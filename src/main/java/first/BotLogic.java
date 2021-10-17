@@ -11,10 +11,13 @@ public class BotLogic  {
     private static final String RESTART_GAME = "Игра перезапущена.";
     private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /cowsAndBulls - запускает игру \"Быки и коровы\" \n*  /restart - перезапускает игру \n*  /exit - выход";
     private static final HashMap<String, IGame> gameByName = new HashMap<>();
-    //todo getMessageForUser в зависимости от игры,т.е первый иф -  костыль, нужно исправить
     public static String getMessageForUser(String userMessage, User user) {
-        if (user != null && user.isPlaying) {
-            return user.gameState.checkAnswer(userMessage);
+        if (user != null && user.isPlaying)
+        {
+            if (user.state == UserState.Hangman && userMessage.length()==1)
+                return user.gameState.checkAnswer(userMessage);
+            if(user.state == UserState.CowsAndBulls)
+                return user.gameState.checkAnswer(userMessage);
         }
         if(user == null) return "userState is null";
         switch (userMessage) {
@@ -22,8 +25,10 @@ public class BotLogic  {
                 return DESCRIPTION + "\n" + HELP;
             case "/hangman" :
             case "виселица":
+                user.setGameName(UserState.Hangman);
                 return getStartGame(user, new HangmanGameState());
             case "/cowsAndBulls":
+                user.setGameName(UserState.CowsAndBulls);
                 return getStartGame(user, new CowsAndBullsState());
             case "/restart":
                 user.isPlaying = false;

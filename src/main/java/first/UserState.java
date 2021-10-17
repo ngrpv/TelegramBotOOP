@@ -1,5 +1,5 @@
 package first;
 
 public enum UserState {
-    Playing, onMenu,
+    Playing, onMenu,CowsAndBulls,Hangman
 }
