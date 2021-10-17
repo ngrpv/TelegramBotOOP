@@ -20,18 +20,20 @@ public class CowsAndBullsTests {
         game.setWord("жигало");
         var bulls = game.checkAnswer("гигант").toCharArray();
         var cows = game.checkAnswer("гигант").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',3);
+        Assertions.assertEquals(bulls[5],3);
         Assertions.assertEquals(cows[14]-'0',0);
     }
+    @Test
     public void check_correct_count_cows2()
     {
         var game  = new CowsAndBullsState();
         game.setWord("город");
-        var bulls = game.checkAnswer("онгрв").toCharArray();
+        var bulls = game.checkAnswer("гигант").toCharArray();
         var cows = game.checkAnswer("гигант").toCharArray();
         Assertions.assertEquals(bulls[5]-'0',0);
         Assertions.assertEquals(cows[14]-'0',1);
     }
+    @Test
     public void check_correct_count_cows3()
     {
         var game  = new CowsAndBullsState();
@@ -41,6 +43,7 @@ public class CowsAndBullsTests {
         Assertions.assertEquals(bulls[5]-'0',0);
         Assertions.assertEquals(cows[14]-'0',1);
     }
+    @Test
     public void check_correct_count_cows4()
     {
         var game  = new CowsAndBullsState();
@@ -50,6 +53,7 @@ public class CowsAndBullsTests {
         Assertions.assertEquals(bulls[5]-'0',2);
         Assertions.assertEquals(cows[14]-'0',1);
     }
+    @Test
     public void check_correct_count_cows5()
     {
         var game  = new CowsAndBullsState();
@@ -59,6 +63,7 @@ public class CowsAndBullsTests {
         Assertions.assertEquals(bulls[5]-'0',2);
         Assertions.assertEquals(cows[14]-'0',2);
     }
+    @Test
     public void check_correct_count_cows6()
     {
         var game  = new CowsAndBullsState();
