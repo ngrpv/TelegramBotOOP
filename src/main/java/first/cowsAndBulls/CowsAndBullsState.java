@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+
 import org.apache.commons.lang3.ArrayUtils;
+import org.checkerframework.checker.units.qual.C;
 
 public class CowsAndBullsState implements IGame {
     private static final String fileName = "test.txt";
@@ -49,47 +51,50 @@ public class CowsAndBullsState implements IGame {
         this.word = word;
         updateState();
     }
+
     public String getWord() {
         return word;
     }
 
     @Override
     public Boolean isWin() {
-        return word.length() ==2;
+        return word.length() == 2;
     }
 
     @Override
     public String checkAnswer(String answer) {
-        if (answer.length() < word.length() || answer.length()>word.length()+1)
+        if (answer.length() < word.length() || answer.length() > word.length() + 1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
         var usedWord = answer.toLowerCase(Locale.ROOT);
         var userWordList = getListByWordChars(usedWord);
         var cowsAndBullsValue = getCowsAndBulls(userWordList);
-        if (word.length()==cowsAndBullsValue[1] && answer.length() == word.length()) {
+        if (word.length() == cowsAndBullsValue[1] && answer.length() == word.length()) {
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this);
         }
-        return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0],cowsAndBullsValue[1], this);
+        return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
     }
 
     private int[] getCowsAndBulls(Character[] userWordList) {
         var bulls = 0;
         var cows = 0;
-        var used = new ArrayList<Integer>();
+        var used = new ArrayList<Character>();
         for (int i = 0; i < wordCharacterList.length; i++) {
             if (wordHashSet.contains(userWordList[i])) {
-                if (wordCharacterList[i].equals(userWordList[i])){
+                if(!used.contains(userWordList[i])){
+                    cows += 1;
+                    used.add(userWordList[i]);
+                }
+                if (wordCharacterList[i].equals(userWordList[i])) {
                     bulls += 1;
-                    used.add(i);
                 }
             }
         }
-        used.add(bulls);
-        return new int[] {cows,bulls};
+        return new int[]{cows - bulls, bulls};
     }
 
     @Override
     public String getStartMessage() {
-        return String.format("В этом слове %s букв",word.length());
+        return String.format("В этом слове %s букв", word.length());
     }
 
     private void updateState() {
@@ -107,6 +112,7 @@ public class CowsAndBullsState implements IGame {
         }
         return characters.toArray(new Character[0]);
     }
+
     private HashSet<Character> getHashSetByWordChars(String word) {
         var characters = new HashSet<Character>();
         for (Character ch : word.toLowerCase().toCharArray()) {
