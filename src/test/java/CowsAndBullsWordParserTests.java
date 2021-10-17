@@ -1,4 +1,5 @@
 import first.cowsAndBulls.CowsAndBullsWordParser;
+import first.cowsAndBulls.CowsAndBullsState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
