@@ -15,6 +15,7 @@ public class BotLogic {
     private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
     private static final HashMap<String, IGame> gameByName = new HashMap<>();
 
+
     //todo getMessageForUser в зависимости от игры,т.е первый иф -  костыль, нужно исправить
     public static String getMessageForUser(String userMessage, User user) {
 
