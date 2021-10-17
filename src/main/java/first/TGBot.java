@@ -4,16 +4,14 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TGBot extends TelegramLongPollingBot {
     private String userName;
     SendMessage sendMessage = new SendMessage();
-    private HashMap<Long, UserState> userStates = new HashMap<>();
+    private HashMap<Long, User> userStates = new HashMap<>();
 
     public TGBot(String userName) {
         this.userName = userName;
@@ -38,7 +36,7 @@ public class TGBot extends TelegramLongPollingBot {
         sendMessage.setText(BotLogic.getMessageForUser(messageText, userState, sendMessage));
 
         var replyMarkup = new ReplyKeyboardMarkup();
-        var tgButtons = new TGBotButtons();
+        new TGBotButtons();
         replyMarkup.setKeyboard(TGBotButtons.getButtons(userState.state));
         replyMarkup.setResizeKeyboard(true);
         replyMarkup.setOneTimeKeyboard(false);
@@ -52,15 +50,15 @@ public class TGBot extends TelegramLongPollingBot {
         }
     }
 
-    public UserState getUserState(Long chatId) {
-        UserState userState;
+    public User getUserState(Long chatId) {
+        User user;
         if (userStates.containsKey(chatId))
-            userState = userStates.get(chatId);
+            user = userStates.get(chatId);
         else {
-            userState = new UserState();
-            userStates.put(chatId, userState);
+            user = new User();
+            userStates.put(chatId, user);
         }
-        return userState;
+        return user;
     }
 
 

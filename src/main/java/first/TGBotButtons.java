@@ -1,6 +1,5 @@
 package first;
 
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -8,26 +7,28 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TGBotButtons {
-    public static final HashMap<UserStateEnum, ArrayList<KeyboardRow>> keyboardByState = new HashMap<>();
+    public static final HashMap<UserState, ArrayList<KeyboardRow>> keyboardByState = new HashMap<>();
     public static final String[][] menuButtonsNames = new String[][]{new String[]{"Виселица", "Помощь"}};
+    public static final String[][] gameButtonsNames = new String[][]{new String[]{"Правила", "Перезапустить"}};
 
     public TGBotButtons() {
         setDefaultButtons();
     }
 
-    public static List<KeyboardRow> getButtons(UserStateEnum stateEnum) {
+    public static List<KeyboardRow> getButtons(UserState stateEnum) {
         return keyboardByState.get(stateEnum);
     }
 
-    public static void setKeyboard(UserStateEnum stateEnum, ArrayList<KeyboardRow> keyboardRows) {
+    public static void setKeyboard(UserState stateEnum, ArrayList<KeyboardRow> keyboardRows) {
         keyboardByState.put(stateEnum, keyboardRows);
     }
 
     private void setDefaultButtons() {
-       setButtons(menuButtonsNames, UserStateEnum.onMenu);
+        setButtons(gameButtonsNames, UserState.Playing);
+        setButtons(menuButtonsNames, UserState.onMenu);
     }
 
-    private void setButtons(String[][] names, UserStateEnum stateEnum){
+    private static void setButtons(String[][] names, UserState stateEnum){
         var buttonsKeyboard = new ArrayList<KeyboardRow>();
         for (String[] name : names) {
             var row = new KeyboardRow();
