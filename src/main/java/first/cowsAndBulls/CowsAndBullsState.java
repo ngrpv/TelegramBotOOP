@@ -53,11 +53,6 @@ public class CowsAndBullsState implements IGame {
     }
 
     @Override
-    public Boolean isWin() {
-        return null;
-    }
-
-    @Override
     public String checkAnswer(String answer) {
         if (answer.length() < word.length() || answer.length() > word.length() + 1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
@@ -76,7 +71,7 @@ public class CowsAndBullsState implements IGame {
         var used = new ArrayList<Character>();
         for (int i = 0; i < wordCharacterList.length; i++) {
             if (wordHashSet.contains(userWordList[i])) {
-                if(!used.contains(userWordList[i])){
+                if (!used.contains(userWordList[i])) {
                     cows += 1;
                     used.add(userWordList[i]);
                 }
@@ -86,7 +81,7 @@ public class CowsAndBullsState implements IGame {
                 }
             }
         }
-        return new int[]{Math.max(cows-bulls, 0), bulls};
+        return new int[]{Math.max(cows - bulls, 0), bulls};
     }
 
     @Override
