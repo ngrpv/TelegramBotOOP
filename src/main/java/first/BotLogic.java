@@ -43,8 +43,7 @@ public class BotLogic {
                 return UNKNOWN_COMMAND;
         }
     }
-
-    public static String restartGame(User user) {
+    public static String restartGame(User user){
         user.changeState(UserState.Playing);
         return user.gameState.getStartMessage();
     }

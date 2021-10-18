@@ -19,6 +19,7 @@ public class User {
     public void changeGame(IGame game) {
         gameState = game;
     }
+    public void setGameName(UserState gameName) {state = gameName;}
 
     private String startGame() {
         gameState.start();

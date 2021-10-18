@@ -7,10 +7,6 @@ import first.IWordParser;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.checkerframework.checker.units.qual.C;
 
 public class CowsAndBullsState implements IGame {
     private static final String fileName = "hangmanWords.txt";
@@ -57,11 +53,6 @@ public class CowsAndBullsState implements IGame {
     }
 
     @Override
-    public Boolean isWin() {
-        return word.length() == 2;
-    }
-
-    @Override
     public String checkAnswer(String answer) {
         if (answer.length() < word.length() || answer.length() > word.length() + 1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
@@ -80,7 +71,7 @@ public class CowsAndBullsState implements IGame {
         var used = new ArrayList<Character>();
         for (int i = 0; i < wordCharacterList.length; i++) {
             if (wordHashSet.contains(userWordList[i])) {
-                if(!used.contains(userWordList[i])){
+                if (!used.contains(userWordList[i])) {
                     cows += 1;
                     used.add(userWordList[i]);
                 }
@@ -89,7 +80,7 @@ public class CowsAndBullsState implements IGame {
                 }
             }
         }
-        return new int[]{Math.max(cows-bulls, 0), bulls};
+        return new int[]{Math.max(cows - bulls, 0), bulls};
     }
 
     @Override
@@ -119,6 +110,6 @@ public class CowsAndBullsState implements IGame {
         return characters;
     }
 }
-// TODO: 13.10.2021 заменить лист на массив, добавить возможность вводить слова с +1 буквой 
+// TODO: 13.10.2021 заменить лист на массив, добавить возможность вводить слова с +1 буквой
 // TODO: 13.10.2021 добавить перегрузку метода getusermessage(c скоровами и без), прописать хелпы, ссылка на расширенные правила
 // TODO: Тестики, баги , добавить правила, вынести коров и быков отдельно
