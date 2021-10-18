@@ -7,10 +7,6 @@ import first.IWordParser;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.checkerframework.checker.units.qual.C;
 
 public class CowsAndBullsState implements IGame {
     private static final String fileName = "hangmanWords.txt";
@@ -58,7 +54,7 @@ public class CowsAndBullsState implements IGame {
 
     @Override
     public Boolean isWin() {
-        return word.length() == 2;
+        return null;
     }
 
     @Override
