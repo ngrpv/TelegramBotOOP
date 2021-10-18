@@ -86,7 +86,6 @@ public class CowsAndBullsState implements IGame {
                 }
                 if (wordCharacterList[i].equals(userWordList[i])) {
                     bulls += 1;
-                    //used.remove(wordCharacterList[i]);
                 }
             }
         }
@@ -99,10 +98,8 @@ public class CowsAndBullsState implements IGame {
     }
 
     private void updateState() {
-
         wordCharacterList = getListByWordChars(word);
         wordHashSet = getHashSetByWordChars(word);
-
     }
 
 

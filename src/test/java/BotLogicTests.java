@@ -13,7 +13,7 @@ public class BotLogicTests {
     {
         String START_GAME = "/hangman";
         User user = new User();
-        var str = BotLogic.getMessageForUser(START_GAME, user);
+        var str = BotLogic.handleMessage(START_GAME, user);
         Assertions.assertTrue(user.isPlaying());
     }
 
@@ -22,7 +22,7 @@ public class BotLogicTests {
     {
         String RESTART_GAME = "/restart";
         User user = new User();
-        var str = BotLogic.getMessageForUser(RESTART_GAME, user);
+        var str = BotLogic.handleMessage(RESTART_GAME, user);
         Assertions.assertFalse(checkUniqueChars(str));
         Assertions.assertTrue(user.isPlaying());
     }

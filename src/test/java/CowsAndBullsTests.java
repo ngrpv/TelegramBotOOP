@@ -10,7 +10,7 @@ public class CowsAndBullsTests {
         var game = new CowsAndBullsState();
         game.setWord("папаша");
         var message = game.checkAnswer("папа");
-        var WORD_EQUAL_LENGTH = "Введите слово той же длины, что и загадано!";
+        var WORD_EQUAL_LENGTH = "Введите число той же длины, что и загадано!";
         Assertions.assertSame(message, WORD_EQUAL_LENGTH);
     }
     @Test
@@ -20,8 +20,8 @@ public class CowsAndBullsTests {
         game.setWord("жигало");
         var bulls = game.checkAnswer("гигант").toCharArray();
         var cows = game.checkAnswer("гигант").toCharArray();
-        Assertions.assertEquals(bulls[5],3);
-        Assertions.assertEquals(cows[14]-'0',0);
+        Assertions.assertEquals(bulls[5],'3');
+        Assertions.assertEquals(cows[14],'0');
     }
     public void check_correct_count_cows2()
     {

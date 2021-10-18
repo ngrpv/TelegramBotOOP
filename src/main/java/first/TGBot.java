@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 public class TGBot extends TelegramLongPollingBot {
     private String userName;
-    SendMessage sendMessage = new SendMessage();
     private HashMap<Long, User> userStates = new HashMap<>();
 
     public TGBot(String userName) {
@@ -32,15 +31,18 @@ public class TGBot extends TelegramLongPollingBot {
         var chatId = update.getMessage().getChatId();
         var userState = getUserState(chatId);
         var messageText = update.getMessage().getText();
+        var sendMessage = new SendMessage();
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText(BotLogic.getMessageForUser(messageText, userState));
-
-        var replyMarkup = new ReplyKeyboardMarkup();
-        new TGBotButtons();
-        replyMarkup.setKeyboard(TGBotButtons.getButtons(userState.state));
-        replyMarkup.setResizeKeyboard(true);
-        replyMarkup.setOneTimeKeyboard(false);
-        sendMessage.setReplyMarkup(replyMarkup);
+        sendMessage.setText(BotLogic.handleMessage(messageText, userState));
+        if(userState.stateIsChanged) {
+            var replyMarkup = new ReplyKeyboardMarkup();
+            new TGBotButtons();
+            replyMarkup.setKeyboard(TGBotButtons.getButtons(userState.state));
+            replyMarkup.setResizeKeyboard(true);
+            replyMarkup.setOneTimeKeyboard(true);
+            sendMessage.setReplyMarkup(replyMarkup);
+            userState.stateIsChanged = false;
+        }
 
 
         try {

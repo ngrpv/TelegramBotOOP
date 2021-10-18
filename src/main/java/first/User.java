@@ -5,6 +5,7 @@ import first.hangman.HangmanGameState;
 public class User {
     public UserState state;
     public IGame gameState;
+    public Boolean stateIsChanged = false;
 
     public User() {
         state = UserState.onMenu;
@@ -25,6 +26,7 @@ public class User {
     }
 
     public void changeState(UserState state) {
+        stateIsChanged = true;
         this.state = state;
         switch (state) {
             case Playing:

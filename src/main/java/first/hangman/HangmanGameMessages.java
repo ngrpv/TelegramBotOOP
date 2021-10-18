@@ -10,7 +10,6 @@ public class HangmanGameMessages {
 
     public static String getRules() {return RULES;}
 
-
     protected static String getMessageForUser(HangmanGameAnswerEnum checkResult, HangmanGameState gameState) {
 
         switch (checkResult) {

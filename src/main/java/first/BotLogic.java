@@ -15,10 +15,7 @@ public class BotLogic {
     private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
     private static final HashMap<String, IGame> gameByName = new HashMap<>();
 
-    //todo getMessageForUser в зависимости от игры,т.е первый иф -  костыль, нужно исправить
-    public static String getMessageForUser(String userMessage, User user) {
-
-
+    public static String handleMessage(String userMessage, User user) {
         if (user == null) return "userState is null";
         switch (userMessage) {
             case "/help":
@@ -46,7 +43,8 @@ public class BotLogic {
                 return UNKNOWN_COMMAND;
         }
     }
-    public static String restartGame(User user){
+
+    public static String restartGame(User user) {
         user.changeState(UserState.Playing);
         return user.gameState.getStartMessage();
     }
