@@ -1,22 +1,16 @@
 package first;
 
 import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameMessages;
 import first.hangman.HangmanGameState;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
-import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 
 public class BotLogic {
     private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры: Виселица, Быки и коровы. В будущем появятся новые игры";
     private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
     private static final String GAME_RESTARTED = "Игра перезапущена.";
     private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
-    private static final HashMap<String, IGame> gameByName = new HashMap<>();
 
     public static String handleMessage(String userMessage, User user) {
-        if (user == null) return "userState is null";
+        //if (user == null) return "userState is null";
         switch (userMessage) {
             case "/help":
             case "Помощь":
@@ -31,7 +25,7 @@ public class BotLogic {
                 return startGame(user, new CowsAndBullsState());
             case "Перезапустить":
             case "/restart":
-                return GAME_RESTARTED + "\n" + "\n" + restartGame(user);
+                return GAME_RESTARTED + "\n" + "\n" + startGame(user);
             case "/exit":
             case "Выход":
                 user.changeState(UserState.onMenu);
@@ -43,14 +37,18 @@ public class BotLogic {
                 return UNKNOWN_COMMAND;
         }
     }
-    public static String restartGame(User user){
+
+    private static void setGame(User user, IGame game) {
+        user.changeGame(game);
+    }
+
+    private static String startGame(User user) {
         user.changeState(UserState.Playing);
         return user.gameState.getStartMessage();
     }
 
-    public static String startGame(User state, IGame game) {
-        state.changeGame(game);
-        state.changeState(UserState.Playing);
-        return state.gameState.getStartMessage();
+    private static String startGame(User state, IGame game) {
+        setGame(state, game);
+        return startGame(state);
     }
 }

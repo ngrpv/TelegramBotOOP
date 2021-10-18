@@ -1,13 +1,12 @@
 package first;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Random;
 import java.util.Scanner;
 
 public class FileHandler implements IWordParser {
-    private String fileName;
+    private final String fileName;
 
     public static FileHandler getParser(String fileName){
         try {
