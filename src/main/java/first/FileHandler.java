@@ -21,7 +21,7 @@ public class FileHandler implements IWordParser {
         this.fileName = fileName;
     }
 
-    public String getWord() {
+    public String getWord() { // todo: не обращзаться каждый раз к файлу, подгружать заранее
         Random rand = new Random();
         String result = "О";
         int n = 0;

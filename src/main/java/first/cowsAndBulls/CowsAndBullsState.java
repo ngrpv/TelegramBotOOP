@@ -8,8 +8,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 
+// todo: два раза сетится слово в начале, понять почему.
+// todo: неправильно выводит коров: если слово 2255, а ввели 5522, то говорит что 2 коровы
+// todo: не выводит количество цифр после раунда
+
 public class CowsAndBullsState implements IGame {
-    private static final String fileName = "hangmanWords.txt";
+    private static final String fileName = "hangmanWords.txt"; // todo unused
     private static IWordParser wordParser;
     private String word;
     private Character[] wordCharacterList;
@@ -28,6 +32,7 @@ public class CowsAndBullsState implements IGame {
     @Override
     public void start() {
         setWord(wordParser);
+        System.out.println(word);
     }
 
     @Override
@@ -46,10 +51,6 @@ public class CowsAndBullsState implements IGame {
     public void setWord(String word) {
         this.word = word;
         updateState();
-    }
-
-    public String getWord() {
-        return word;
     }
 
     @Override

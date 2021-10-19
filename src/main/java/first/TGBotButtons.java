@@ -19,7 +19,7 @@ public class TGBotButtons {
         return keyboardByState.get(stateEnum);
     }
 
-    public static void setKeyboard(UserState stateEnum, ArrayList<KeyboardRow> keyboardRows) {
+    public static void setKeyboard(UserState stateEnum, ArrayList<KeyboardRow> keyboardRows) { // todo unused
         keyboardByState.put(stateEnum, keyboardRows);
     }
 

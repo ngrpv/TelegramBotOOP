@@ -1,6 +1,6 @@
 package first;
 
-public interface IBotApi {
+public interface IBotApi { // todo unused
     void sendMessage(String message);
     void getMessage();
 }

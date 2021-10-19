@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TGBot extends TelegramLongPollingBot {
     private final String userName;
-    private final HashMap<Long, User> userStates = new HashMap<>();
+    private final HashMap<Long, User> userStates = new HashMap<>(); // вынести, например, в StateStore
 
     public TGBot(String userName) {
         this.userName = userName;
@@ -36,7 +36,10 @@ public class TGBot extends TelegramLongPollingBot {
         var sendMessage = new SendMessage();
 
         sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText(BotLogic.handleMessage(messageText, userState));
+
+        var text = BotLogic.handleMessage(messageText, userState);
+
+        sendMessage.setText(text);
 
         if (userState.stateIsChanged) {
             setKeyboard(sendMessage, TGBotButtons.getButtons(userState.state));

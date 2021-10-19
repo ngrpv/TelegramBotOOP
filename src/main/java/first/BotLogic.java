@@ -11,6 +11,7 @@ public class BotLogic {
 
     public static String handleMessage(String userMessage, User user) {
         //if (user == null) return "userState is null";
+        // todo: сейчас можно запустить другую игру играя в игру
         switch (userMessage) {
             case "/help":
             case "Помощь":
