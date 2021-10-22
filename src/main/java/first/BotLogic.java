@@ -2,6 +2,8 @@ package first;
 
 import first.cowsAndBulls.CowsAndBullsState;
 import first.hangman.HangmanGameState;
+import first.user.User;
+import first.user.UserState;
 
 public class BotLogic {
     private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры: Виселица, Быки и коровы. В будущем появятся новые игры";

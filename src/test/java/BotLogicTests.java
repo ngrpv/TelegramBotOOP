@@ -1,4 +1,4 @@
-import first.User;
+import first.user.User;
 import first.BotLogic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

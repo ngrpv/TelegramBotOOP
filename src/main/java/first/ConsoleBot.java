@@ -1,5 +1,7 @@
 package first;
 
+import first.user.User;
+
 import java.util.Scanner;
 
 public class ConsoleBot {

@@ -1,16 +1,16 @@
 package first;
 
+import first.user.StateStore;
+import first.user.User;
+import first.user.UserState;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.HashMap;
-
 public class TGBot extends TelegramLongPollingBot {
     private final String userName;
-    private final HashMap<Long, User> userStates = new HashMap<>(); // вынести, например, в StateStore
 
     public TGBot(String userName) {
         this.userName = userName;
@@ -29,7 +29,7 @@ public class TGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var chatId = update.getMessage().getChatId();
-        var userState = getUserState(chatId);
+        var userState = StateStore.getUserState(chatId);
         var messageText = update.getMessage().getText();
         var sendMessage = new SendMessage();
 
@@ -45,17 +45,6 @@ public class TGBot extends TelegramLongPollingBot {
         }
 
         trySend(sendMessage);
-    }
-
-    public User getUserState(Long chatId) {
-        User user;
-        if (userStates.containsKey(chatId))
-            user = userStates.get(chatId);
-        else {
-            user = new User();
-            userStates.put(chatId, user);
-        }
-        return user;
     }
 
     private void trySend(SendMessage message) {

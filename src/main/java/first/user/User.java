@@ -1,5 +1,6 @@
-package first;
+package first.user;
 
+import first.IGame;
 import first.hangman.HangmanGameState;
 
 public class User {

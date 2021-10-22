@@ -1,5 +1,6 @@
 package first;
 
+import first.user.User;
 import org.json.JSONArray;
 
 import java.util.HashMap;
