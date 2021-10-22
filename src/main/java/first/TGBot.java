@@ -4,11 +4,9 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class TGBot extends TelegramLongPollingBot {
     private final String userName;
@@ -42,7 +40,7 @@ public class TGBot extends TelegramLongPollingBot {
         sendMessage.setText(text);
 
         if (userState.stateIsChanged) {
-            setKeyboard(sendMessage, TGBotButtons.getButtons(userState.state));
+            setKeyboard(sendMessage, userState.state);
             userState.stateIsChanged = false;
         }
 
@@ -68,10 +66,10 @@ public class TGBot extends TelegramLongPollingBot {
         }
     }
 
-    private void setKeyboard(SendMessage sendMessage, List<KeyboardRow> keyboardRows) {
+    private void setKeyboard(SendMessage sendMessage, UserState state) {
         var replyMarkup = new ReplyKeyboardMarkup();
-        new TGBotButtons();
-        replyMarkup.setKeyboard(keyboardRows);
+        TGBotButtons.setDefaultButtons();
+        replyMarkup.setKeyboard(TGBotButtons.getButtons(state));
         replyMarkup.setResizeKeyboard(true);
         replyMarkup.setOneTimeKeyboard(true);
         sendMessage.setReplyMarkup(replyMarkup);

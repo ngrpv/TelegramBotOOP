@@ -19,7 +19,7 @@ public class TGBotButtons {
         return keyboardByState.get(stateEnum);
     }
 
-    private void setDefaultButtons() {
+    public static void setDefaultButtons() {
         setButtons(gameButtonsNames, UserState.Playing);
         setButtons(menuButtonsNames, UserState.onMenu);
     }
