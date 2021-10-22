@@ -1,23 +1,15 @@
 package first.cowsAndBulls;
 
-import first.FileHandler;
 import first.IGame;
 import first.IWordParser;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Locale;
 
-// todo: два раза сетится слово в начале, понять почему.
-// todo: неправильно выводит коров: если слово 2255, а ввели 5522, то говорит что 2 коровы
-// todo: не выводит количество цифр после раунда
 
 public class CowsAndBullsState implements IGame {
     private static final String fileName = "hangmanWords.txt"; // todo unused
     private static IWordParser wordParser;
     private String word;
-    private Character[] wordCharacterList;
-    private HashSet<Character> wordHashSet;
 
 
     public CowsAndBullsState() {
@@ -49,7 +41,6 @@ public class CowsAndBullsState implements IGame {
 
     public void setWord(String word) {
         this.word = word;
-        updateState();
     }
 
     @Override
@@ -57,59 +48,55 @@ public class CowsAndBullsState implements IGame {
         if (answer.length() < word.length() || answer.length() > word.length() + 1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
         var usedWord = answer.toLowerCase(Locale.ROOT);
-        var userWordList = getListByWordChars(usedWord);
-        var cowsAndBullsValue = getCowsAndBulls(userWordList);
+        var cowsAndBullsValue = getCowsAndBulls(usedWord, word);
         if (word.length() == cowsAndBullsValue[1] && answer.length() == word.length()) {
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this);
         }
         return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
     }
 
-    private int[] getCowsAndBulls(Character[] userWordList) {
+    private int countBetween(char letter, String word, int to) {
+        var count = 0;
+        for (int i = 0; i < to; i++) {
+            if (word.charAt(i) == letter)
+                count += 1;
+        }
+        return count;
+    }
+
+    private int[] getCowsAndBulls(String userWord, String word) {
         var bulls = 0;
         var cows = 0;
-        var used = new ArrayList<Character>();
-        for (int i = 0; i < wordCharacterList.length; i++) {
-            if (wordHashSet.contains(userWordList[i])) {
-                if (!used.contains(userWordList[i])) {
-                    cows += 1;
-                    used.add(userWordList[i]);
-                }
-                if (wordCharacterList[i].equals(userWordList[i])) {
-                    bulls += 1;
-                }
+
+        StringBuilder userWordBuilder = new StringBuilder(userWord);
+        StringBuilder wordBuilder = new StringBuilder(word);
+
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == userWord.charAt(i)) {
+                bulls += 1;
+                userWordBuilder.setCharAt(i, ' ');
+                wordBuilder.setCharAt(i, ' ');
             }
         }
-        return new int[]{Math.max(cows - bulls, 0), bulls};
+        if (bulls != 0) {
+            userWord = wordBuilder.toString();
+            word = userWordBuilder.toString();
+        }
+        for (int i = 0; i < userWord.length(); i++) {
+            if (userWord.charAt(i) == ' ')
+                continue;
+            var countLeft = countBetween(userWord.charAt(i), userWord, i);
+            var countInUserWord = countBetween(
+                    userWord.charAt(i), word, word.length());
+            if (countInUserWord != 0
+                    && countLeft < countInUserWord)
+                cows++;
+        }
+        return new int[]{cows, bulls};
     }
 
     @Override
     public String getStartMessage() {
-        return String.format("В этом числе %s цифр", word.length());
-    }
-
-    private void updateState() {
-        wordCharacterList = getListByWordChars(word);
-        wordHashSet = getHashSetByWordChars(word);
-    }
-
-
-    private Character[] getListByWordChars(String word) {
-        var characters = new ArrayList<Character>();
-        for (Character ch : word.toLowerCase().toCharArray()) {
-            characters.add(ch);
-        }
-        return characters.toArray(new Character[0]);
-    }
-
-    private HashSet<Character> getHashSetByWordChars(String word) {
-        var characters = new HashSet<Character>();
-        for (Character ch : word.toLowerCase().toCharArray()) {
-            characters.add(ch);
-        }
-        return characters;
+        return String.format("В этом числе %s цифр", word);
     }
 }
-// TODO: 13.10.2021 заменить лист на массив, добавить возможность вводить слова с +1 буквой
-// TODO: 13.10.2021 добавить перегрузку метода getusermessage(c скоровами и без), прописать хелпы, ссылка на расширенные правила
-// TODO: Тестики, баги , добавить правила, вынести коров и быков отдельно
