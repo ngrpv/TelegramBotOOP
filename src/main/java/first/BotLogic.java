@@ -10,20 +10,12 @@ public class BotLogic {
     private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
 
     public static String handleMessage(String userMessage, User user) {
-        //if (user == null) return "userState is null";
-        // todo: сейчас можно запустить другую игру играя в игру
         switch (userMessage) {
             case "/help":
             case "Помощь":
                 return DESCRIPTION + "\n" + HELP;
             case "Правила":
                 return user.gameState.getRules();
-            case "/hangman":
-            case "Виселица":
-                return startGame(user, new HangmanGameState());
-            case "/cowsAndBulls":
-            case "Быки и коровы":
-                return startGame(user, new CowsAndBullsState());
             case "Перезапустить":
             case "/restart":
                 return GAME_RESTARTED + "\n" + "\n" + startGame(user);
@@ -31,6 +23,14 @@ public class BotLogic {
             case "Выход":
                 user.changeState(UserState.onMenu);
                 return "Меню";
+            case "/cowsAndBulls":
+            case "Быки и коровы":
+                if(!user.isPlaying())
+                    return startGame(user, new CowsAndBullsState());
+            case "/hangman":
+            case "Виселица":
+                if(!user.isPlaying())
+                    return startGame(user, new HangmanGameState());
             default:
                 if (user.isPlaying()) {
                     return user.gameState.checkAnswer(userMessage);

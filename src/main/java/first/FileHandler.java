@@ -1,45 +1,33 @@
 package first;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class FileHandler implements IWordParser {
-    private final String fileName;
+    private static String[] words;
 
-    public static FileHandler getParser(String fileName){
+    public FileHandler(String fileName) {
+        words = getWordsFromFile(fileName);
+    }
+
+    private String[] getWordsFromFile(String fileName) {
+        List<String> lines = null;
         try {
-            return new FileHandler(fileName);
-        } catch (FileNotFoundException e) {
+            lines = Files.readAllLines(new File(fileName).toPath(), Charset.defaultCharset());
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        assert lines != null;
+        return lines.toArray(new String[lines.size()]);
     }
 
-    public FileHandler(String fileName) throws FileNotFoundException {
-        this.fileName = fileName;
-    }
-
-    public String getWord() { // todo: не обращзаться каждый раз к файлу, подгружать заранее
+    public String getWord() {
         Random rand = new Random();
-        String result = "О";
-        int n = 0;
-        Scanner fileScanner = null;
-        try {
-            fileScanner = new Scanner(new FileReader(fileName));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        while (true) {
-            assert fileScanner != null;
-            if (!fileScanner.hasNext()) break;
-            n++;
-            String word = fileScanner.nextLine();
-            if (rand.nextInt(n) == 0)
-                result = word;
-        }
-
-        return result;
+        return words[rand.nextInt(words.length-1)];
     }
 }

@@ -19,10 +19,6 @@ public class TGBotButtons {
         return keyboardByState.get(stateEnum);
     }
 
-    public static void setKeyboard(UserState stateEnum, ArrayList<KeyboardRow> keyboardRows) { // todo unused
-        keyboardByState.put(stateEnum, keyboardRows);
-    }
-
     private void setDefaultButtons() {
         setButtons(gameButtonsNames, UserState.Playing);
         setButtons(menuButtonsNames, UserState.onMenu);

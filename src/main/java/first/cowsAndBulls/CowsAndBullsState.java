@@ -32,7 +32,6 @@ public class CowsAndBullsState implements IGame {
     @Override
     public void start() {
         setWord(wordParser);
-        System.out.println(word);
     }
 
     @Override

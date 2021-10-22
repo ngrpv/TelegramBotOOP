@@ -19,20 +19,20 @@ public class HangmanGameTests {
     }
 
     @Test
-    public void game_should_be_over_when_hp_run_out() {
+    public void game_should_restart_when_hp_run_out() {
         var game = new HangmanGameState();
         game.setWord("aaaa");
         var initialHp = game.getHealthPoints();
         for (var i = 0; i < initialHp; i++) {
             game.checkAnswer(String.valueOf(i));
         }
-        Assertions.assertEquals(0, game.getHealthPoints());
-        Assertions.assertEquals(true, game.isOver());
+        Assertions.assertEquals(6, game.getHealthPoints());
+        Assertions.assertEquals(false, game.isOver());
     }
 
 
     private String getWordFromFile() {
-        var fileHandler = FileHandler.getParser("hangmanWords.txt");
-        return fileHandler != null ? fileHandler.getWord() : null;
+        var fileHandler = new FileHandler("hangmanWords.txt");
+        return fileHandler.getWord();
     }
 }
