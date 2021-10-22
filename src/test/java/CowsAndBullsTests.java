@@ -23,6 +23,7 @@ public class CowsAndBullsTests {
         Assertions.assertEquals(bulls[5],'3');
         Assertions.assertEquals(cows[14],'0');
     }
+
     public int[] getCowsAndBulls(String userWord,String word) {
         var game = new CowsAndBullsState();
         game.setWord(word);
@@ -65,9 +66,6 @@ public class CowsAndBullsTests {
 
     @Test
     public void check_correct_count_cowsAndBulls5() {
-        var game = new CowsAndBullsState();
-        game.setWord("крутой");
-        var userWord = "окурок";
         var bulls = getCowsAndBulls("окурок","крутой")[0];
         var cows = getCowsAndBulls("окурок","крутой")[1];
         Assertions.assertEquals(bulls, 2);
