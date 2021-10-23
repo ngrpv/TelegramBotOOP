@@ -7,7 +7,6 @@ import first.IWordParser;
 import java.util.HashSet;
 import java.util.Locale;
 
-// todo: после проигрыша игровая сессия не разрывается, можно уйти в минус жизни
 public class HangmanGameState implements IGame {
     private String word;
 
