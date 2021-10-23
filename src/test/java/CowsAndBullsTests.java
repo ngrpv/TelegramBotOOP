@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 public class CowsAndBullsTests {
 
     CowsAndBullsState game;
+
+
     @Test
     public void word_should_be_correct_in_length() {
         var game = new CowsAndBullsState();
@@ -15,7 +17,7 @@ public class CowsAndBullsTests {
         Assertions.assertSame(message, WORD_EQUAL_LENGTH);
     }
 
-    public int[] getCowsAndBulls(String userWord, String word) {
+    private int[] getCowsAndBulls(String userWord, String word) {
         var game = new CowsAndBullsState();
         game.setWord(word);
         var bulls = Character.getNumericValue(game.checkAnswer(userWord).toCharArray()[5]);
@@ -23,9 +25,14 @@ public class CowsAndBullsTests {
         return new int[]{bulls, cows};
     }
 
-    @Test
-    public void check(){
-        check_counting_cows_and_bulls("гигант","жигало", 3, 0);
+    private void check_counting_cows_and_bulls(String userWord, String guessed, int expectedBulls, int expectedCows) {
+        //Arrange
+        game.setWord(guessed);
+        //Act
+        var cowsAndBulls = game.getCowsAndBulls(userWord, guessed);
+        //Assert
+        Assertions.assertEquals(expectedCows, cowsAndBulls[0]);
+        Assertions.assertEquals(expectedBulls, cowsAndBulls[1]);
     }
 
     @Test
@@ -44,17 +51,22 @@ public class CowsAndBullsTests {
                 () -> Assertions.assertArrayEquals(new int[]{0, 1}, getCowsAndBulls("00002", "1112")),
                 () -> Assertions.assertArrayEquals(new int[]{3, 0}, getCowsAndBulls("0209", "0009")));
     }
+
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         game = new CowsAndBullsState();
     }
 
-    public void check_counting_cows_and_bulls(String guessed, String userWord, int expectedBulls, int expectedCows){
-        game.setWord(guessed);
-
-        var gameAnswer = game.getCowsAndBulls(userWord, guessed);
-
-        Assertions.assertArrayEquals(new int[]{expectedCows, expectedBulls}, gameAnswer);
+    @Test
+    public void check_common_cases() {
+        check_counting_cows_and_bulls("гигант", "жигало", 3, 0);
+        check_counting_cows_and_bulls("гигант", "город", 1, 0);
     }
 
+    @Test
+    public void check_if_empty_user_answer(){
+        check_counting_cows_and_bulls("    ", "спел", 0,0);
+    }
+
+    //...
 }
