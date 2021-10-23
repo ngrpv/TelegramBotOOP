@@ -8,7 +8,6 @@ import java.util.Locale;
 
 
 public class CowsAndBullsState implements IGame {
-    private static final String fileName = "hangmanWords.txt"; // todo unused
     private static IWordParser wordParser;
     private String word;
 
