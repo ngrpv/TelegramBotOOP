@@ -24,30 +24,18 @@ public class CowsAndBullsTests {
     @Test
     public void check_correct_count_cowsAndBulls() {
         Assertions.assertAll(
-                () -> Assertions.assertEquals(3, getCowsAndBulls("гигант", "жигало")[0]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("гигант", "жигало")[1]),
-                () -> Assertions.assertEquals(1, getCowsAndBulls("гигант", "город")[0]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("гигант", "город")[1]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("катп", "анас")[0]),
-                () -> Assertions.assertEquals(1, getCowsAndBulls("катп", "анас")[1]),
-                () -> Assertions.assertEquals(2, getCowsAndBulls("палка", "лейка")[0]),
-                () -> Assertions.assertEquals(1, getCowsAndBulls("палка", "лейка")[1]),
-                () -> Assertions.assertEquals(2, getCowsAndBulls("окурок", "крутой")[0]),
-                () -> Assertions.assertEquals(2, getCowsAndBulls("окурок", "крутой")[1]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("лепс", "спел")[0]),
-                () -> Assertions.assertEquals(4, getCowsAndBulls("лепс", "спел")[1]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("    ", "спел")[0]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("    ", "спел")[1]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("5522", "2255")[0]),
-                () -> Assertions.assertEquals(4, getCowsAndBulls("5522", "2255")[1]),
-                () -> Assertions.assertEquals(2, getCowsAndBulls("2222", "2255")[0]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("2222", "2255")[1]),
-                () -> Assertions.assertEquals(1, getCowsAndBulls("0003", "1323")[0]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("0003", "1323")[1]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("00002", "1112")[0]),
-                () -> Assertions.assertEquals(1, getCowsAndBulls("00002", "1112")[1]),
-                () -> Assertions.assertEquals(3, getCowsAndBulls("0209", "0009")[0]),
-                () -> Assertions.assertEquals(0, getCowsAndBulls("0209", "0009")[1]));
+                () -> Assertions.assertArrayEquals(new int[]{3, 0}, getCowsAndBulls("гигант", "жигало")),
+                () -> Assertions.assertArrayEquals(new int[]{1, 0}, getCowsAndBulls("гигант", "город")),
+                () -> Assertions.assertArrayEquals(new int[]{0, 1}, getCowsAndBulls("катп", "анас")),
+                () -> Assertions.assertArrayEquals(new int[]{2, 1}, getCowsAndBulls("палка", "лейка")),
+                () -> Assertions.assertArrayEquals(new int[]{2, 2}, getCowsAndBulls("окурок", "крутой")),
+                () -> Assertions.assertArrayEquals(new int[]{0, 4}, getCowsAndBulls("лепс", "спел")),
+                () -> Assertions.assertArrayEquals(new int[]{0, 0}, getCowsAndBulls("    ", "спел")),
+                () -> Assertions.assertArrayEquals(new int[]{0, 4}, getCowsAndBulls("5522", "2255")),
+                () -> Assertions.assertArrayEquals(new int[]{2, 0}, getCowsAndBulls("2222", "2255")),
+                () -> Assertions.assertArrayEquals(new int[]{1, 0}, getCowsAndBulls("0003", "1323")),
+                () -> Assertions.assertArrayEquals(new int[]{0, 1}, getCowsAndBulls("00002", "1112")),
+                () -> Assertions.assertArrayEquals(new int[]{3, 0}, getCowsAndBulls("0209", "0009")));
     }
 
 }
