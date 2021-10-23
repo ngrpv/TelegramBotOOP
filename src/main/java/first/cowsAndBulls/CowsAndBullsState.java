@@ -56,7 +56,7 @@ public class CowsAndBullsState implements IGame {
         return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
     }
 
-    private int[] getCowsAndBulls(String userWord, String word) {
+    public int[] getCowsAndBulls(String userWord, String word) {
         HashSet<Integer> bullsPositions = new HashSet<>();
         HashSet<Integer> cowsPositions = new HashSet<>();
 

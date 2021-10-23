@@ -1,9 +1,11 @@
 import first.cowsAndBulls.CowsAndBullsState;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CowsAndBullsTests {
 
+    CowsAndBullsState game;
     @Test
     public void word_should_be_correct_in_length() {
         var game = new CowsAndBullsState();
@@ -22,6 +24,11 @@ public class CowsAndBullsTests {
     }
 
     @Test
+    public void check(){
+        check_counting_cows_and_bulls("гигант","жигало", 3, 0);
+    }
+
+    @Test
     public void check_correct_count_cowsAndBulls() {
         Assertions.assertAll(
                 () -> Assertions.assertArrayEquals(new int[]{3, 0}, getCowsAndBulls("гигант", "жигало")),
@@ -36,6 +43,18 @@ public class CowsAndBullsTests {
                 () -> Assertions.assertArrayEquals(new int[]{1, 0}, getCowsAndBulls("0003", "1323")),
                 () -> Assertions.assertArrayEquals(new int[]{0, 1}, getCowsAndBulls("00002", "1112")),
                 () -> Assertions.assertArrayEquals(new int[]{3, 0}, getCowsAndBulls("0209", "0009")));
+    }
+    @BeforeEach
+    public void setUp(){
+        game = new CowsAndBullsState();
+    }
+
+    public void check_counting_cows_and_bulls(String guessed, String userWord, int expectedBulls, int expectedCows){
+        game.setWord(guessed);
+
+        var gameAnswer = game.getCowsAndBulls(userWord, guessed);
+
+        Assertions.assertArrayEquals(new int[]{expectedCows, expectedBulls}, gameAnswer);
     }
 
 }
