@@ -6,16 +6,15 @@ import first.user.User;
 import first.user.UserState;
 
 public class BotLogic {
-    private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры: Виселица, Быки и коровы. В будущем появятся новые игры";
+    private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры:\nВиселица, Быки и коровы.";
     private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
     private static final String GAME_RESTARTED = "Игра перезапущена.";
-    private static final String HELP = "*  /hangman - запускает игру Виселица \n*  /restart - перезапускает игру \n*  /exit - выход";
 
     public static String handleMessage(String userMessage, User user) {
         switch (userMessage) {
             case "/help":
             case "Помощь":
-                return DESCRIPTION + "\n" + HELP;
+                return DESCRIPTION;
             case "Правила":
                 return user.gameState.getRules();
             case "Перезапустить":
