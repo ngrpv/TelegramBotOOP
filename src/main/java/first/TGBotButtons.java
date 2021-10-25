@@ -1,5 +1,6 @@
 package first;
 
+import first.user.UserState;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -19,11 +20,7 @@ public class TGBotButtons {
         return keyboardByState.get(stateEnum);
     }
 
-    public static void setKeyboard(UserState stateEnum, ArrayList<KeyboardRow> keyboardRows) {
-        keyboardByState.put(stateEnum, keyboardRows);
-    }
-
-    private void setDefaultButtons() {
+    public static void setDefaultButtons() {
         setButtons(gameButtonsNames, UserState.Playing);
         setButtons(menuButtonsNames, UserState.onMenu);
     }

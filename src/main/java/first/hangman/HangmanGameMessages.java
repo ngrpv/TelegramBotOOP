@@ -10,11 +10,10 @@ public class HangmanGameMessages {
 
     public static String getRules() {return RULES;}
 
-
     protected static String getMessageForUser(HangmanGameAnswerEnum checkResult, HangmanGameState gameState) {
 
         switch (checkResult) {
-            case NOT_LETTER:
+            case NOT_ONE_LETTER:
                 return ONLY_ONE_LETTER;
             case WIN:
                 var guessedWord = gameState.getWordWithGuessedLetters();
@@ -29,7 +28,6 @@ public class HangmanGameMessages {
         return String.format("%s\nОсталось жизней: %d", gameState.getWordWithGuessedLetters(), gameState.getHealthPoints());
     }
 
-    //todo: добавить тик игры, выделить все общие методы в интерфейс, реализовать новую игру, паттер стратегия
 
 }
 

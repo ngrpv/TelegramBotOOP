@@ -1,77 +1,85 @@
-import first.cowsAndBulls.CowsAndBullsEnum;
 import first.cowsAndBulls.CowsAndBullsState;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CowsAndBullsTests {
+
+    CowsAndBullsState game;
+
 
     @Test
     public void word_should_be_correct_in_length() {
         var game = new CowsAndBullsState();
         game.setWord("папаша");
         var message = game.checkAnswer("папа");
-        var WORD_EQUAL_LENGTH = "Введите слово той же длины, что и загадано!";
+        var WORD_EQUAL_LENGTH = "Введите число той же длины, что и загадано!";
         Assertions.assertSame(message, WORD_EQUAL_LENGTH);
     }
-    @Test
-    public void check_correct_count_cows()
-    {
-        var game  = new CowsAndBullsState();
-        game.setWord("жигало");
-        var bulls = game.checkAnswer("гигант").toCharArray();
-        var cows = game.checkAnswer("гигант").toCharArray();
-        Assertions.assertEquals(bulls[5],3);
-        Assertions.assertEquals(cows[14]-'0',0);
+
+    private int[] getCowsAndBulls(String userWord, String word) {
+        var game = new CowsAndBullsState();
+        game.setWord(word);
+        var bulls = Character.getNumericValue(game.checkAnswer(userWord).toCharArray()[5]);
+        var cows = Character.getNumericValue(game.checkAnswer(userWord).toCharArray()[14]);
+        return new int[]{bulls, cows};
     }
-    @Test
-    public void check_correct_count_cows2()
-    {
-        var game  = new CowsAndBullsState();
-        game.setWord("город");
-        var bulls = game.checkAnswer("гигант").toCharArray();
-        var cows = game.checkAnswer("гигант").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',0);
-        Assertions.assertEquals(cows[14]-'0',1);
+
+    private void check_counting_cows_and_bulls(String userWord, String guessed, int expectedBulls, int expectedCows) {
+        //Arrange
+        game.setWord(guessed);
+        //Act
+        var cowsAndBulls = game.getCowsAndBulls(userWord, guessed);
+        //Assert
+        Assertions.assertEquals(expectedCows, cowsAndBulls[0]);
+        Assertions.assertEquals(expectedBulls, cowsAndBulls[1]);
     }
-    @Test
-    public void check_correct_count_cows3()
-    {
-        var game  = new CowsAndBullsState();
-        game.setWord("анас");
-        var bulls = game.checkAnswer("катп").toCharArray();
-        var cows = game.checkAnswer("катп").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',0);
-        Assertions.assertEquals(cows[14]-'0',1);
+
+    @BeforeEach
+    public void setUp() {
+        game = new CowsAndBullsState();
     }
+
     @Test
-    public void check_correct_count_cows4()
-    {
-        var game  = new CowsAndBullsState();
-        game.setWord("лейка");
-        var bulls = game.checkAnswer("палка").toCharArray();
-        var cows = game.checkAnswer("палка").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',2);
-        Assertions.assertEquals(cows[14]-'0',1);
+    public void check_common_cases() {
+        check_counting_cows_and_bulls("гигант", "жигало", 3, 0);
+        check_counting_cows_and_bulls("гигант", "город", 1, 0);
+        check_counting_cows_and_bulls("палка", "лейка", 2, 1);
+        check_counting_cows_and_bulls("окурок", "крутой", 2, 2);
+        check_counting_cows_and_bulls("1242","2322",1,1);
+        check_counting_cows_and_bulls("0003","1323",1,0);
     }
+
     @Test
-    public void check_correct_count_cows5()
-    {
-        var game  = new CowsAndBullsState();
-        game.setWord("крутой");
-        var bulls = game.checkAnswer("окурок").toCharArray();
-        var cows = game.checkAnswer("окурок").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',2);
-        Assertions.assertEquals(cows[14]-'0',2);
+    public void check_if_empty_user_answer(){
+        check_counting_cows_and_bulls("    ", "спел", 0,0);
     }
+
     @Test
-    public void check_correct_count_cows6()
-    {
-        var game  = new CowsAndBullsState();
-        game.setWord("спел");
-        var bulls = game.checkAnswer("лепс").toCharArray();
-        var cows = game.checkAnswer("лепс").toCharArray();
-        Assertions.assertEquals(bulls[5]-'0',0);
-        Assertions.assertEquals(cows[14]-'0',4);
+    public void check_if_user_length_longer_word() {
+        check_counting_cows_and_bulls("деревья","дерево",5,0);
     }
+
+    @Test
+    public void check_if_user_message_is_palindrome() {
+        check_counting_cows_and_bulls("лепс","спел",0,4);
+        check_counting_cows_and_bulls("2255","5522",0,4);
+    }
+
+    @Test
+    public void check_if_one_letter_is_missing() {
+        check_counting_cows_and_bulls("ка та","карта",4,0);
+    }
+
+    @Test
+    public void check_if_word_with_letter() {
+        check_counting_cows_and_bulls("сл0н","слон",3,0);
+    }
+
+    @Test
+    public void check_if_word_of_same_letters(){
+        check_counting_cows_and_bulls("ааааа","буква",1,0);
+    }
+
 
 }

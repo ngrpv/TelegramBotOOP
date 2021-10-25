@@ -1,11 +1,7 @@
 package first.cowsAndBulls;
 
-import first.hangman.HangmanGameAnswerEnum;
-import first.hangman.HangmanGameState;
-
 class CowsAndBullsMessages {
 
-    private static final String HELP = "help msg for CAB game";
     private static final String WORD_EQUAL_LENGTH = "Введите число той же длины, что и загадано!";
     private static final String ALREADY_USED_WORD = "Слово было введено ранее, введите другое!";
     private static final String WIN_TEXT = "Ты выиграл!";

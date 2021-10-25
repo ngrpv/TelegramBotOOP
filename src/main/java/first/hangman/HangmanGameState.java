@@ -14,13 +14,12 @@ public class HangmanGameState implements IGame {
 
     private HashSet<Character> guessedLetters;
     private HashSet<Character> usedLetters;
-    private Boolean gameIsOver;
     private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;
     private int healthPoints;
 
     public HangmanGameState() {
-        this(FileHandler.getParser(fileName));
+        this(new FileHandler(fileName));
     }
 
     public HangmanGameState(IWordParser wordParser) {
@@ -45,10 +44,6 @@ public class HangmanGameState implements IGame {
         setWord(parser.getWord());
     }
 
-    public String getWord() {
-        return word;
-    }
-
     public void setWord(String word) {
         this.word = word;
         updateState();
@@ -67,6 +62,9 @@ public class HangmanGameState implements IGame {
     }
 
     public String checkAnswer(String answer) {
+        if(isOver()){
+            return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this);
+        }
         if (answer.length() != 1)
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.NOT_ONE_LETTER, this);
         var userLetter = answer.toLowerCase(Locale.ROOT).charAt(0);
@@ -82,12 +80,15 @@ public class HangmanGameState implements IGame {
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.CORRECT_LETTER, this);
         } else {
             healthPoints--;
-            if (healthPoints <= 0) {
-                gameIsOver = true;
-                return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this);
+            if (isOver()) {
+                return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this) + restartGame();
             }
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WRONG_LETTER, this);
         }
+    }
+    private String restartGame(){
+        start();
+        return "\nИгра перезапущена\n\n" + getStartMessage();
     }
 
 
@@ -101,7 +102,6 @@ public class HangmanGameState implements IGame {
         guessedLetters = new HashSet<>();
         usedLetters = new HashSet<>();
         healthPoints = 6;
-        gameIsOver = false;
     }
 
     private HashSet<Character> getHashSetByWordChars(String word) {

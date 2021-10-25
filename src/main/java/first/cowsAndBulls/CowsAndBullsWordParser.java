@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class CowsAndBullsWordParser implements IWordParser {
     private static final Random random = new Random();
-    private static final IWordParser wordParser = FileHandler.getParser("hangmanWords.txt");
+    private static final IWordParser wordParser = new FileHandler("hangmanWords.txt");
 
     @Override
     public String getWord() {
