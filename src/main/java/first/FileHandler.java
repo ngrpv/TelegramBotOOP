@@ -1,7 +1,6 @@
 package first;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -10,7 +9,7 @@ import java.util.Random;
 
 public class FileHandler implements IWordParser {
     private static String[] words;
-
+    private static final Random random = new Random();
     public FileHandler(String fileName) {
         words = getWordsFromFile(fileName);
     }
@@ -23,11 +22,10 @@ public class FileHandler implements IWordParser {
             e.printStackTrace();
         }
         assert lines != null;
-        return lines.toArray(new String[lines.size()]);
+        return lines.toArray(new String[0]);
     }
 
     public String getWord() {
-        Random rand = new Random();
-        return words[rand.nextInt(words.length-1)];
+        return words[random.nextInt(words.length-1)];
     }
 }

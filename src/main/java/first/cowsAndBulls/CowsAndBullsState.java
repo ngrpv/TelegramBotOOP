@@ -50,7 +50,7 @@ public class CowsAndBullsState implements IGame {
         var usedWord = answer.toLowerCase(Locale.ROOT);
         var cowsAndBullsValue = getCowsAndBulls(usedWord, word);
         if (word.length() == cowsAndBullsValue[1] && answer.length() == word.length()) {
-            return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this);
+            return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this) + "\n\n" + getStartMessage();
         }
         return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
     }
@@ -84,6 +84,6 @@ public class CowsAndBullsState implements IGame {
 
     @Override
     public String getStartMessage() {
-        return String.format("В этом числе %s цифр", word.length());
+        return String.format("Количеcтво цифр: %s", word.length());
     }
 }
