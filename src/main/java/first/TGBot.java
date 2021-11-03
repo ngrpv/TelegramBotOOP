@@ -1,7 +1,6 @@
 package first;
 
-import first.user.StateStore;
-import first.user.User;
+import first.user.UserStore;
 import first.user.UserState;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -29,7 +28,7 @@ public class TGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var chatId = update.getMessage().getChatId();
-        var userState = StateStore.getUserState(chatId);
+        var userState = UserStore.getUserState(chatId);
         var messageText = update.getMessage().getText();
         var sendMessage = new SendMessage();
 

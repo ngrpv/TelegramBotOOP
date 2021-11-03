@@ -12,7 +12,7 @@ public class BotLogicTests {
     public void state_should_isPlayingTrue_because_starting_game()
     {
         String START_GAME = "/hangman";
-        User user = new User();
+        User user = new User(0);
         var str = BotLogic.handleMessage(START_GAME, user);
         Assertions.assertTrue(user.isPlaying());
     }
@@ -21,7 +21,7 @@ public class BotLogicTests {
     public void output_should_hidden_if_restarting_game_and_isPlaying_should_be_True()
     {
         String RESTART_GAME = "/restart";
-        User user = new User();
+        User user = new User(0);
         var str = BotLogic.handleMessage(RESTART_GAME, user);
         Assertions.assertFalse(checkUniqueChars(str));
         Assertions.assertTrue(user.isPlaying());

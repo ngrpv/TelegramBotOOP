@@ -5,7 +5,7 @@ import first.user.User;
 import java.util.Scanner;
 
 public class ConsoleBot {
-    public static User user = new User();
+    public static User user = new User(0);
 
     public static void launch() {
         var scanner = new Scanner(System.in);
