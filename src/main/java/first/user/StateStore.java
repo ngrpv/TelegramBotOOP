@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class StateStore {
     private static final HashMap<Long, User> userStates = new HashMap<>();
+
     public static User getUserState(Long chatId) {
         User user;
         if (userStates.containsKey(chatId))
@@ -14,4 +15,9 @@ public class StateStore {
         }
         return user;
     }
+
+    public static HashMap<Long, User> getUsers() {
+        return userStates;
+    }
+
 }

@@ -17,7 +17,7 @@ public class CowsAndBullsTests {
         Assertions.assertSame(message, WORD_EQUAL_LENGTH);
     }
 
-    private int[] getCowsAndBulls(String userWord, String word) {
+    private int[] getCowsAndBulls(String userWord, String word) { //todo Unused
         var game = new CowsAndBullsState();
         game.setWord(word);
         var bulls = Character.getNumericValue(game.checkAnswer(userWord).toCharArray()[5]);
@@ -72,7 +72,7 @@ public class CowsAndBullsTests {
     }
 
     @Test
-    public void check_if_word_with_letter() {
+    public void check_wordWithDigit_() {
         check_counting_cows_and_bulls("сл0н","слон",3,0);
     }
 

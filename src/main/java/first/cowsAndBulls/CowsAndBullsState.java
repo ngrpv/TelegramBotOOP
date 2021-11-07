@@ -10,6 +10,7 @@ import java.util.Locale;
 public class CowsAndBullsState implements IGame {
     private static IWordParser wordParser;
     private String word;
+    private int guessedWords;
 
 
     public CowsAndBullsState() {
@@ -18,12 +19,13 @@ public class CowsAndBullsState implements IGame {
 
     public CowsAndBullsState(IWordParser wordParser) {
         CowsAndBullsState.wordParser = wordParser;
-        start();
+        start(); // todo: Лишний?
     }
 
     @Override
     public void start() {
         setWord(wordParser);
+        System.out.println(word);
     }
 
     @Override
@@ -43,6 +45,8 @@ public class CowsAndBullsState implements IGame {
         this.word = word;
     }
 
+    public Integer getGuessedWords() {return guessedWords; }
+
     @Override
     public String checkAnswer(String answer) {
         if (answer.length() < word.length() || answer.length() > word.length() + 1)
@@ -50,6 +54,7 @@ public class CowsAndBullsState implements IGame {
         var usedWord = answer.toLowerCase(Locale.ROOT);
         var cowsAndBullsValue = getCowsAndBulls(usedWord, word);
         if (word.length() == cowsAndBullsValue[1] && answer.length() == word.length()) {
+            guessedWords+=1;
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this) + "\n\n" + getStartMessage();
         }
         return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
