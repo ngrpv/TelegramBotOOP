@@ -18,7 +18,7 @@ public class UserStore {
         if(user == null){
             user = new User(chatId);
             if (database != null) {
-                database.addUser(user);
+                database.updateOrAdd(user);
             }
             userStates.put(chatId, user);
         }

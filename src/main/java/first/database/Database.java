@@ -37,7 +37,7 @@ public class Database implements IDatabase {
         var result = trySend(query, String.valueOf(id));
         assert result != null;
         try {
-            var score = Integer.parseInt(result.getString("score"));
+            var score = Integer.parseInt(result.getString(1));
             return new User(id).withScore(score);
         } catch (SQLException e) {
             e.printStackTrace();
