@@ -2,17 +2,23 @@ package first.user;
 
 import first.IGame;
 import first.hangman.HangmanGameState;
+import java.util.Comparator;
 
-public class User {
+public class User implements Comparable<User>{
     private final long id;
     public int score;
     public UserState state;
     public IGame gameState;
     public Boolean stateIsChanged = false;
+    public Integer guessedWords;
+    public String userName;
+    public Boolean flagName;
 
     public User(long id) {
         state = UserState.onMenu;
         gameState = new HangmanGameState();
+        guessedWords = 0;
+        flagName = true;
         this.id = id;
     }
     public User withScore(int score){
@@ -28,6 +34,14 @@ public class User {
         gameState = game;
     }
 
+    public String getName() {
+        return userName;
+    }
+
+    public int getGuessedWord() {
+        return guessedWords;
+    }
+
     public void changeState(UserState state) {
         stateIsChanged = true;
         this.state = state;
@@ -39,8 +53,19 @@ public class User {
                 break;
         }
     }
-
     public long getId() {
         return id;
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return getName().compareTo(user.getName());
+    }
+
+    public static class GuessedWordComparator implements Comparator<User> {
+        @Override
+        public int compare(User o1, User o2) {
+            return o1.getGuessedWord() - o2.getGuessedWord();
+        }
     }
 }

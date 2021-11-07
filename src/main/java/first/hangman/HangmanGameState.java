@@ -18,6 +18,7 @@ public class HangmanGameState implements IGame {
     private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;
     private int healthPoints;
+    private int guessedWords;
 
     public HangmanGameState() {
         this(new FileHandler(fileName));
@@ -52,7 +53,6 @@ public class HangmanGameState implements IGame {
     public void setWord(IWordParser parser) {
         setWord(parser.getWord());
     }
-
     public void setWord(String word) {
         this.word = word;
         updateState();
@@ -70,6 +70,8 @@ public class HangmanGameState implements IGame {
         return healthPoints;
     }
 
+    public Integer getGuessedWords() {return guessedWords;}
+
     public String checkAnswer(String answer) {
         if(isOver()){
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this);
@@ -84,6 +86,7 @@ public class HangmanGameState implements IGame {
         if (wordHashSet.contains(userLetter)) {
             guessedLetters.add(userLetter);
             if (isWin()) {
+                guessedWords+=1;
                 return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WIN, this);
             }
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.CORRECT_LETTER, this);
