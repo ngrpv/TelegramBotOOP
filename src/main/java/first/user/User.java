@@ -2,10 +2,11 @@ package first.user;
 
 import first.IGame;
 import first.hangman.HangmanGameState;
-
 import java.util.Comparator;
 
-public class User implements Comparable<User> {
+public class User implements Comparable<User>{
+    private final long id;
+    public int score;
     public UserState state;
     public IGame gameState;
     public Boolean stateIsChanged = false;
@@ -13,11 +14,16 @@ public class User implements Comparable<User> {
     public String userName;
     public Boolean flagName;
 
-    public User() {
+    public User(long id) {
         state = UserState.onMenu;
         gameState = new HangmanGameState();
         guessedWords = 0;
         flagName = true;
+        this.id = id;
+    }
+    public User withScore(int score){
+        this.score = score;
+        return this;
     }
 
     public Boolean isPlaying() {
@@ -46,6 +52,9 @@ public class User implements Comparable<User> {
             case onMenu:
                 break;
         }
+    }
+    public long getId() {
+        return id;
     }
 
     @Override

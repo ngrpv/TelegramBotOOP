@@ -5,10 +5,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 
+
+
 public class Main {
     public static void main(String[] args) {
-        //ConsoleBot.launch();
-        launchBot();
+        ConsoleBot.launch();
+        //launchBot();
     }
 
     private static void launchBot() {
