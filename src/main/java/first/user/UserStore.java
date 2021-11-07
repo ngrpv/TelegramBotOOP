@@ -17,6 +17,9 @@ public class UserStore {
         var user = tryGet(chatId);
         if(user == null){
             user = new User(chatId);
+            if (database != null) {
+                database.addUser(user);
+            }
             userStates.put(chatId, user);
         }
         return user;
@@ -27,4 +30,6 @@ public class UserStore {
         if(database == null) return null;
         return database.getUser(id);
     }
+
+
 }

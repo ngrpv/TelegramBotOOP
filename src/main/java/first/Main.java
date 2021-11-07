@@ -12,11 +12,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class Main {
     public static void main(String[] args) {
         //ConsoleBot.launch();
-        //launchBot();
-        Database db = Database.tryGetDatabase();
-        assert db != null;
-        //System.out.println(db.getUser(23));
-        db.updateOrAdd(new User(23));
+        launchBot();
     }
 
     private static void launchBot() {

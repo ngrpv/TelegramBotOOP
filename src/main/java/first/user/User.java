@@ -4,7 +4,7 @@ import first.IGame;
 import first.hangman.HangmanGameState;
 
 public class User {
-    private long id;
+    private final long id;
     public int score;
     public UserState state;
     public IGame gameState;
