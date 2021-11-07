@@ -12,6 +12,7 @@ public class Database implements IDatabase {
     Connection connection;
 
     public Database() throws SQLException, URISyntaxException {
+
         connection = getConnection();
     }
 
@@ -31,12 +32,13 @@ public class Database implements IDatabase {
     }
 
     @Override
-    public String getUser(long id) {
+    public User getUser(long id) {
         var query = "SELECT score, id FROM users WHERE id=?::int8";
         var result = trySend(query, String.valueOf(id));
         assert result != null;
         try {
-            return result.getString("score");
+            var score = Integer.parseInt(result.getString("score"));
+            return new User(id).withScore(score);
         } catch (SQLException e) {
             e.printStackTrace();
         }

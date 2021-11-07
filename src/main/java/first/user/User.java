@@ -15,6 +15,10 @@ public class User {
         gameState = new HangmanGameState();
         this.id = id;
     }
+    public User withScore(int score){
+        this.score = score;
+        return this;
+    }
 
     public Boolean isPlaying() {
         return state == UserState.Playing;
@@ -36,7 +40,11 @@ public class User {
         }
     }
 
-    public long getId(){
+    public long getId() {
         return id;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
