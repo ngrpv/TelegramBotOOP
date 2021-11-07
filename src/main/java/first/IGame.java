@@ -5,4 +5,5 @@ public interface IGame {
  String getStartMessage();
  void start();
  String getRules();
+ Integer getGuessedWords();
 }

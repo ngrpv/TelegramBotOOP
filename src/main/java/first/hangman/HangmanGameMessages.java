@@ -1,5 +1,8 @@
 package first.hangman;
 
+import first.user.User;
+import first.user.UserState;
+
 public class HangmanGameMessages {
 
     private static final String WIN_TEXT = "Ты выиграл!";

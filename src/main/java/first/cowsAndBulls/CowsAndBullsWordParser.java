@@ -6,6 +6,7 @@ import first.IWordParser;
 import java.util.Random;
 
 public class CowsAndBullsWordParser implements IWordParser {
+    // todo: две реализации и подставляйте нужную
     private static final Random random = new Random();
     private static final IWordParser wordParser = new FileHandler("hangmanWords.txt");
 
