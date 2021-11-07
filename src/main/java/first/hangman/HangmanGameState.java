@@ -1,5 +1,6 @@
 package first.hangman;
 
+import com.google.gson.annotations.SerializedName;
 import first.FileHandler;
 import first.IGame;
 import first.IWordParser;
@@ -25,6 +26,14 @@ public class HangmanGameState implements IGame {
     public HangmanGameState(IWordParser wordParser) {
         HangmanGameState.wordParser = wordParser;
         start();
+    }
+
+    public HangmanGameState(String word, HashSet<Character> wordHashSet, HashSet<Character> guessedLetters, HashSet<Character> usedLetters, int healthPoints) {
+        this.word = word;
+        this.wordHashSet = wordHashSet;
+        this.guessedLetters = guessedLetters;
+        this.usedLetters = usedLetters;
+        this.healthPoints = healthPoints;
     }
 
     public void start() {

@@ -8,17 +8,17 @@ import java.net.URISyntaxException;
 import java.sql.*;
 
 
-public class Database implements IDatabase {
+public class PostgresDatabase implements IDatabase {
     Connection connection;
 
-    public Database() throws SQLException, URISyntaxException {
+    public PostgresDatabase() throws SQLException, URISyntaxException {
 
         connection = getConnection();
     }
 
-    public static Database tryGetDatabase() {
+    public static PostgresDatabase tryGetDatabase() {
         try {
-            return new Database();
+            return new PostgresDatabase();
         } catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
             return null;
@@ -70,7 +70,7 @@ public class Database implements IDatabase {
         } finally {
             System.out.println(res);
         }
-        return res;
+        return null;
     }
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
