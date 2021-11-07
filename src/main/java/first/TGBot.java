@@ -1,7 +1,6 @@
 package first;
 
 import first.user.StateStore;
-import first.user.User;
 import first.user.UserState;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -23,7 +22,7 @@ public class TGBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return ("2043235759:AAF_cqZzorfAKgQpMCNKGHM4trXnMoaBG1k");
+        return ("tgBotToken");
     }
 
     @Override
