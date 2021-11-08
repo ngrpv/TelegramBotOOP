@@ -6,6 +6,7 @@ import first.user.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class PostgresDatabase implements IDatabase {
@@ -55,7 +56,26 @@ public class PostgresDatabase implements IDatabase {
                 "ON CONFLICT (id) " +
                 "    DO\n" +
                 "        UPDATE SET score = ?::int;";
-        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score), String.valueOf(user.score), user.userName);
+        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score),user.userName, String.valueOf(user.score));
+    }
+
+    @Override
+    public ArrayList<User> getAllUsers() {
+        var query = "SELECT id, username, score FROM users;";
+        var result = trySend(query);
+        var users = new ArrayList<User>();
+        assert result!=null;
+        try{
+            while(result.next()){
+                var id = Integer.parseInt(result.getString(1));
+                var username = result.getString(2);
+                var score = Integer.parseInt(result.getString(3));
+                users.add(new User(id).withScore(score).withUserName(username));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     private ResultSet trySend(String query, String... args) {

@@ -9,7 +9,7 @@ import first.user.UserState;
 
 public class BotLogic {
     private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры:\nВиселица, Быки и коровы.";
-    private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
+    private static final String UNKNOWN_COMMAND = "Такой команды не существует!";
     private static final String GAME_RESTARTED = "Игра перезапущена.";
     private static final String USER_NAME_INPUT = "Введите своё имя";
 
@@ -26,7 +26,9 @@ public class BotLogic {
             case "Правила":
                 return user.gameState.getRules();
             case "/LeaderBoard":
-                return LeaderBoard.getLeaderBoard();
+            case "Топ":
+                if (!user.isPlaying())
+                    return LeaderBoard.getLeaderBoard();
             case "Перезапустить":
             case "/restart":
                 return GAME_RESTARTED + "\n" + "\n" + startGame(user);
@@ -45,7 +47,7 @@ public class BotLogic {
             default:
                 if (user.userName == null) {
                     user.userName = userMessage;
-                    return "Можешь играть!";
+                    return "Имя установлено: " + userMessage;
                 }
                 if (user.isPlaying()) {
                     return user.gameState.checkAnswer(userMessage);

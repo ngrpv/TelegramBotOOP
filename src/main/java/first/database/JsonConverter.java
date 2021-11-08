@@ -7,6 +7,7 @@ import first.hangman.HangmanGameState;
 import first.user.User;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class JsonConverter implements IDatabase {
     private final String directory;
@@ -50,6 +51,11 @@ public class JsonConverter implements IDatabase {
     @Override
     public void updateOrAdd(User user) {
         addUser(user);
+    }
+
+    @Override
+    public ArrayList<User> getAllUsers() {
+        return null;
     }
 
     private void IGameDeserializer(){

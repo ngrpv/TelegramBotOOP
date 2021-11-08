@@ -1,42 +1,25 @@
 package first.user;
 
-import com.sun.source.tree.SynchronizedTree;
-import first.database.JsonConverter;
-import first.database.PostgresDatabase;
 import first.database.IDatabase;
+import first.database.PostgresDatabase;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class UserStore {
     private static final ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
-    private static final IDatabase database = new JsonConverter("jsonUsers");
-    // private static final IDatabase database = PostgresDatabase.tryGetDatabase();
+  //  private static final IDatabase database = new JsonConverter("jsonUsers");
+    private static Boolean databaseUpdaterIsEnabled = false;
+    private static final IDatabase database = PostgresDatabase.tryGetDatabase();
+
 
     public UserStore() {
-        new Thread(new Runnable() {
-            public void run() {
-                while(true) {
-                    try {
-                        Thread.sleep(5000);
-                        updateDatabase();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+
     }
 
-    public static Boolean userIsExists(Long chatId) {
-        return tryGet(chatId) != null;
-    }
-
-    public static User getUserState(Long chatId) {
+    public static User getUser(Long chatId) {
+        if(!databaseUpdaterIsEnabled)
+            startDatabaseUpdater();
         var user = tryGet(chatId);
         if (user == null) {
             user = new User(chatId);
@@ -50,14 +33,35 @@ public class UserStore {
             database.updateOrAdd(user);
     }
 
+    private static void startDatabaseUpdater() {
+        databaseUpdaterIsEnabled = true;
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(5000);
+                        updateDatabase();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
     private static User tryGet(Long id) {
         if (userStates.containsKey(id)) return userStates.get(id);
         if (database == null) return null;
-        return database.getUser(id);
+        var user = database.getUser(id);
+        if(user!=null){
+            userStates.put(id, user);
+        }
+        return user;
     }
 
-    private static void updateDatabase(){
+    private static void updateDatabase() {
         for (var user : userStates.values()) {
+            assert database != null;
             database.updateOrAdd(user);
         }
     }

@@ -28,7 +28,7 @@ public class TGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         var chatId = update.getMessage().getChatId();
-        var user = UserStore.getUserState(chatId);
+        var user = UserStore.getUser(chatId);
         var messageText = update.getMessage().getText();
         var sendMessage = new SendMessage();
         sendMessage.setChatId(update.getMessage().getChatId().toString());

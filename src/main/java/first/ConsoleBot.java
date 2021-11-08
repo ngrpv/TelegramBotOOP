@@ -10,7 +10,7 @@ public class ConsoleBot {
 
     public static void launch() {
         var stor = new UserStore();
-        var user = UserStore.getUserState((long)0);
+        var user = UserStore.getUser((long)0);
         var scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             var userMessage = scanner.nextLine();
