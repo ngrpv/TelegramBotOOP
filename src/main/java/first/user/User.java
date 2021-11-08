@@ -3,6 +3,7 @@ package first.user;
 import first.IGame;
 import first.hangman.HangmanGameState;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class User implements Comparable<User>{
     private final long id;

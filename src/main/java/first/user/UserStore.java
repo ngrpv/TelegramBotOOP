@@ -1,18 +1,21 @@
 package first.user;
 
+import com.sun.source.tree.SynchronizedTree;
 import first.database.JsonConverter;
 import first.database.PostgresDatabase;
 import first.database.IDatabase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class UserStore {
-    private static final HashMap<Long, User> userStates = new HashMap<>();
+    private static final ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
     private static final IDatabase database = new JsonConverter("jsonUsers");
+    // private static final IDatabase database = PostgresDatabase.tryGetDatabase();
 
     public UserStore() {
         new Thread(new Runnable() {
@@ -28,7 +31,6 @@ public class UserStore {
             }
         }).start();
     }
-    // private static final IDatabase database = PostgresDatabase.tryGetDatabase();
 
     public static Boolean userIsExists(Long chatId) {
         return tryGet(chatId) != null;
@@ -38,9 +40,6 @@ public class UserStore {
         var user = tryGet(chatId);
         if (user == null) {
             user = new User(chatId);
-            if (database != null) {
-                database.updateOrAdd(user);
-            }
             userStates.put(chatId, user);
         }
         return user;
@@ -63,4 +62,7 @@ public class UserStore {
         }
     }
 
+    public static ArrayList<User> getUsers() {
+        return new ArrayList<>(userStates.values());
+    }
 }
