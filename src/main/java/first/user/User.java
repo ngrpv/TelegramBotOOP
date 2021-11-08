@@ -26,6 +26,10 @@ public class User implements Comparable<User>{
         this.score = score;
         return this;
     }
+    public User withUserName(String userName){
+        this.userName = userName;
+        return this;
+    }
 
     public Boolean isPlaying() {
         return state == UserState.Playing;

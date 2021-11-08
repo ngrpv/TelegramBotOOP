@@ -33,12 +33,15 @@ public class PostgresDatabase implements IDatabase {
 
     @Override
     public User getUser(long id) {
-        var query = "SELECT score, id FROM users WHERE id=?::int8";
+        var query = "SELECT score, username FROM users WHERE id=?::int8";
         var result = trySend(query, String.valueOf(id));
         assert result != null;
         try {
-            var score = Integer.parseInt(result.getString(1));
-            return new User(id).withScore(score);
+            if(result.next()){
+                var score = Integer.parseInt(result.getString(1));
+                var username = result.getString(2);
+                return new User(id).withScore(score).withUserName(username);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,12 +50,12 @@ public class PostgresDatabase implements IDatabase {
 
     @Override
     public void updateOrAdd(User user) {
-        var query = "INSERT INTO users (id, score) " +
-                "VALUES(?::int8, ?::int) " +
+        var query = "INSERT INTO users (id, score, username) " +
+                "VALUES(?::int8, ?::int, ?) " +
                 "ON CONFLICT (id) " +
                 "    DO\n" +
                 "        UPDATE SET score = ?::int;";
-        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score), String.valueOf(user.score));
+        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score), String.valueOf(user.score), user.userName);
     }
 
     private ResultSet trySend(String query, String... args) {
