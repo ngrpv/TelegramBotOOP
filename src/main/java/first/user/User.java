@@ -7,15 +7,19 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Comparator;
 
 @Entity
 @Getter
 @Setter
 public class User implements Comparable<User> {
+    @Id
     private long id;
+
     public int score;
     public UserState state;
+    @Transient
     public IGame gameState;
     public Boolean stateIsChanged = true;
     public Integer guessedWords;
@@ -53,7 +57,6 @@ public class User implements Comparable<User> {
     }
 
 
-
     public void changeState(UserState state) {
         stateIsChanged = true;
         this.state = state;
@@ -66,10 +69,6 @@ public class User implements Comparable<User> {
         }
     }
 
-    @Id
-    public long getId() {
-        return id;
-    }
 
     @Override
     public int compareTo(User user) {
