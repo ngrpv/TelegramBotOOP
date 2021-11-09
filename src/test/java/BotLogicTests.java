@@ -14,6 +14,7 @@ public class BotLogicTests {
         String START_GAME = "/hangman";
         User user = new User(0);
         var str = BotLogic.handleMessage(START_GAME, user);
+
         Assertions.assertTrue(user.isPlaying());
     }
 

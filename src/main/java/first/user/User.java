@@ -10,7 +10,7 @@ public class User implements Comparable<User>{
     public int score;
     public UserState state;
     public IGame gameState;
-    public Boolean stateIsChanged = true;
+    public Boolean stateIsChanged = false;
     public Integer guessedWords;
     public String userName;
     public Boolean flagName;

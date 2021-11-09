@@ -16,7 +16,7 @@ public class Main {
     private static void launchBot() {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(new TGBot("NRGNbot"));
+                telegramBotsApi.registerBot(new TGBot("NRGNbot"));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
