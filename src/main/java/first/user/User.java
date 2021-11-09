@@ -2,11 +2,18 @@ package first.user;
 
 import first.IGame;
 import first.hangman.HangmanGameState;
-import java.util.Comparator;
-import java.util.HashMap;
+import lombok.Getter;
+import lombok.Setter;
 
-public class User implements Comparable<User>{
-    private final long id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Comparator;
+
+@Entity
+@Getter
+@Setter
+public class User implements Comparable<User> {
+    private long id;
     public int score;
     public UserState state;
     public IGame gameState;
@@ -22,11 +29,17 @@ public class User implements Comparable<User>{
         flagName = true;
         this.id = id;
     }
-    public User withScore(int score){
+
+    public User() {
+
+    }
+
+    public User withScore(int score) {
         this.score = score;
         return this;
     }
-    public User withUserName(String userName){
+
+    public User withUserName(String userName) {
         this.userName = userName;
         return this;
     }
@@ -39,13 +52,7 @@ public class User implements Comparable<User>{
         gameState = game;
     }
 
-    public String getName() {
-        return userName;
-    }
 
-    public int getGuessedWord() {
-        return guessedWords;
-    }
 
     public void changeState(UserState state) {
         stateIsChanged = true;
@@ -58,19 +65,26 @@ public class User implements Comparable<User>{
                 break;
         }
     }
+
+    @Id
     public long getId() {
         return id;
     }
 
     @Override
     public int compareTo(User user) {
-        return getName().compareTo(user.getName());
+        return userName.compareTo(user.userName);
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public static class GuessedWordComparator implements Comparator<User> {
         @Override
         public int compare(User o1, User o2) {
-            return o1.getGuessedWord() - o2.getGuessedWord();
+            return o1.getGuessedWords() - o2.getGuessedWords();
         }
     }
 }

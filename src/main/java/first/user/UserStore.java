@@ -1,6 +1,7 @@
 package first.user;
 
 import first.database.IDatabase;
+import first.database.JsonConverter;
 import first.database.PostgresDatabase;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UserStore {
     private static final ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
-  //  private static final IDatabase database = new JsonConverter("jsonUsers");
+   // private static final IDatabase database = new JsonConverter("jsonUsers");
     private static Boolean databaseUpdaterIsEnabled = false;
     private static final IDatabase database = PostgresDatabase.tryGetDatabase();
 
@@ -67,6 +68,6 @@ public class UserStore {
     }
 
     public static ArrayList<User> getUsers() {
-        return new ArrayList<>(userStates.values());
+        return database.getAllUsers();
     }
 }

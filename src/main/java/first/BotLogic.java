@@ -36,6 +36,7 @@ public class BotLogic {
             case "Выход":
                 user.guessedWords += user.gameState.getGuessedWords();
                 user.changeState(UserState.onMenu);
+                return "Меню";
             case "/cowsAndBulls":
             case "Быки и коровы":
                 if (!user.isPlaying())
@@ -52,8 +53,8 @@ public class BotLogic {
                 if (user.isPlaying()) {
                     return user.gameState.checkAnswer(userMessage);
                 }
-                return UNKNOWN_COMMAND;
         }
+        return UNKNOWN_COMMAND;
     }
 
     private static void setGame(User user, IGame game) {

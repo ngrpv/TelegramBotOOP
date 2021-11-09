@@ -2,10 +2,11 @@ import first.FileHandler;
 import first.hangman.HangmanGameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 public class HangmanGameTests {
     @Test
-    public void game_shouldnt_beWon_when_no_letter_entered() {
+    public void isWin_shouldBeFalse_ifNewGameCreated() {
         Assertions.assertEquals(false, new HangmanGameState().isWin());
     }
 

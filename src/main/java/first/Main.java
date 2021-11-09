@@ -1,16 +1,17 @@
 package first;
 
+import first.database.HibernateUtil;
+import org.hibernate.Session;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 
-
-
 public class Main {
     public static void main(String[] args) {
         //ConsoleBot.launch();
-        launchBot();
+        //launchBot();
+        Session session = HibernateUtil.getSessionFactory().openSession();
     }
 
     private static void launchBot() {

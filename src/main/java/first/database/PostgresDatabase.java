@@ -8,12 +8,13 @@ import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 
+// todo Репозиторий UserRepository
+// ORM hibernate
 
 public class PostgresDatabase implements IDatabase {
     Connection connection;
 
     public PostgresDatabase() throws SQLException, URISyntaxException {
-
         connection = getConnection();
     }
 
@@ -28,8 +29,8 @@ public class PostgresDatabase implements IDatabase {
 
     @Override
     public void addUser(User user) {
-        var query = "INSERT INTO users(id, score) VALUES(?::int8, ?::int);";
-        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score));
+        var query = "INSERT INTO users(id, score, username) VALUES(?::int8, ?::int, ?);";
+        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score), user.userName);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class PostgresDatabase implements IDatabase {
         var result = trySend(query, String.valueOf(id));
         assert result != null;
         try {
-            if(result.next()){
+            if (result.next()) {
                 var score = Integer.parseInt(result.getString(1));
                 var username = result.getString(2);
                 return new User(id).withScore(score).withUserName(username);
@@ -55,8 +56,8 @@ public class PostgresDatabase implements IDatabase {
                 "VALUES(?::int8, ?::int, ?) " +
                 "ON CONFLICT (id) " +
                 "    DO\n" +
-                "        UPDATE SET score = ?::int;";
-        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score),user.userName, String.valueOf(user.score));
+                "        UPDATE SET score = ?::int, username=?";
+        trySend(query, String.valueOf(user.getId()), String.valueOf(user.score), user.userName, String.valueOf(user.score), user.userName);
     }
 
     @Override
@@ -64,15 +65,15 @@ public class PostgresDatabase implements IDatabase {
         var query = "SELECT id, username, score FROM users;";
         var result = trySend(query);
         var users = new ArrayList<User>();
-        assert result!=null;
-        try{
-            while(result.next()){
+        assert result != null;
+        try {
+            while (result.next()) {
                 var id = Integer.parseInt(result.getString(1));
                 var username = result.getString(2);
                 var score = Integer.parseInt(result.getString(3));
                 users.add(new User(id).withScore(score).withUserName(username));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return users;
@@ -86,7 +87,6 @@ public class PostgresDatabase implements IDatabase {
                 preparedStatement.setString(i + 1, args[i]);
             }
             res = preparedStatement.executeQuery();
-            System.out.println(res);
             return res;
         } catch (SQLException e) {
             e.printStackTrace();

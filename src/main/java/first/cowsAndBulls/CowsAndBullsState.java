@@ -19,7 +19,6 @@ public class CowsAndBullsState implements IGame {
 
     public CowsAndBullsState(IWordParser wordParser) {
         CowsAndBullsState.wordParser = wordParser;
-        start(); // todo: Лишний?
     }
 
     @Override
