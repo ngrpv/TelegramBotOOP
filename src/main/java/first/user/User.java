@@ -1,5 +1,6 @@
 package first.user;
 
+import first.GameType;
 import first.IGame;
 import first.hangman.HangmanGameState;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.Comparator;
 
-@Entity
+@Entity(name = "user")
 @Getter
 @Setter
 public class User implements Comparable<User> {
@@ -19,6 +20,8 @@ public class User implements Comparable<User> {
 
     public int score;
     public UserState state;
+    public GameType gameType;
+    public long GameID;
     @Transient
     public IGame gameState;
     public Boolean stateIsChanged = true;
@@ -34,7 +37,7 @@ public class User implements Comparable<User> {
         this.id = id;
     }
 
-    public User() {
+    public User(){
 
     }
 
@@ -75,9 +78,6 @@ public class User implements Comparable<User> {
         return userName.compareTo(user.userName);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 
     public static class GuessedWordComparator implements Comparator<User> {
