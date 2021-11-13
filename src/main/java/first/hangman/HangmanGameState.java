@@ -5,14 +5,15 @@ import first.FileHandler;
 import first.IGame;
 import first.IWordParser;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Locale;
 
 public class HangmanGameState implements IGame {
     private String word;
-
     private HashSet<Character> wordHashSet;
-
     private HashSet<Character> guessedLetters;
     private HashSet<Character> usedLetters;
     private static final String fileName = "hangmanWords.txt";

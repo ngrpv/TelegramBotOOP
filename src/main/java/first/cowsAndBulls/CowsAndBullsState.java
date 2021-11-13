@@ -3,9 +3,10 @@ package first.cowsAndBulls;
 import first.IGame;
 import first.IWordParser;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.HashSet;
 import java.util.Locale;
-
 
 public class CowsAndBullsState implements IGame {
     private static IWordParser wordParser;

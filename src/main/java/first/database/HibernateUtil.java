@@ -1,5 +1,6 @@
 package first.database;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -8,6 +9,9 @@ import org.hibernate.cfg.Configuration;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class HibernateUtil {
 
@@ -22,22 +26,16 @@ public class HibernateUtil {
         }
         assert dbUri != null;
         String connection = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
         Configuration configuration = new Configuration()
                 .setProperty("hibernate.connection.url", connection)
-                .setProperty("hibernate.connection.username", System.getenv("DATABASE_USERNAME"))
-                .setProperty("hibernate.connection.password", System.getenv("DATABASE_PASSWORD"));
-        configuration.configure();
-        sessionFactory = configuration.buildSessionFactory();
-        /*sessionFactory = configuration
-                .buildSessionFactory(new ServiceRegistryBuilder()
-                        .buildServiceRegistry());
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
-        sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();*/
+                .setProperty("hibernate.connection.username", username)
+                .setProperty("hibernate.connection.password", password) ;
+        sessionFactory = configuration.configure().buildSessionFactory();
     }
 
-    public static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

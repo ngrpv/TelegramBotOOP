@@ -2,16 +2,16 @@ package first.user;
 
 import first.GameType;
 import first.IGame;
+import first.cowsAndBulls.CowsAndBullsState;
 import first.hangman.HangmanGameState;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Comparator;
 
-@Entity(name = "user")
+@Entity
+@Table(name = "users")
 @Getter
 @Setter
 public class User implements Comparable<User> {
@@ -22,8 +22,10 @@ public class User implements Comparable<User> {
     public UserState state;
     public GameType gameType;
     public long GameID;
+
     @Transient
     public IGame gameState;
+
     public Boolean stateIsChanged = true;
     public Integer guessedWords;
     public String userName;
