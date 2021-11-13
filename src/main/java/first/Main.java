@@ -13,16 +13,7 @@ import javax.persistence.FlushModeType;
 public class Main {
     public static void main(String[] args) {
         //ConsoleBot.launch();
-        //launchBot();
-        var session = HibernateUtil.getSessionFactory().openSession();
-        var t = session.beginTransaction();
-        var user = new User(233);
-        user.userName = "ddasdas";
-        session.save(user);
-        session.persist(user);
-        System.out.println(session.get(User.class, 233L).userName);
-        session.flush();
-        t.commit();
+        launchBot();
     }
 
     private static void launchBot() {
