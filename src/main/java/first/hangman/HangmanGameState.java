@@ -51,7 +51,7 @@ public class HangmanGameState implements IGame {
     }
 
     public HangmanGameState() {
-        
+
     }
 
     public void start() {
