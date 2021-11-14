@@ -10,19 +10,11 @@ public class CowsAndBullsTests {
 
     @Test
     public void word_should_be_correct_in_length() {
-        var game = new CowsAndBullsState();
+        var game = new CowsAndBullsState(0L);
         game.setWord("папаша");
         var message = game.checkAnswer("папа");
         var WORD_EQUAL_LENGTH = "Введите число той же длины, что и загадано!";
         Assertions.assertSame(message, WORD_EQUAL_LENGTH);
-    }
-
-    private int[] getCowsAndBulls(String userWord, String word) { //todo Unused
-        var game = new CowsAndBullsState();
-        game.setWord(word);
-        var bulls = Character.getNumericValue(game.checkAnswer(userWord).toCharArray()[5]);
-        var cows = Character.getNumericValue(game.checkAnswer(userWord).toCharArray()[14]);
-        return new int[]{bulls, cows};
     }
 
     private void check_counting_cows_and_bulls(String userWord, String guessed, int expectedBulls, int expectedCows) {
@@ -37,7 +29,7 @@ public class CowsAndBullsTests {
 
     @BeforeEach
     public void setUp() {
-        game = new CowsAndBullsState();
+        game = new CowsAndBullsState(0L);
     }
 
     @Test

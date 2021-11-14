@@ -1,9 +1,7 @@
 package first.user;
 
 import first.database.IDatabase;
-import first.database.JsonConverter;
-import first.database.PostgresDatabase;
-import first.repository.MainRepository;
+import first.repository.HibernateDatabase;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,7 +10,7 @@ public class UserStore {
     private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
     private static Boolean databaseUpdaterIsEnabled = false;
   //  private static final IDatabase database = PostgresDatabase.tryGetDatabase();
-    private static final IDatabase database = new MainRepository();
+    private static final IDatabase database = new HibernateDatabase();
 
 
     public UserStore() {

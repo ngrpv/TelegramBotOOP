@@ -40,11 +40,11 @@ public class BotLogic {
             case "/cowsAndBulls":
             case "Быки и коровы":
                 if (!user.isPlaying())
-                    return startGame(user, new CowsAndBullsState());
+                    return startGame(user, new CowsAndBullsState(user.GameID));
             case "/hangman":
             case "Виселица":
                 if (!user.isPlaying())
-                    return startGame(user, new HangmanGameState());
+                    return startGame(user, new HangmanGameState(user.GameID));
             default:
                 if (user.userName == null) {
                     user.userName = userMessage;

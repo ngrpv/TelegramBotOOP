@@ -1,6 +1,8 @@
 package first;
 
+import first.cowsAndBulls.CowsAndBullsState;
 import first.database.HibernateUtil;
+import first.hangman.HangmanGameState;
 import first.user.User;
 import org.hibernate.Session;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -13,7 +15,7 @@ import javax.persistence.FlushModeType;
 public class Main {
     public static void main(String[] args) {
         //ConsoleBot.launch();
-        launchBot();
+        //launchBot();
     }
 
     private static void launchBot() {

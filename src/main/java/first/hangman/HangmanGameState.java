@@ -4,25 +4,37 @@ import com.google.gson.annotations.SerializedName;
 import first.FileHandler;
 import first.IGame;
 import first.IWordParser;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
+@Entity
+@Table(name = "hangman_game")
+@Getter
+@Setter
 public class HangmanGameState implements IGame {
     private String word;
-    private HashSet<Character> wordHashSet;
-    private HashSet<Character> guessedLetters;
-    private HashSet<Character> usedLetters;
+    @ElementCollection
+    public Set<Character> wordHashSet;
+    @ElementCollection
+    public Set<Character> guessedLetters;
+    @ElementCollection
+    public Set<Character> usedLetters;
     private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;
     private int healthPoints;
     private int guessedWords;
+    @Id
+    private Long id;
 
-    public HangmanGameState() {
+    public HangmanGameState(Long id) {
+
         this(new FileHandler(fileName));
+        this.id = id;
     }
 
     public HangmanGameState(IWordParser wordParser) {
@@ -36,6 +48,10 @@ public class HangmanGameState implements IGame {
         this.guessedLetters = guessedLetters;
         this.usedLetters = usedLetters;
         this.healthPoints = healthPoints;
+    }
+
+    public HangmanGameState() {
+        
     }
 
     public void start() {
@@ -54,6 +70,7 @@ public class HangmanGameState implements IGame {
     public void setWord(IWordParser parser) {
         setWord(parser.getWord());
     }
+
     public void setWord(String word) {
         this.word = word;
         updateState();
@@ -71,10 +88,12 @@ public class HangmanGameState implements IGame {
         return healthPoints;
     }
 
-    public Integer getGuessedWords() {return guessedWords;}
+    public Integer getGuessedWords() {
+        return guessedWords;
+    }
 
     public String checkAnswer(String answer) {
-        if(isOver()){
+        if (isOver()) {
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this);
         }
         if (answer.length() != 1)
@@ -87,7 +106,7 @@ public class HangmanGameState implements IGame {
         if (wordHashSet.contains(userLetter)) {
             guessedLetters.add(userLetter);
             if (isWin()) {
-                guessedWords+=1;
+                guessedWords += 1;
                 return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WIN, this);
             }
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.CORRECT_LETTER, this);
@@ -99,7 +118,8 @@ public class HangmanGameState implements IGame {
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.WRONG_LETTER, this);
         }
     }
-    private String restartGame(){
+
+    private String restartGame() {
         start();
         return "\nИгра перезапущена\n\n" + getStartMessage();
     }
@@ -139,5 +159,13 @@ public class HangmanGameState implements IGame {
 
     protected String getHiddenWord() {
         return getWordWithGuessedLetters();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

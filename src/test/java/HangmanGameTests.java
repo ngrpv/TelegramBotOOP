@@ -7,12 +7,12 @@ import org.junit.jupiter.api.TestTemplate;
 public class HangmanGameTests {
     @Test
     public void isWin_shouldBeFalse_ifNewGameCreated() {
-        Assertions.assertEquals(false, new HangmanGameState().isWin());
+        Assertions.assertEquals(false, new HangmanGameState(0L).isWin());
     }
 
     @Test
     public void should_reduce_hp_when_incorrect_letter() {
-        var game = new HangmanGameState();
+        var game = new HangmanGameState(0L);
         var initialHp = game.getHealthPoints();
         game.setWord("aaaaa");
         game.checkAnswer("c");
@@ -21,7 +21,7 @@ public class HangmanGameTests {
 
     @Test
     public void game_should_restart_when_hp_run_out() {
-        var game = new HangmanGameState();
+        var game = new HangmanGameState(0L);
         game.setWord("aaaa");
         var initialHp = game.getHealthPoints();
         for (var i = 0; i < initialHp; i++) {

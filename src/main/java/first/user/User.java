@@ -21,7 +21,7 @@ public class User implements Comparable<User> {
     public int score;
     public UserState state;
     public GameType gameType;
-    public long GameID;
+    public long GameID = id;
 
     @Transient
     public IGame gameState;
@@ -33,7 +33,7 @@ public class User implements Comparable<User> {
 
     public User(long id) {
         state = UserState.onMenu;
-        gameState = new HangmanGameState();
+        gameState = new HangmanGameState(GameID);
         guessedWords = 0;
         flagName = true;
         this.id = id;
