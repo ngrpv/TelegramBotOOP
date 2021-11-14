@@ -1,5 +1,5 @@
 import first.user.User;
-import first.BotLogic;
+import first.bot.BotLogic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

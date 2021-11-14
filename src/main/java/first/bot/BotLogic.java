@@ -1,7 +1,8 @@
-package first;
+package first.bot;
 
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
+import first.games.IGame;
+import first.games.cowsAndBulls.CowsAndBullsState;
+import first.games.hangman.HangmanGameState;
 import first.user.LeaderBoard;
 import first.user.User;
 import first.user.UserState;

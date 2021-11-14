@@ -2,9 +2,7 @@ package first.database;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import first.IGame;
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
+import first.games.IGame;
 import first.user.User;
 
 import java.io.*;

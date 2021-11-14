@@ -1,6 +1,6 @@
 package first.repository;
 
-import first.IGame;
+import first.games.IGame;
 
 import java.util.ArrayList;
 

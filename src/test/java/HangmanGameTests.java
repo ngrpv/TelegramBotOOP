@@ -1,8 +1,7 @@
 import first.FileHandler;
-import first.hangman.HangmanGameState;
+import first.games.hangman.HangmanGameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 public class HangmanGameTests {
     @Test

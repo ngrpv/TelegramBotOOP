@@ -1,4 +1,4 @@
-package first;
+package first.games;
 
 public interface IGame {
  String checkAnswer(String answer);

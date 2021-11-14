@@ -1,8 +1,7 @@
 package first.repository;
 
-import first.IGame;
+import first.games.IGame;
 import first.user.User;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;

@@ -1,9 +1,8 @@
 package first.user;
 
-import first.GameType;
-import first.IGame;
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
+import first.games.GameType;
+import first.games.IGame;
+import first.games.hangman.HangmanGameState;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +27,7 @@ public class User implements Comparable<User> {
 
     public Boolean stateIsChanged = true;
     public Integer guessedWords;
+    @Column(name = "username")
     public String userName;
     public Boolean flagName;
 

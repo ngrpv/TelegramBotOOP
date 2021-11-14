@@ -1,9 +1,9 @@
 package first.database;
 
 import com.google.gson.*;
-import first.IGame;
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
+import first.games.IGame;
+import first.games.cowsAndBulls.CowsAndBullsState;
+import first.games.hangman.HangmanGameState;
 
 import java.lang.reflect.Type;
 

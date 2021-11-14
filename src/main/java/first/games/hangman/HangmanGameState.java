@@ -1,8 +1,7 @@
-package first.hangman;
+package first.games.hangman;
 
-import com.google.gson.annotations.SerializedName;
 import first.FileHandler;
-import first.IGame;
+import first.games.IGame;
 import first.IWordParser;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +15,14 @@ import java.util.Set;
 @Table(name = "hangman_game")
 @Getter
 @Setter
+@NamedEntityGraph
 public class HangmanGameState implements IGame {
     private String word;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<Character> wordHashSet;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<Character> guessedLetters;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Set<Character> usedLetters;
     private static final String fileName = "hangmanWords.txt";
     private static IWordParser wordParser;

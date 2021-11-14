@@ -1,11 +1,10 @@
 package first.repository;
 
-import first.GameType;
-import first.IGame;
-import first.cowsAndBulls.CowsAndBullsState;
+import first.games.IGame;
+import first.games.cowsAndBulls.CowsAndBullsState;
 import first.database.HibernateUtil;
 import first.database.IDatabase;
-import first.hangman.HangmanGameState;
+import first.games.hangman.HangmanGameState;
 import first.user.User;
 import org.hibernate.SessionFactory;
 
@@ -27,6 +26,7 @@ public class HibernateDatabase implements IDatabase {
     @Override
     public User getUser(long id) {
         var user = userRepository.Get(id);
+        if(user == null) return null;
         user.gameState = getGameRepository(user).Get(user.GameID);
         return user;
     }
@@ -52,6 +52,7 @@ public class HibernateDatabase implements IDatabase {
     }
 
     private IRepository<? extends IGame> getGameRepository(User user) {
+        if(user.gameType == null) return hangmanRepository;
         return switch (user.gameType) {
             case Hangman -> hangmanRepository;
             case CowsAndBulls -> cowsAndBullsRepository;

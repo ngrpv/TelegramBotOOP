@@ -1,4 +1,4 @@
-package first;
+package first.bot;
 
 import first.user.UserState;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;

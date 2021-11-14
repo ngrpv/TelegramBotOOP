@@ -1,6 +1,6 @@
-package first.cowsAndBulls;
+package first.games.cowsAndBulls;
 
-import first.IGame;
+import first.games.IGame;
 import first.IWordParser;
 import lombok.Getter;
 import lombok.Setter;
