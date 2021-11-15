@@ -1,7 +1,7 @@
 package first.user;
 
 import first.database.IDatabase;
-import first.database.repository.HibernateDatabase;
+import first.database.HibernateDatabase;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,8 +18,7 @@ public class UserStore {
     }
 
     public static User getUser(Long chatId) {
-        if(!databaseUpdaterIsEnabled)
-            startDatabaseUpdater();
+        updateDatabase();
         var user = tryGet(chatId);
         if (user == null) {
             user = new User(chatId);
