@@ -1,7 +1,7 @@
 package first.user;
 
 import first.database.IDatabase;
-import first.repository.HibernateDatabase;
+import first.database.repository.HibernateDatabase;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
