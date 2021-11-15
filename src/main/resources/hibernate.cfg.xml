@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
 
         <!-- Assume test is the database name -->
-<!--        <property name="hbm2ddl.auto">create</property>-->
+        <property name="hbm2ddl.auto">create</property>
         <property name="connection.url">jdbc:postgresql://ec2-54-87-92-21.compute-1.amazonaws.com:5432/d2jeuouc60uojr
         </property>
 
