@@ -36,7 +36,7 @@ public class BotLogic {
                 return GAME_RESTARTED + "\n" + "\n" + startGame(user);
             case "/exit":
             case "Выход":
-                user.guessedWords += user.gameState.getGuessedWords();
+                user.score += user.gameState.getGuessedWords();
                 user.changeState(UserState.onMenu);
                 return "Меню";
             case "/cowsAndBulls":

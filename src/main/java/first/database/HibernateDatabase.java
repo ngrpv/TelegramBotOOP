@@ -1,9 +1,10 @@
-package first.database.repository;
+package first.database;
 
+import first.database.repository.IRepository;
+import first.database.repository.Repository;
 import first.games.IGame;
 import first.games.cowsAndBulls.CowsAndBullsState;
-import first.database.HibernateUtil;
-import first.database.IDatabase;
+import first.HibernateUtil;
 import first.games.hangman.HangmanGameState;
 import first.user.User;
 import org.hibernate.SessionFactory;
