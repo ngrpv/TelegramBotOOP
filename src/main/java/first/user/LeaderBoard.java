@@ -11,7 +11,7 @@ public class LeaderBoard {
         users.sort(Collections.reverseOrder(new User.GuessedWordComparator()));
         for (User user : users) {
             if (users.size() > 10) break;
-            LeaderBoard.append("\n").append(user.getUserName()).append(":").append(user.getGuessedWords());
+            LeaderBoard.append("\n").append(user.getUserName()).append(":").append(user.score);
         }
         return LeaderBoard.toString();
 
