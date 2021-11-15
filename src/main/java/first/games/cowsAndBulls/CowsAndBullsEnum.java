@@ -1,4 +1,4 @@
-package first.cowsAndBulls;
+package first.games.cowsAndBulls;
 
 public enum CowsAndBullsEnum {
     WRONG_WORD,

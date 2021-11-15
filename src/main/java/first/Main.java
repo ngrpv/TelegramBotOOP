@@ -1,10 +1,9 @@
 package first;
 
+import first.bot.TGBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-
-
 
 
 public class Main {

@@ -1,7 +1,8 @@
-package first;
+package first.bot;
 
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
+import first.games.IGame;
+import first.games.cowsAndBulls.CowsAndBullsState;
+import first.games.hangman.HangmanGameState;
 import first.user.LeaderBoard;
 import first.user.User;
 import first.user.UserState;
@@ -36,15 +37,15 @@ public class BotLogic {
             case "Выход":
                 user.guessedWords += user.gameState.getGuessedWords();
                 user.changeState(UserState.onMenu);
-                break;
+                return "Меню";
             case "/cowsAndBulls":
             case "Быки и коровы":
                 if (!user.isPlaying())
-                    return startGame(user, new CowsAndBullsState());
+                    return startGame(user, new CowsAndBullsState(user.GameID));
             case "/hangman":
             case "Виселица":
                 if (!user.isPlaying())
-                    return startGame(user, new HangmanGameState());
+                    return startGame(user, new HangmanGameState(user.GameID));
             default:
                 if (user.userName == null) {
                     user.userName = userMessage;
@@ -53,7 +54,6 @@ public class BotLogic {
                 if (user.isPlaying()) {
                     return user.gameState.checkAnswer(userMessage);
                 }
-
         }
         return UNKNOWN_COMMAND;
     }

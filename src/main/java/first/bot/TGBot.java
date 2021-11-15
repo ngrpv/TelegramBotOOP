@@ -1,4 +1,4 @@
-package first;
+package first.bot;
 
 import first.user.UserStore;
 import first.user.UserState;
