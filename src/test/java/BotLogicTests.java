@@ -28,16 +28,6 @@ public class BotLogicTests {
         var secondGuessedWord = BotLogic.handleMessage(RESTART_GAME,user);
         Assertions.assertNotEquals(firstGuessedWord, secondGuessedWord);
     }
-    static boolean checkUniqueChars(String s) {
-        final Set<Character> chars = new HashSet<>();
-        for (final char c : s.toCharArray()) {
-            if (chars.contains(c)) {
-                return false;
-            }
-            chars.add(c);
-        }
-        return true;
-    }
 
 
 
