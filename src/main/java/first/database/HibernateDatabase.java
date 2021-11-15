@@ -2,6 +2,7 @@ package first.database;
 
 import first.database.repository.IRepository;
 import first.database.repository.Repository;
+import first.database.repository.UserRepository;
 import first.games.IGame;
 import first.games.cowsAndBulls.CowsAndBullsState;
 import first.HibernateUtil;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class HibernateDatabase implements IDatabase {
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    private final IRepository<User> userRepository = new Repository<>(User.class, sessionFactory);
+    private final UserRepository userRepository = new UserRepository(User.class, sessionFactory);
     private final IRepository<? extends IGame> hangmanRepository = new Repository<>(HangmanGameState.class, sessionFactory);
     private final IRepository<? extends IGame> cowsAndBullsRepository = new Repository<>(CowsAndBullsState.class, sessionFactory);
 
@@ -46,6 +47,10 @@ public class HibernateDatabase implements IDatabase {
             setGame(user);
         }
         return users;
+    }
+
+    public ArrayList<User> getTop(int count) {
+        return userRepository.getTop(count);
     }
 
     private void setGame(User user){

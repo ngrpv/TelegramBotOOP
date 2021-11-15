@@ -1,3 +1,4 @@
+/*
 package first.database;
 
 
@@ -103,3 +104,4 @@ public class PostgresDatabase implements IDatabase {
         return DriverManager.getConnection(dbUrl, username, password);
     }
 }
+*/

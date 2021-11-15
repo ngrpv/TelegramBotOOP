@@ -9,4 +9,5 @@ public interface IDatabase {
     User getUser(long id);
     void updateOrAdd(User user);
     ArrayList<User> getAllUsers();
+    ArrayList<User> getTop(int count);
 }

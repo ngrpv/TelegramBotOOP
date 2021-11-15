@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserStore {
     private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
     private static Boolean databaseUpdaterIsEnabled = false;
-  //  private static final IDatabase database = PostgresDatabase.tryGetDatabase();
+    //  private static final IDatabase database = PostgresDatabase.tryGetDatabase();
     private static final IDatabase database = new HibernateDatabase();
 
 
@@ -48,10 +48,20 @@ public class UserStore {
     private static User tryGet(Long id) {
         if (userStates.containsKey(id)) return userStates.get(id);
         var user = database.getUser(id);
-        if(user!=null){
+        if (user != null) {
             userStates.put(id, user);
         }
         return user;
+    }
+
+    public static ArrayList<User> getTop(int count) {
+        return database.getTop(count);
+    }
+
+
+
+    public static ArrayList<User> getUsers() {
+        return database.getAllUsers();
     }
 
     private static void updateDatabase() {
@@ -59,9 +69,5 @@ public class UserStore {
             database.updateOrAdd(user);
         }
         userStates.clear();
-    }
-
-    public static ArrayList<User> getUsers() {
-        return database.getAllUsers();
     }
 }

@@ -4,6 +4,7 @@ import first.games.IGame;
 import first.user.User;
 import org.hibernate.SessionFactory;
 
+import java.lang.invoke.TypeDescriptor;
 import java.util.ArrayList;
 
 public class Repository<T> implements IRepository<T> {
@@ -92,4 +93,6 @@ public class Repository<T> implements IRepository<T> {
             return (ArrayList<T>) users;
         }
     }
+
+
 }

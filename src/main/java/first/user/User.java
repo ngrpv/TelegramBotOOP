@@ -89,10 +89,10 @@ public class User implements Comparable<User> {
 
 
 
-    public static class GuessedWordComparator implements Comparator<User> {
+    public static class UserByScoreComparator implements Comparator<User> {
         @Override
         public int compare(User o1, User o2) {
-            return o1.getGuessedWords() - o2.getGuessedWords();
+            return o1.score- o2.score;
         }
     }
 }

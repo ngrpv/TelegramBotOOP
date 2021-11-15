@@ -25,7 +25,7 @@ public class HangmanGameState implements IGame {
     @ElementCollection(fetch = FetchType.EAGER)
     public Set<Character> usedLetters;
     private static final String fileName = "hangmanWords.txt";
-    private static IWordParser wordParser;
+    private static IWordParser wordParser = new FileHandler(fileName);
     private int healthPoints;
     private int guessedWords;
     @Id
