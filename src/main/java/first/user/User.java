@@ -2,6 +2,7 @@ package first.user;
 
 import first.games.GameType;
 import first.games.IGame;
+import first.games.cowsAndBulls.CowsAndBullsState;
 import first.games.hangman.HangmanGameState;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,8 +58,13 @@ public class User implements Comparable<User> {
         return state == UserState.Playing;
     }
 
-    public void changeGame(IGame game) {
-        gameState = game;
+    public void changeGame(GameType gameType) {
+        this.gameType = gameType;
+        if(gameType == GameType.Hangman){
+            gameState = new HangmanGameState(GameID);
+        }else{
+            gameState = new CowsAndBullsState(GameID);
+        }
     }
 
 

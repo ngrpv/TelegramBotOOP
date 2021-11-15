@@ -1,5 +1,6 @@
 package first.bot;
 
+import first.games.GameType;
 import first.games.IGame;
 import first.games.cowsAndBulls.CowsAndBullsState;
 import first.games.hangman.HangmanGameState;
@@ -41,11 +42,11 @@ public class BotLogic {
             case "/cowsAndBulls":
             case "Быки и коровы":
                 if (!user.isPlaying())
-                    return startGame(user, new CowsAndBullsState(user.GameID));
+                    return startGame(user, GameType.CowsAndBulls);
             case "/hangman":
             case "Виселица":
                 if (!user.isPlaying())
-                    return startGame(user, new HangmanGameState(user.GameID));
+                    return startGame(user, GameType.Hangman);
             default:
                 if (user.userName == null) {
                     user.userName = userMessage;
@@ -58,8 +59,8 @@ public class BotLogic {
         return UNKNOWN_COMMAND;
     }
 
-    private static void setGame(User user, IGame game) {
-        user.changeGame(game);
+    private static void setGame(User user, GameType gameType) {
+        user.changeGame(gameType);
     }
 
     private static String startGame(User user) {
@@ -67,9 +68,8 @@ public class BotLogic {
         return user.gameState.getStartMessage();
     }
 
-    private static String startGame(User state, IGame game) {
-        setGame(state, game);
+    private static String startGame(User state, GameType gameType) {
+        setGame(state, gameType);
         return startGame(state);
     }
 }
-//Todo: БД + статистика по пользователям

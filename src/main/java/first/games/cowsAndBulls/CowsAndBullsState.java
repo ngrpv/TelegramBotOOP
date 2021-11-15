@@ -11,9 +11,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Locale;
+
 @Entity
 @Table(name = "cows_and_bulls")
-@Getter @Setter
+@Getter
+@Setter
 public class CowsAndBullsState implements IGame {
     private static IWordParser wordParser;
     private String word;
@@ -60,7 +62,9 @@ public class CowsAndBullsState implements IGame {
         this.word = word;
     }
 
-    public Integer getGuessedWords() {return guessedWords; }
+    public Integer getGuessedWords() {
+        return guessedWords;
+    }
 
     @Override
     public String checkAnswer(String answer) {
@@ -69,7 +73,7 @@ public class CowsAndBullsState implements IGame {
         var usedWord = answer.toLowerCase(Locale.ROOT);
         var cowsAndBullsValue = getCowsAndBulls(usedWord, word);
         if (word.length() == cowsAndBullsValue[1] && answer.length() == word.length()) {
-            guessedWords+=1;
+            guessedWords += 1;
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this) + "\n\n" + getStartMessage();
         }
         return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);

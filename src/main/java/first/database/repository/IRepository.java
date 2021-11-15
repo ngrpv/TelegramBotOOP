@@ -1,4 +1,4 @@
-package first.repository;
+package first.database.repository;
 
 import first.games.IGame;
 

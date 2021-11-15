@@ -8,9 +8,6 @@ import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 
-// todo Репозиторий UserRepository
-// ORM hibernate
-
 public class PostgresDatabase implements IDatabase {
     Connection connection;
 
