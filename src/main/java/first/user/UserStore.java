@@ -1,17 +1,14 @@
 package first.user;
 
-import first.database.IDatabase;
-import first.database.HibernateDatabase;
+import first.HibernateUtil;
+import first.database.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserStore {
     private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
-    private static Boolean databaseUpdaterIsEnabled = false;
-    //  private static final IDatabase database = PostgresDatabase.tryGetDatabase();
-    private static final IDatabase database = new HibernateDatabase();
-
+    private static final UserRepository userRepository = new UserRepository(HibernateUtil.getSessionFactory());
 
     public UserStore() {
 
@@ -28,11 +25,10 @@ public class UserStore {
     }
 
     public static void updateUserState(User user) {
-        database.updateOrAdd(user);
+        userRepository.updateOrAdd(user);
     }
 
     private static void startDatabaseUpdater() {
-        databaseUpdaterIsEnabled = true;
         new Thread(() -> {
             while (true) {
                 try {
@@ -47,7 +43,7 @@ public class UserStore {
 
     private static User tryGet(Long id) {
         if (userStates.containsKey(id)) return userStates.get(id);
-        var user = database.getUser(id);
+        var user = userRepository.get(id);
         if (user != null) {
             userStates.put(id, user);
         }
@@ -55,18 +51,17 @@ public class UserStore {
     }
 
     public static ArrayList<User> getTop(int count) {
-        return database.getTop(count);
+        return userRepository.getTop(count, "score");
     }
 
 
-
     public static ArrayList<User> getUsers() {
-        return database.getAllUsers();
+        return userRepository.getAll();
     }
 
     private static void updateDatabase() {
         for (var user : userStates.values()) {
-            database.updateOrAdd(user);
+            userRepository.updateOrAdd(user);
         }
         userStates.clear();
     }

@@ -1,19 +1,16 @@
 package first.database.repository;
 
 import first.games.IGame;
+import first.user.User;
 
 import java.util.ArrayList;
 
 public interface IRepository<T> {
-    void Save(T entity);
-    void Delete(T entity);
-    void Update(T entity);
-    void UpdateOrAdd(T entity);
-    T Get(long id);
-    ArrayList<T> GetAll();
-
-
-    void UpdateOrAdd(IGame gameState);
-
-    void Save(IGame gameState);
+    void save(T entity);
+    void delete(T entity);
+    void update(T entity);
+    void updateOrAdd(T entity);
+    T get(long id);
+    ArrayList<T> getAll();
+    ArrayList<T> getTop(int count, String orderBy);
 }

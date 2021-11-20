@@ -1,6 +1,7 @@
 package first.games.hangman;
 
 import first.FileHandler;
+import first.games.GameType;
 import first.games.IGame;
 import first.IWordParser;
 import lombok.Getter;
@@ -90,6 +91,11 @@ public class HangmanGameState implements IGame {
 
     public Integer getGuessedWords() {
         return guessedWords;
+    }
+
+    @Override
+    public GameType getType() {
+        return GameType.Hangman;
     }
 
     public String checkAnswer(String answer) {

@@ -4,7 +4,6 @@ import first.games.IGame;
 import first.user.User;
 import org.hibernate.SessionFactory;
 
-import java.lang.invoke.TypeDescriptor;
 import java.util.ArrayList;
 
 public class Repository<T> implements IRepository<T> {
@@ -18,7 +17,7 @@ public class Repository<T> implements IRepository<T> {
 
 
     @Override
-    public void Save(T entity) {
+    public void save(T entity) {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             session.persist(entity);
@@ -27,7 +26,7 @@ public class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void Delete(T entity) {
+    public void delete(T entity) {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             session.delete(entity);
@@ -36,7 +35,7 @@ public class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void Update(T entity) {
+    public void update(T entity) {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             session.update(entity);
@@ -45,7 +44,7 @@ public class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void UpdateOrAdd(T entity) {
+    public void updateOrAdd(T entity) {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             session.saveOrUpdate(entity);
@@ -54,25 +53,7 @@ public class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public void UpdateOrAdd(IGame entity) {
-        try (var session = sessionFactory.openSession()) {
-            var transaction = session.beginTransaction();
-            session.saveOrUpdate(entity);
-            transaction.commit();
-        }
-    }
-
-    @Override
-    public void Save(IGame gameState) {
-        try (var session = sessionFactory.openSession()) {
-            var transaction = session.beginTransaction();
-            session.persist(gameState);
-            transaction.commit();
-        }
-    }
-
-    @Override
-    public T Get(long id) {
+    public T get(long id) {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             var entity = session.get(typeParameterClass, id);
@@ -82,15 +63,30 @@ public class Repository<T> implements IRepository<T> {
     }
 
     @Override
-    public ArrayList<T> GetAll() {
+    public ArrayList<T> getAll() {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             var criteriaBuilder = session.getCriteriaBuilder();
             var query = criteriaBuilder.createQuery(typeParameterClass);
-            query.from(User.class);
+            query.from(typeParameterClass);
             var users = session.createQuery(query).getResultList();
             transaction.commit();
             return (ArrayList<T>) users;
+        }
+    }
+
+    @Override
+    public ArrayList<T> getTop(int count, String orderBy) {
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            var criteriaBuilder = session.getCriteriaBuilder();
+            var query = criteriaBuilder.createQuery(typeParameterClass);
+            var root = query.from(typeParameterClass);
+            query.select(root);
+            query.orderBy(criteriaBuilder.desc(root.get(orderBy)));
+            var entities = session.createQuery(query).setFirstResult(0).setMaxResults(count).getResultList();
+            transaction.commit();
+            return (ArrayList<T>) entities;
         }
     }
 

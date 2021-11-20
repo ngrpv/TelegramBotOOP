@@ -1,5 +1,6 @@
 package first.games.cowsAndBulls;
 
+import first.games.GameType;
 import first.games.IGame;
 import first.IWordParser;
 import lombok.Getter;
@@ -64,6 +65,11 @@ public class CowsAndBullsState implements IGame {
 
     public Integer getGuessedWords() {
         return guessedWords;
+    }
+
+    @Override
+    public GameType getType() {
+        return GameType.CowsAndBulls;
     }
 
     @Override
