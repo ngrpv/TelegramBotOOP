@@ -1,4 +1,4 @@
-package first;
+package first.bot;
 
 import first.user.UserState;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TGBotButtons {
     public static final HashMap<UserState, ArrayList<KeyboardRow>> keyboardByState = new HashMap<>();
-    public static final String[][] menuButtonsNames = new String[][]{new String[]{"Виселица", "Быки и коровы"}, new String[]{"Помощь"}};
+    public static final String[][] menuButtonsNames = new String[][]{new String[]{"Виселица", "Быки и коровы"}, new String[]{"Помощь", "Топ"}};
     public static final String[][] gameButtonsNames = new String[][]{new String[]{"Правила", "Перезапустить"}, new String[]{"Выход"}};
 
     public TGBotButtons() {

@@ -1,5 +1,4 @@
-import first.cowsAndBulls.CowsAndBullsWordParser;
-import first.cowsAndBulls.CowsAndBullsState;
+import first.games.cowsAndBulls.CowsAndBullsWordParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,9 @@
-package first;
+package first.bot;
 
-import first.cowsAndBulls.CowsAndBullsState;
-import first.hangman.HangmanGameState;
+import first.games.GameType;
+import first.games.IGame;
+import first.games.cowsAndBulls.CowsAndBullsState;
+import first.games.hangman.HangmanGameState;
 import first.user.LeaderBoard;
 import first.user.User;
 import first.user.UserState;
@@ -9,7 +11,7 @@ import first.user.UserState;
 
 public class BotLogic {
     private static final String DESCRIPTION = "Привет, друг! Данный бот позволяет сыграть в игры:\nВиселица, Быки и коровы.";
-    private static final String UNKNOWN_COMMAND = "Извини, такой команды не существует!";
+    private static final String UNKNOWN_COMMAND = "Такой команды не существует!";
     private static final String GAME_RESTARTED = "Игра перезапущена.";
     private static final String USER_NAME_INPUT = "Введите своё имя";
 
@@ -26,36 +28,39 @@ public class BotLogic {
             case "Правила":
                 return user.gameState.getRules();
             case "/LeaderBoard":
-                return LeaderBoard.getLeaderBoard();
+            case "Топ":
+                if (!user.isPlaying())
+                    return LeaderBoard.getLeaderBoard();
             case "Перезапустить":
             case "/restart":
                 return GAME_RESTARTED + "\n" + "\n" + startGame(user);
             case "/exit":
             case "Выход":
-                user.guessedWords += user.gameState.getGuessedWords();
+                user.score += user.gameState.getGuessedWords();
                 user.changeState(UserState.onMenu);
+                return "Меню";
             case "/cowsAndBulls":
             case "Быки и коровы":
                 if (!user.isPlaying())
-                    return startGame(user, new CowsAndBullsState());
+                    return startGame(user, GameType.CowsAndBulls);
             case "/hangman":
             case "Виселица":
                 if (!user.isPlaying())
-                    return startGame(user, new HangmanGameState());
+                    return startGame(user, GameType.Hangman);
             default:
                 if (user.userName == null) {
                     user.userName = userMessage;
-                    return "Можешь играть!";
+                    return "Имя установлено: " + userMessage;
                 }
                 if (user.isPlaying()) {
                     return user.gameState.checkAnswer(userMessage);
                 }
-                return UNKNOWN_COMMAND;
         }
+        return UNKNOWN_COMMAND;
     }
 
-    private static void setGame(User user, IGame game) {
-        user.changeGame(game);
+    private static void setGame(User user, GameType gameType) {
+        user.changeGame(gameType);
     }
 
     private static String startGame(User user) {
@@ -63,9 +68,8 @@ public class BotLogic {
         return user.gameState.getStartMessage();
     }
 
-    private static String startGame(User state, IGame game) {
-        setGame(state, game);
+    private static String startGame(User state, GameType gameType) {
+        setGame(state, gameType);
         return startGame(state);
     }
 }
-//Todo: БД + статистика по пользователям

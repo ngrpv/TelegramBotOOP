@@ -1,7 +1,4 @@
-package first.hangman;
-
-import first.user.User;
-import first.user.UserState;
+package first.games.hangman;
 
 public class HangmanGameMessages {
 

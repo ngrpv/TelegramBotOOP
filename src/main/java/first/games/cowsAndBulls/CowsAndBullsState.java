@@ -1,25 +1,41 @@
-package first.cowsAndBulls;
+package first.games.cowsAndBulls;
 
-import first.IGame;
+import first.games.IGame;
 import first.IWordParser;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Locale;
 
-
+@Entity
+@Table(name = "cows_and_bulls")
+@Getter
+@Setter
 public class CowsAndBullsState implements IGame {
     private static IWordParser wordParser;
     private String word;
+    @Setter
     private int guessedWords;
+    @Id
+    private Long id;
 
 
-    public CowsAndBullsState() {
+    public CowsAndBullsState(Long id) {
         this(new CowsAndBullsWordParser());
+        this.id = id;
     }
 
     public CowsAndBullsState(IWordParser wordParser) {
         CowsAndBullsState.wordParser = wordParser;
-        start(); // todo: Лишний?
+    }
+
+    public CowsAndBullsState() {
+
     }
 
     @Override
@@ -29,6 +45,7 @@ public class CowsAndBullsState implements IGame {
     }
 
     @Override
+    @Transient
     public String getRules() {
         return CowsAndBullsMessages.getRules();
     }
@@ -45,7 +62,9 @@ public class CowsAndBullsState implements IGame {
         this.word = word;
     }
 
-    public Integer getGuessedWords() {return guessedWords; }
+    public Integer getGuessedWords() {
+        return guessedWords;
+    }
 
     @Override
     public String checkAnswer(String answer) {
@@ -54,7 +73,7 @@ public class CowsAndBullsState implements IGame {
         var usedWord = answer.toLowerCase(Locale.ROOT);
         var cowsAndBullsValue = getCowsAndBulls(usedWord, word);
         if (word.length() == cowsAndBullsValue[1] && answer.length() == word.length()) {
-            guessedWords+=1;
+            guessedWords += 1;
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this) + "\n\n" + getStartMessage();
         }
         return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
@@ -88,7 +107,16 @@ public class CowsAndBullsState implements IGame {
     }
 
     @Override
+    @Transient
     public String getStartMessage() {
         return String.format("Количеcтво цифр: %s", word.length());
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
