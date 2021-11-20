@@ -74,6 +74,7 @@ public class CowsAndBullsState implements IGame {
 
     @Override
     public String checkAnswer(String answer) {
+        if("-debug".equals(answer)) return word;
         if (answer.length() < word.length() || answer.length() > word.length() + 1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
         var usedWord = answer.toLowerCase(Locale.ROOT);

@@ -3,13 +3,24 @@ package first.bot;
 import first.user.UserStore;
 import first.user.UserState;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class TGBot extends TelegramLongPollingBot {
     private final String userName;
+
+    public static void launch() {
+        try {
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            telegramBotsApi.registerBot(new TGBot("NRGNbot"));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 
     public TGBot(String userName) {
         this.userName = userName;
