@@ -1,11 +1,10 @@
 package first.database.repository;
 
-import first.games.IGame;
+import first.database.IDatabase;
 import first.games.cowsAndBulls.CowsAndBullsState;
-import org.hibernate.SessionFactory;
 
 public class CowsAndBullsRepository extends Repository<CowsAndBullsState> {
-    public CowsAndBullsRepository(SessionFactory sessionFactory) {
-        super(CowsAndBullsState.class, sessionFactory);
+    public CowsAndBullsRepository(IDatabase database) {
+        super(CowsAndBullsState.class, database);
     }
 }

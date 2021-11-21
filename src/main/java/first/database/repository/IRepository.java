@@ -7,9 +7,7 @@ import java.util.ArrayList;
 
 public interface IRepository<T> {
     void save(T entity);
-    void delete(T entity);
-    void update(T entity);
-    void updateOrAdd(T entity);
+    void saveOrUpdate(T entity);
     T get(long id);
     ArrayList<T> getAll();
     ArrayList<T> getTop(int count, String orderBy);

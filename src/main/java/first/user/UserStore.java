@@ -1,6 +1,7 @@
 package first.user;
 
 import first.HibernateUtil;
+import first.database.HibernateDatabase;
 import first.database.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UserStore {
     private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
-    private static final UserRepository userRepository = new UserRepository(HibernateUtil.getSessionFactory());
+    private static final UserRepository userRepository = new UserRepository(new HibernateDatabase());
 
     public UserStore() {
 
@@ -25,7 +26,7 @@ public class UserStore {
     }
 
     public static void updateUserState(User user) {
-        userRepository.updateOrAdd(user);
+        userRepository.saveOrUpdate(user);
     }
 
     private static void startDatabaseUpdater() {
@@ -61,7 +62,7 @@ public class UserStore {
 
     private static void updateDatabase() {
         for (var user : userStates.values()) {
-            userRepository.updateOrAdd(user);
+            userRepository.saveOrUpdate(user);
         }
         userStates.clear();
     }

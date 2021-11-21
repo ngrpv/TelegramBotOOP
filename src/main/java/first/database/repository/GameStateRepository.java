@@ -1,5 +1,6 @@
 package first.database.repository;
 
+import first.database.IDatabase;
 import first.games.GameType;
 import first.games.IGame;
 import org.hibernate.SessionFactory;
@@ -8,10 +9,10 @@ public class GameStateRepository extends Repository<IGame> {
     private static HangmanRepository hangmanRepository;
     private static CowsAndBullsRepository cowsAndBullsRepository;
 
-    public GameStateRepository(SessionFactory sessionFactory) {
-        super(IGame.class, sessionFactory);
-        hangmanRepository = new HangmanRepository(sessionFactory);
-        cowsAndBullsRepository = new CowsAndBullsRepository(sessionFactory);
+    public GameStateRepository(IDatabase database) {
+        super(IGame.class, database);
+        hangmanRepository = new HangmanRepository(database);
+        cowsAndBullsRepository = new CowsAndBullsRepository(database);
     }
 
     public IGame get(long id, GameType gameType) {

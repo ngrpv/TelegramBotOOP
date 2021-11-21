@@ -1,6 +1,6 @@
 package first.database.repository;
 
-import first.games.GameType;
+import first.database.IDatabase;
 import first.user.User;
 import org.hibernate.SessionFactory;
 
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class UserRepository extends Repository<User> {
     private static GameStateRepository gameStateRepository;
 
-    public UserRepository(SessionFactory sessionFactory) {
-        super(User.class, sessionFactory);
-        gameStateRepository = new GameStateRepository(sessionFactory);
+    public UserRepository(IDatabase database) {
+        super(User.class, database);
+        gameStateRepository = new GameStateRepository(database);
     }
 
     @Override
@@ -29,9 +29,9 @@ public class UserRepository extends Repository<User> {
     }
 
     @Override
-    public void updateOrAdd(User user) {
-        super.updateOrAdd(user);
-        gameStateRepository.updateOrAdd(user.gameState);
+    public void saveOrUpdate(User user) {
+        super.saveOrUpdate(user);
+        gameStateRepository.saveOrUpdate(user.gameState);
     }
 
     @Override
