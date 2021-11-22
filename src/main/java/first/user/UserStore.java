@@ -1,5 +1,6 @@
 package first.user;
 
+import first.database.HibernateDatabase;
 import first.database.JsonDatabase;
 import first.repository.UserRepository;
 
@@ -8,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UserStore {
     private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
-    private static final UserRepository userRepository = new UserRepository(new JsonDatabase("jsonDataB"));
+    private static final UserRepository userRepository = new UserRepository(new HibernateDatabase());
 
     public UserStore() {
 
