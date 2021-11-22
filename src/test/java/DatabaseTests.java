@@ -1,4 +1,3 @@
-import first.database.HibernateDatabase;
 import first.database.JsonDatabase;
 import first.repository.UserRepository;
 import first.user.User;

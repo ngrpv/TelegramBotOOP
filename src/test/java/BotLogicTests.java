@@ -2,10 +2,6 @@ import first.user.User;
 import first.bot.BotLogic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
 public class BotLogicTests {
 
     @Test

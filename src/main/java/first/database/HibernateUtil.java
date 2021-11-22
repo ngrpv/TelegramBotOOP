@@ -2,7 +2,6 @@ package first.database;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 

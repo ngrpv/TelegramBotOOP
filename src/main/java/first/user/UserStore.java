@@ -1,7 +1,6 @@
 package first.user;
 
 import first.database.HibernateDatabase;
-import first.database.JsonDatabase;
 import first.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -42,10 +41,6 @@ public class UserStore {
         return userRepository.getTop(count, "score");
     }
 
-
-    public static ArrayList<User> getUsers() {
-        return userRepository.getAll();
-    }
 
     private static void updateDatabase() {
         for (var user : userStates.values()) {

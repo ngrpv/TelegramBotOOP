@@ -1,6 +1,5 @@
 package first.bot;
 
-import first.bot.BotLogic;
 import first.user.User;
 import first.user.UserStore;
 
