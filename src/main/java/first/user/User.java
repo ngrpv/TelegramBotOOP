@@ -1,31 +1,32 @@
 package first.user;
 
+import com.google.gson.annotations.Expose;
+import first.ISerializeAbleById;
 import first.games.GameType;
 import first.games.IGame;
 import first.games.cowsAndBulls.CowsAndBullsState;
 import first.games.hangman.HangmanGameState;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Comparator;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class User implements Comparable<User> {
+public class User implements Serializable, ISerializeAbleById {
     @Id
     private long id;
-
     public int score;
     public UserState state;
     public GameType gameType;
     public long GameID;
-
     @Transient
+    @Expose(serialize = false)
     public IGame gameState;
-
     public Boolean stateIsChanged = true;
     public Integer guessedWords;
     @Column(name = "username")
@@ -41,18 +42,12 @@ public class User implements Comparable<User> {
         flagName = true;
     }
 
-    public User(){
+    public User() {
 
     }
 
-    public User withScore(int score) {
-        this.score = score;
-        return this;
-    }
-
-    public User withUserName(String userName) {
-        this.userName = userName;
-        return this;
+    public long getGameId() {
+        return id;
     }
 
     public Boolean isPlaying() {
@@ -61,9 +56,9 @@ public class User implements Comparable<User> {
 
     public void changeGame(GameType gameType) {
         this.gameType = gameType;
-        if(gameType == GameType.Hangman){
+        if (gameType == GameType.Hangman) {
             gameState = new HangmanGameState(GameID);
-        }else{
+        } else {
             gameState = new CowsAndBullsState(GameID);
         }
     }
@@ -78,21 +73,6 @@ public class User implements Comparable<User> {
                 break;
             case onMenu:
                 break;
-        }
-    }
-
-
-    @Override
-    public int compareTo(User user) {
-        return userName.compareTo(user.userName);
-    }
-
-
-
-    public static class UserByScoreComparator implements Comparator<User> {
-        @Override
-        public int compare(User o1, User o2) {
-            return o1.score- o2.score;
         }
     }
 }

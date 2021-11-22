@@ -1,9 +1,7 @@
 package first.database;
 
-import first.HibernateUtil;
 import org.hibernate.SessionFactory;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 

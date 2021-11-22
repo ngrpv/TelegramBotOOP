@@ -1,6 +1,7 @@
 package first.games.hangman;
 
 import first.FileHandler;
+import first.ISerializeAbleById;
 import first.games.GameType;
 import first.games.IGame;
 import first.IWordParser;
@@ -17,7 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NamedEntityGraph
-public class HangmanGameState implements IGame {
+public class HangmanGameState implements IGame, ISerializeAbleById {
     private String word;
     @ElementCollection(fetch = FetchType.EAGER)
     public Set<Character> wordHashSet;
@@ -30,7 +31,7 @@ public class HangmanGameState implements IGame {
     private int healthPoints;
     private int guessedWords;
     @Id
-    private Long id;
+    private long id;
 
     public HangmanGameState(Long id) {
 
@@ -172,7 +173,7 @@ public class HangmanGameState implements IGame {
         this.id = id;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 }

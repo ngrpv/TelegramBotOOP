@@ -1,9 +1,10 @@
-package first.database.repository;
+package first.repository;
 
 import first.database.IDatabase;
 import first.games.GameType;
 import first.games.IGame;
-import org.hibernate.SessionFactory;
+import first.games.cowsAndBulls.CowsAndBullsState;
+import first.games.hangman.HangmanGameState;
 
 public class GameStateRepository extends Repository<IGame> {
     private static HangmanRepository hangmanRepository;
@@ -13,6 +14,14 @@ public class GameStateRepository extends Repository<IGame> {
         super(IGame.class, database);
         hangmanRepository = new HangmanRepository(database);
         cowsAndBullsRepository = new CowsAndBullsRepository(database);
+    }
+
+    public void save(IGame entity){
+        if(entity instanceof HangmanGameState){
+            hangmanRepository.save((HangmanGameState) entity);
+        }else if(entity instanceof CowsAndBullsState){
+            cowsAndBullsRepository.save((CowsAndBullsState) entity);
+        }
     }
 
     public IGame get(long id, GameType gameType) {

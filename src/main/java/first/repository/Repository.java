@@ -1,4 +1,4 @@
-package first.database.repository;
+package first.repository;
 
 import first.database.IDatabase;
 

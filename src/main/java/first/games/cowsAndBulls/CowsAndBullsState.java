@@ -1,5 +1,6 @@
 package first.games.cowsAndBulls;
 
+import first.ISerializeAbleById;
 import first.games.GameType;
 import first.games.IGame;
 import first.IWordParser;
@@ -17,13 +18,13 @@ import java.util.Locale;
 @Table(name = "cows_and_bulls")
 @Getter
 @Setter
-public class CowsAndBullsState implements IGame {
+public class CowsAndBullsState implements IGame, ISerializeAbleById {
     private static IWordParser wordParser;
     private String word;
     @Setter
     private int guessedWords;
     @Id
-    private Long id;
+    private long id;
 
 
     public CowsAndBullsState(Long id) {
@@ -123,7 +124,7 @@ public class CowsAndBullsState implements IGame {
         this.id = id;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 }

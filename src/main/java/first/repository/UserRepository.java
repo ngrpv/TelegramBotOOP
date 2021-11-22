@@ -1,8 +1,7 @@
-package first.database.repository;
+package first.repository;
 
 import first.database.IDatabase;
 import first.user.User;
-import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ public class UserRepository extends Repository<User> {
     }
 
     private void setGame(User user) {
-        user.gameState = gameStateRepository.get(user.GameID, user.gameType);
+        user.gameState = gameStateRepository.get(user.getGameId(), user.gameType);
     }
 
 }

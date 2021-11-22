@@ -1,15 +1,14 @@
 package first.user;
 
-import first.HibernateUtil;
-import first.database.HibernateDatabase;
-import first.database.repository.UserRepository;
+import first.database.JsonDatabase;
+import first.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserStore {
     private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
-    private static final UserRepository userRepository = new UserRepository(new HibernateDatabase());
+    private static final UserRepository userRepository = new UserRepository(new JsonDatabase("jsonDataB"));
 
     public UserStore() {
 
@@ -27,19 +26,6 @@ public class UserStore {
 
     public static void updateUserState(User user) {
         userRepository.saveOrUpdate(user);
-    }
-
-    private static void startDatabaseUpdater() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(5000);
-                    updateDatabase();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     private static User tryGet(Long id) {

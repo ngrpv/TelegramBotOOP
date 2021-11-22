@@ -1,7 +1,4 @@
-package first.database.repository;
-
-import first.games.IGame;
-import first.user.User;
+package first.repository;
 
 import java.util.ArrayList;
 
