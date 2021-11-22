@@ -8,7 +8,6 @@ import first.games.cowsAndBulls.CowsAndBullsState;
 import first.games.hangman.HangmanGameState;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;

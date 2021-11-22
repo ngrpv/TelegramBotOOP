@@ -1,8 +1,5 @@
 package first.database;
 
-import first.user.User;
-
-import javax.persistence.Entity;
 import java.util.ArrayList;
 
 public interface IDatabase {
