@@ -1,7 +1,6 @@
 package first.games.cowsAndBulls;
 
-import first.ISerializeAbleById;
-import first.games.GameType;
+import first.games.ISerializeAbleById;
 import first.games.IGame;
 import first.IWordParser;
 import lombok.Getter;
@@ -69,13 +68,8 @@ public class CowsAndBullsState implements IGame, ISerializeAbleById {
     }
 
     @Override
-    public GameType getType() {
-        return GameType.CowsAndBulls;
-    }
-
-    @Override
     public String checkAnswer(String answer) {
-        if("-debug".equals(answer)) return word;
+        if ("-debug".equals(answer)) return word;
         if (answer.length() < word.length() || answer.length() > word.length() + 1)
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WRONG_WORD, this);
         var usedWord = answer.toLowerCase(Locale.ROOT);
@@ -84,7 +78,7 @@ public class CowsAndBullsState implements IGame, ISerializeAbleById {
             guessedWords += 1;
             return CowsAndBullsMessages.getMessageForUser(CowsAndBullsEnum.WIN, this) + "\n\n" + getStartMessage();
         }
-        return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1], this);
+        return CowsAndBullsMessages.getMessageForUser(cowsAndBullsValue[0], cowsAndBullsValue[1]);
     }
 
     public int[] getCowsAndBulls(String userWord, String word) {

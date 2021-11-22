@@ -22,7 +22,7 @@ public class TGBotButtons {
 
     public static void setDefaultButtons() {
         setButtons(gameButtonsNames, UserState.Playing);
-        setButtons(menuButtonsNames, UserState.onMenu);
+        setButtons(menuButtonsNames, UserState.OnMenu);
     }
 
     private static void setButtons(String[][] names, UserState stateEnum){

@@ -6,5 +6,4 @@ public interface IGame {
  void start();
  String getRules();
  Integer getGuessedWords();
- GameType getType();
 }

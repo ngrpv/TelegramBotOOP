@@ -37,7 +37,7 @@ class CowsAndBullsMessages {
         return UNKNOWN_COMMAND;
     }
 
-    protected static String getMessageForUser(int cows, int bulls,CowsAndBullsState gameState)
+    protected static String getMessageForUser(int cows, int bulls)
     {
         return String.format("Быки:%s\nКоровы:%s",bulls,cows);
     }

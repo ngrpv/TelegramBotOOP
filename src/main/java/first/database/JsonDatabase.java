@@ -5,16 +5,17 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import first.ISerializeAbleById;
+import first.games.ISerializeAbleById;
 import first.user.User;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class JsonDatabase implements IDatabase {
     private final File directory;
-    private Gson gson = new GsonBuilder().addSerializationExclusionStrategy(getGameStateExclusion()).create();
+    private final Gson gson = new GsonBuilder().addSerializationExclusionStrategy(getGameStateExclusion()).create();
 
 
     public JsonDatabase(String directory) {
@@ -57,8 +58,16 @@ public class JsonDatabase implements IDatabase {
     @Override
     public <T> ArrayList<T> getTop(Class<T> aClass, int count, String orderedBy) {
         var all = getAll(aClass);
-        var top = new ArrayList<T>();
-        return all;
+        all.sort((o1, o2) -> {
+            try {
+                var field = o1.getClass().getField(orderedBy);
+                return field.getInt(o1) - field.getInt(o2);
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        });
+        return (ArrayList<T>) all.stream().limit(count).collect(Collectors.toList());
     }
 
     private File getDirectory(String name) {

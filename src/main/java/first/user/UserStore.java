@@ -4,10 +4,10 @@ import first.database.HibernateDatabase;
 import first.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 public class UserStore {
-    private static ConcurrentHashMap<Long, User> userStates = new ConcurrentHashMap<>();
+    private static final HashMap<Long, User> userStates = new HashMap<>();
     private static final UserRepository userRepository = new UserRepository(new HibernateDatabase());
 
     public UserStore() {

@@ -10,6 +10,7 @@ import java.util.Random;
 public class FileHandler implements IWordParser {
     private static String[] words;
     private static final Random random = new Random();
+
     public FileHandler(String fileName) {
         words = getWordsFromFile(fileName);
     }
@@ -26,6 +27,6 @@ public class FileHandler implements IWordParser {
     }
 
     public String getWord() {
-        return words[random.nextInt(words.length-1)];
+        return words[random.nextInt(words.length - 1)];
     }
 }

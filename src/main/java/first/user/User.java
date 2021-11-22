@@ -1,7 +1,7 @@
 package first.user;
 
 import com.google.gson.annotations.Expose;
-import first.ISerializeAbleById;
+import first.games.ISerializeAbleById;
 import first.games.GameType;
 import first.games.IGame;
 import first.games.cowsAndBulls.CowsAndBullsState;
@@ -33,7 +33,7 @@ public class User implements Serializable, ISerializeAbleById {
     public Boolean flagName;
 
     public User(long id) {
-        state = UserState.onMenu;
+        state = UserState.OnMenu;
         this.GameID = id;
         this.id = id;
         gameState = new HangmanGameState(GameID);
@@ -70,7 +70,7 @@ public class User implements Serializable, ISerializeAbleById {
             case Playing:
                 gameState.start();
                 break;
-            case onMenu:
+            case OnMenu:
                 break;
         }
     }

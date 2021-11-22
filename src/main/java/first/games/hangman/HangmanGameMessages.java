@@ -8,7 +8,9 @@ public class HangmanGameMessages {
     private static final String ONLY_ONE_LETTER = "Ты должен написать только одну букву!";
     private static final String RULES = "Тебе дается 6 попыток чтобы угадать слово по буквам";
 
-    public static String getRules() {return RULES;}
+    public static String getRules() {
+        return RULES;
+    }
 
     protected static String getMessageForUser(HangmanGameAnswerEnum checkResult, HangmanGameState gameState) {
 
@@ -18,7 +20,7 @@ public class HangmanGameMessages {
             case WIN:
                 var guessedWord = gameState.getWordWithGuessedLetters();
                 gameState.setWord();
-                 return String.format("%s\n%s\n\nНовое слово:\n%s", guessedWord, WIN_TEXT, gameState.getHiddenWord());
+                return String.format("%s\n%s\n\nНовое слово:\n%s", guessedWord, WIN_TEXT, gameState.getHiddenWord());
             case LOSE:
                 return LOSE_TEXT;
             case ALREADY_USED_LETTER: {

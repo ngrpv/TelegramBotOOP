@@ -34,7 +34,7 @@ public class BotLogic {
             case "/exit":
             case "Выход":
                 user.score += user.gameState.getGuessedWords();
-                user.changeState(UserState.onMenu);
+                user.changeState(UserState.OnMenu);
                 return "Меню";
             case "/cowsAndBulls":
             case "Быки и коровы":

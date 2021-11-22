@@ -1,10 +1,9 @@
 package first.games.hangman;
 
 import first.FileHandler;
-import first.ISerializeAbleById;
-import first.games.GameType;
-import first.games.IGame;
 import first.IWordParser;
+import first.games.IGame;
+import first.games.ISerializeAbleById;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,14 +41,6 @@ public class HangmanGameState implements IGame, ISerializeAbleById {
     public HangmanGameState(IWordParser wordParser) {
         HangmanGameState.wordParser = wordParser;
         start();
-    }
-
-    public HangmanGameState(String word, HashSet<Character> wordHashSet, HashSet<Character> guessedLetters, HashSet<Character> usedLetters, int healthPoints) {
-        this.word = word;
-        this.wordHashSet = wordHashSet;
-        this.guessedLetters = guessedLetters;
-        this.usedLetters = usedLetters;
-        this.healthPoints = healthPoints;
     }
 
     public HangmanGameState() {
@@ -94,13 +85,8 @@ public class HangmanGameState implements IGame, ISerializeAbleById {
         return guessedWords;
     }
 
-    @Override
-    public GameType getType() {
-        return GameType.Hangman;
-    }
-
     public String checkAnswer(String answer) {
-        if("-debug".equals(answer)) return word;
+        if ("-debug".equals(answer)) return word;
         if (isOver()) {
             return HangmanGameMessages.getMessageForUser(HangmanGameAnswerEnum.LOSE, this);
         }

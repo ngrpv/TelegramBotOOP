@@ -23,7 +23,7 @@ public class CowsAndBullsWordParserTests {
 
     private Boolean isInt(String word) {
         try {
-            int num = Integer.parseInt(word);
+            Integer.parseInt(word);
             return true;
         } catch (NumberFormatException e) {
             return false;
