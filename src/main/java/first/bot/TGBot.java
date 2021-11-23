@@ -10,6 +10,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.util.logging.Logger;
+
 public class TGBot extends TelegramLongPollingBot {
     private final String userName;
 
@@ -43,9 +45,11 @@ public class TGBot extends TelegramLongPollingBot {
         var messageText = update.getMessage().getText();
         var sendMessage = new SendMessage();
         sendMessage.setChatId(update.getMessage().getChatId().toString());
+        TGLogger.fromUser(user, messageText);
 
         var text = BotLogic.handleMessage(messageText, user);
 
+        TGLogger.toUser(user, text);
         sendMessage.setText(text);
 
         if (user.stateIsChanged) {

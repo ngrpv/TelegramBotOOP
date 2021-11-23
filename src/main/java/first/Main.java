@@ -1,5 +1,6 @@
 package first;
 
+import first.bot.ConsoleBot;
 import first.bot.TGBot;
 
 

@@ -35,7 +35,7 @@ public class BotLogic {
             case "/exit":
             case "Выход":
                 user.score += user.gameState.getGuessedWords();
-                user.gameState = new HangmanGameState();
+                user.gameState.resetScore();
                 user.changeState(UserState.OnMenu);
                 return "Меню";
             case "/cowsAndBulls":

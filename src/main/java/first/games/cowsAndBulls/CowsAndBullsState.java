@@ -68,6 +68,11 @@ public class CowsAndBullsState implements IGame, ISerializeAbleById {
     }
 
     @Override
+    public void resetScore() {
+        guessedWords = 0;
+    }
+
+    @Override
     public String checkAnswer(String answer) {
         if ("-debug".equals(answer)) return word;
         if (answer.length() < word.length() || answer.length() > word.length() + 1)

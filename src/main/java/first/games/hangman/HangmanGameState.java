@@ -85,6 +85,11 @@ public class HangmanGameState implements IGame, ISerializeAbleById {
         return guessedWords;
     }
 
+    @Override
+    public void resetScore() {
+        guessedWords = 0;
+    }
+
     public String checkAnswer(String answer) {
         if ("-debug".equals(answer)) return word;
         if (isOver()) {
