@@ -34,7 +34,9 @@ public class BotLogic {
                 return GAME_RESTARTED + "\n" + "\n" + startGame(user);
             case "/exit":
             case "Выход":
-                user.score += user.gameState.getGuessedWords();
+                if (user.isPlaying()) {
+                    user.score += user.gameState.getGuessedWords();
+                }
                 user.changeGame(GameType.Hangman);
                 user.changeState(UserState.OnMenu);
                 return "Меню";
