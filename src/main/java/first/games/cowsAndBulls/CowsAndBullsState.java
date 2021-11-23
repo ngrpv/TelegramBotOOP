@@ -64,7 +64,9 @@ public class CowsAndBullsState implements IGame, ISerializeAbleById {
     }
 
     public Integer getGuessedWords() {
-        return guessedWords;
+        var score =  guessedWords;
+        guessedWords = 0;
+        return score;
     }
 
     @Override

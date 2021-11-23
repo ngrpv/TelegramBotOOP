@@ -81,7 +81,9 @@ public class HangmanGameState implements IGame, ISerializeAbleById {
     }
 
     public Integer getGuessedWords() {
-        return guessedWords;
+        var score =  guessedWords;
+        guessedWords = 0;
+        return score;
     }
 
     public String checkAnswer(String answer) {
