@@ -71,6 +71,7 @@ public class User implements Serializable, ISerializeAbleById {
                 gameState.start();
                 break;
             case OnMenu:
+                gameState = new HangmanGameState();
                 break;
         }
     }

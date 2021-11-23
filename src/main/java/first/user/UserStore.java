@@ -38,6 +38,7 @@ public class UserStore {
     }
 
     public static ArrayList<User> getTop(int count) {
+        updateDatabase();
         return userRepository.getTop(count, "score");
     }
 

@@ -44,7 +44,6 @@ public class HangmanGameState implements IGame, ISerializeAbleById {
     }
 
     public HangmanGameState() {
-
     }
 
     public void start() {
