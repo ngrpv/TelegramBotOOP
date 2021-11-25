@@ -26,7 +26,7 @@ public class DatabaseTests {
         var user = new User(11L);
         var username = "test";
         user.userName = username;
-        db.save(user);
+        db.saveOrUpdate(user);
 
         var actual = db.get(11L);
 
